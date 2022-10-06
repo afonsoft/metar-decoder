@@ -8,7 +8,8 @@ C# METAR decoder
 A .NET library to decode METAR strings
 
 This is largely based on [SafranCassiopee/php-metar-decoder](https://github.com/SafranCassiopee/php-metar-decoder)
-This is largely based on [SafranCassiopee/csharp-metar-decoder](https://github.com/SafranCassiopee/csharp-metar-decoder)
+
+and [SafranCassiopee/csharp-metar-decoder](https://github.com/SafranCassiopee/csharp-metar-decoder)
 
 Introduction
 ------------
