@@ -5,14 +5,10 @@ C# METAR decoder
 [![Latest Stable Version NuGet](https://img.shields.io/nuget/v/csharp-metar-decoder.svg)](https://www.nuget.org/packages/csharp-metar-decoder/)
 
 
-A .NET library to decode METAR strings, fully unit tested (100% code coverage)
+A .NET library to decode METAR strings
 
 This is largely based on [SafranCassiopee/php-metar-decoder](https://github.com/SafranCassiopee/php-metar-decoder)
-
-They use csharp-metar-decoder in production:
-
-- [Safran AGS ](https://www.safran-electronics-defense.com/aerospace/commercial-aircraft/information-system/analysis-ground-station-ags) (private)
-- Your service here ? Submit a pull request or open an issue !
+This is largely based on [SafranCassiopee/csharp-metar-decoder](https://github.com/SafranCassiopee/csharp-metar-decoder)
 
 Introduction
 ------------
@@ -29,23 +25,13 @@ Raw METAR format is highly standardized through the International Civil Aviation
 Requirements
 ------------
 
-This library package only requires .NET >= 4.5
+This library package is netstandard 2.0
 
-It is currently tested automatically for .NET >= 4.5 using [nUnit 3.9.0](http://nunit.org/).
-
-Although this is provided as a library project, a command line version (StartMetarDecoder) is also included that can be used as both an example and a starting point.
-StartMetarDecoder requires [CommandLineParser](https://github.com/commandlineparser/commandline).
-
-Usage:
-
-```shell
-StartMetarDecoder.exe --Metar "LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN //FEW015 17/10 Q1009 REFZRA WS R03"
-```
 
 If you want to integrate the library easily in your project, you should consider using the official nuget package available from https://www.nuget.org/.
 
 ```
-nuget install csharp-metar-decoder
+nuget install Metar.Decoder
 ```
 
 It is not mandatory though.
@@ -58,7 +44,7 @@ Setup
 From the Package Manager Console in Visual Studio
 
 ```shell
-nuget install csharp-metar-decoder
+nuget install Metar.Decoder
 ```
 
 Add a reference to the library, then add the following using directives:
@@ -70,11 +56,11 @@ using Metar.Decoder.Entity;
 
 - By hand
 
-Download the latest release from [github](https://github.com/SafranCassiopee/csharp-metar-decoder/releases)
+Download the latest release from [github](https://github.com/afonsoft/metar-decoder/releases)
 
-Extract it wherever you want in your project. The library itself is in the csharp-metar-decoder/ directory, the other directories are not mandatory for the library to work.
+Extract it wherever you want in your project. The library itself is in the Metar.Decoder/ directory, the other directories are not mandatory for the library to work.
 
-Add the csharp-metar-decoder project to your solution, then add a reference to it in your own project. Finally, add the same using directives than above.
+Add the Metar.Decoder project to your solution, then add a reference to it in your own project. Finally, add the same using directives than above.
 
 Usage
 -----
@@ -84,7 +70,7 @@ The returned object is a DecodedMetar object from which you can retrieve all the
 
 All values who have a unit are based on the `Value` object which provides the ActualValue and ActualUnit properties
 
-Please check the [DecodedMetar class](https://github.com/SafranCassiopee/csharp-metar-decoder/blob/master/csharp-metar-decoder/Entity/DecodedMetar.cs) for the structure of the resulting object
+Please check the [DecodedMetar class](https://github.com/afonsoft/metar-decoder/blob/main/src/Metar.Decoder/Entity/DecodedMetar.cs) for the structure of the resulting object
 
 ```csharp
 
@@ -265,25 +251,3 @@ If you find a valid METAR that is badly parsed by this library, please open a gi
 If you want to improve or enrich the test suite, fork the repository and submit your changes with a pull request.
 
 If you have any other idea to improve the library, please use github issues or directly pull requests depending on what you're more comfortable with.
-
-In order to contribute to the codebase, you must fork the repository on github, than clone it locally with:
-
-```shell
-git clone https://github.com/<username>/csharp-metar-decoder
-```
-
-Install all the dependencies using nuget :
-
-```shell
-nuget restore csharp-metar-decoder\
-```
-
-You're ready to launch the test suite with:
-
-```shell
-nunit-console.exe /xml:results.xml csharp-metar-decoder-tests\bin\debug\csharp-metar-decoder-tests.dll
-```
-
-This library is fully unit tested, and uses [nUnit]((http://nunit.org/)) to launch the tests.
-
-Travis CI is used for continuous integration, which triggers tests for .NET 4.5 for each push to the repo.
