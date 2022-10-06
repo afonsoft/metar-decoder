@@ -358,3 +358,4 @@ MigrationBackup/
 /resultTest/*.trx
 /nupkg/test
 /Templates/Angular/Eaf.ProjectName.UI/.vscode/chrome
+/.vs
