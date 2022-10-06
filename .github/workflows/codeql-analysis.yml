@@ -32,7 +32,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp', 'javascript' ]
+        language: [ 'csharp' ]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
         # Learn more:
         # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
@@ -46,9 +46,11 @@ jobs:
     - name: Update to Nuget
       run: nuget update -self
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
-       dotnet-version: 5.x
+        dotnet-version: | 
+          5.0.x
+          6.0.x
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:

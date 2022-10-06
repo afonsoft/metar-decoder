@@ -15,10 +15,11 @@ jobs:
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.5
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
-       dotnet-version: 5.x
-    
+        dotnet-version: | 
+          5.0.x
+          6.0.x
     - name: Update to Nuget
       run: nuget update -self
     - name: Clear NuGet cache
