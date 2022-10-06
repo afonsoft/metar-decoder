@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Version>1.0.0</Version>
+		<NoWarn>$(NoWarn);CS1591;SYSLIB0001;SYSLIB0002;SYSLIB0003</NoWarn>
+		<PackageProjectUrl>https://github.com/afonsoft/metar-decoder</PackageProjectUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/afonsoft/metar-decoder</RepositoryUrl>
+		<Authors>Afonso Dutra Nogueira Filho</Authors>
+		<Copyright>AFONSOFT© 2022</Copyright>
+		<Company>Afonsoft</Company>
+		<LangVersion>9.0</LangVersion>
+		<OutputType>Library</OutputType>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GenerateAssemblyTitleAttribute>true</GenerateAssemblyTitleAttribute>
+		<GenerateAssemblyDescriptionAttribute>true</GenerateAssemblyDescriptionAttribute>
+		<GenerateAssemblyConfigurationAttribute>true</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>true</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>true</GenerateAssemblyProductAttribute>
+		<GenerateAssemblyCopyrightAttribute>true</GenerateAssemblyCopyrightAttribute>
+		<IsPackable>true</IsPackable>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<ApplicationIcon>EAF.ico</ApplicationIcon>
+		<PackageIcon>EAF.png</PackageIcon>
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+		<Deterministic>true</Deterministic>	
+		<RootNamespace>Metar.Decoder</RootNamespace>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<AssemblyName>Metar.Decoder</AssemblyName>
+		<PackageId>Metar.Decoder</PackageId>
+		<PackageTags>Metar.Decoder;Metar;Decoder;netstandard2</PackageTags>
+		<Description>Metar.Decoder</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)' == 'Release' ">
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	</PropertyGroup>
+	<PropertyGroup>
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+	</PropertyGroup>
+			
+	<ItemGroup>
+	  <None Include="..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="EAF.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	<None Update="EAF.ico">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Update="SourceLink.Create.CommandLine" Version="2.8.3" />
+	</ItemGroup>
+</Project>
