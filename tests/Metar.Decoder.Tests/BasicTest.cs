@@ -32,7 +32,7 @@ namespace Metar.Decoder_tests
         [Test, Category("Basic")]
         public void CheckRawMetarNotNull()
         {
-            Assert.AreEqual(TestMetarSource[0], DecodedMetars[0].RawMetar);
+            Assert.That(DecodedMetars[0].RawMetar, Is.EqualTo(TestMetarSource[0]));
         }
 
         [Test, Category("Basic")]
@@ -40,7 +40,7 @@ namespace Metar.Decoder_tests
         {
             var result = MetarChunkDecoder.ConsumeOneChunk(TestMetarSource[0]);
 
-            Assert.AreEqual("231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN //FEW015 17/10 Q1009 REFZRA WS R03", result);
+            Assert.That(result, Is.EqualTo("231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN //FEW015 17/10 Q1009 REFZRA WS R03"));
         }
     }
 }

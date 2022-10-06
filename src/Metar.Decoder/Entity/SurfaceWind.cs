@@ -27,6 +27,11 @@
         /// </summary>
         public Value[] DirectionVariations { get; private set; } = null;
 
+        /// <summary>
+        /// SetDirectionVariations
+        /// </summary>
+        /// <param name="directionMax">directionMax</param>
+        /// <param name="directionMin">directionMin</param>
         public void SetDirectionVariations(Value directionMax, Value directionMin)
         {
             DirectionVariations = new Value[] { directionMax, directionMin };

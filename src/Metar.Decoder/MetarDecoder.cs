@@ -6,13 +6,16 @@ using System.Text.RegularExpressions;
 
 namespace Metar.Decoder
 {
+    /// <summary>
+    /// MetarDecoder
+    /// </summary>
     public sealed class MetarDecoder
     {
         public const string ResultKey = "Result";
         public const string RemainingMetarKey = "RemainingMetar";
         public const string ExceptionKey = "Exception";
 
-        private static readonly ReadOnlyCollection<MetarChunkDecoder> _decoderChain = new ReadOnlyCollection<MetarChunkDecoder>(new List<MetarChunkDecoder>()
+        private static readonly ReadOnlyCollection<MetarChunkDecoder> _decoderChain = new(new List<MetarChunkDecoder>()
         {
             new ReportTypeChunkDecoder(),
             new IcaoChunkDecoder(),
@@ -44,7 +47,7 @@ namespace Metar.Decoder
         /// Decode a full metar string into a complete metar object
         /// while using global strict option.
         /// </summary>
-        /// <param name=""></param>
+        /// <param name="rawMetar">Metar String</param>
         public DecodedMetar Parse(string rawMetar)
         {
             return ParseWithMode(rawMetar, _globalStrictParsing);
@@ -77,7 +80,8 @@ namespace Metar.Decoder
         /// <summary>
         /// Decode a full metar string into a complete metar object.
         /// </summary>
-        /// <param name="rawMetar"></param>
+        /// <param name="rawMetar">Metar String</param>
+        /// <param name="isStrict">false</param>
         /// <returns></returns>
         public static DecodedMetar ParseWithMode(string rawMetar, bool isStrict = false)
         {

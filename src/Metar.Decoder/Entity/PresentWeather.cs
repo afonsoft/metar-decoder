@@ -44,16 +44,28 @@ namespace Metar.Decoder.Entity
             }
         }
 
+        /// <summary>
+        /// AddPrecipitation
+        /// </summary>
+        /// <param name="precipitation">precipitation</param>
         public void AddPrecipitation(int precipitation)
         {
             _precipitations.Add(precipitation);
         }
 
+        /// <summary>
+        /// AddObscuration
+        /// </summary>
+        /// <param name="obscurationPhenomenon">obscurationPhenomenon</param>
         public void AddObscuration(int obscurationPhenomenon)
         {
             _obscurations.Add(obscurationPhenomenon);
         }
 
+        /// <summary>
+        /// AddVicinity
+        /// </summary>
+        /// <param name="vicinity">vicinity</param>
         public void AddVicinity(int vicinity)
         {
             _vicinities.Add(vicinity);

@@ -42,6 +42,12 @@ namespace Metar.Decoder.Chunkdecoder
             }
         }
 
+        /// <summary>
+        /// GetResults
+        /// </summary>
+        /// <param name="newRemainingMetar"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
         protected Dictionary<string, object> GetResults(string newRemainingMetar, Dictionary<string, object> result)
         {
             //return result + remaining metar
@@ -52,8 +58,18 @@ namespace Metar.Decoder.Chunkdecoder
             };
         }
 
+        /// <summary>
+        /// GetRegex
+        /// </summary>
+        /// <returns></returns>
         public abstract string GetRegex();
 
+        /// <summary>
+        /// Parse
+        /// </summary>
+        /// <param name="remainingMetar"></param>
+        /// <param name="withCavok"></param>
+        /// <returns></returns>
         public abstract Dictionary<string, object> Parse(string remainingMetar, bool withCavok = false);
     }
 }

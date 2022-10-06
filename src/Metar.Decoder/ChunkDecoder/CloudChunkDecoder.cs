@@ -10,12 +10,23 @@ namespace Metar.Decoder.Chunkdecoder
         private const string NoCloudRegexPattern = "(NSC|NCD|CLR|SKC)";
         private const string LayerRegexPattern = "(VV|FEW|SCT|BKN|OVC|///)([0-9]{3}|///)(CB|TCU|///)?";
 
+        /// <summary>
+        /// vertical visibility VV is handled as a regular cloud layer
+        /// </summary>
+        /// <returns>string</returns>
         public override string GetRegex()
         {
             // vertical visibility VV is handled as a regular cloud layer
             return $"^({NoCloudRegexPattern}|({LayerRegexPattern})( {LayerRegexPattern})?( {LayerRegexPattern})?( {LayerRegexPattern})?)( )";
         }
 
+        /// <summary>
+        /// Parse
+        /// </summary>
+        /// <param name="remainingMetar"></param>
+        /// <param name="withCavok"></param>
+        /// <returns></returns>
+        /// <exception cref="MetarChunkDecoderException"></exception>
         public override Dictionary<string, object> Parse(string remainingMetar, bool withCavok = false)
         {
             var consumed = Consume(remainingMetar);

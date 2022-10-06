@@ -5,6 +5,9 @@ namespace Metar.Decoder.Entity
 {
     public sealed class DecodedMetar
     {
+        /// <summary>
+        /// Report type (METAR, METAR COR or SPECI)
+        /// </summary>
         public enum MetarType
         {
             NULL,

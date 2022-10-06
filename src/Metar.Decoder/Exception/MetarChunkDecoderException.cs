@@ -5,6 +5,9 @@ using System.Security.Permissions;
 
 namespace Metar.Decoder
 {
+    /// <summary>
+    /// MetarChunkDecoderException
+    /// </summary>
     [Serializable]
     public sealed class MetarChunkDecoderException : Exception
     {

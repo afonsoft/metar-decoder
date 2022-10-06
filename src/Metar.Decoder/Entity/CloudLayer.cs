@@ -4,6 +4,9 @@ namespace Metar.Decoder.Entity
 {
     public sealed class CloudLayer
     {
+        /// <summary>
+        /// Annotation corresponding to amount of clouds (FEW/SCT/BKN/OVC)
+        /// </summary>
         public enum CloudAmount
         {
             NULL,
@@ -24,6 +27,9 @@ namespace Metar.Decoder.Entity
             VV,
         }
 
+        /// <summary>
+        /// Cloud type cumulonimbus, towering cumulonimbus (CB/TCU)
+        /// </summary>
         public enum CloudType
         {
             NULL,

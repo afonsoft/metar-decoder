@@ -28,6 +28,10 @@ namespace Metar.Decoder.Entity
             }
         }
 
+        /// <summary>
+        /// AddType
+        /// </summary>
+        /// <param name="type">type</param>
         public void AddType(string type)
         {
             _types.Add(type);

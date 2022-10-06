@@ -9,9 +9,19 @@ namespace Metar.Decoder.Entity
     [DebuggerDisplay("{ActualValue} {ActualUnit}")]
     public sealed class Value
     {
+        /// <summary>
+        /// ActualValue
+        /// </summary>
         public double ActualValue { get; private set; }
+
+        /// <summary>
+        /// ActualUnit
+        /// </summary>
         public Unit ActualUnit { get; private set; }
 
+        /// <summary>
+        /// Unit
+        /// </summary>
         public enum Unit
         {
             [Description("")]

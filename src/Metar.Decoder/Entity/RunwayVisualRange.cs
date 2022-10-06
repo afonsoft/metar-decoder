@@ -2,6 +2,9 @@
 {
     public sealed class RunwayVisualRange
     {
+        /// <summary>
+        /// Past tendency (optional) (U, D, or N)
+        /// </summary>
         public enum Tendency
         {
             NONE,

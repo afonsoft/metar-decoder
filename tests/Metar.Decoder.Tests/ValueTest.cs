@@ -37,15 +37,9 @@ namespace Metar.Decoder_tests
             catch (ArgumentException ex)
             {
                 hasException = true;
-                Assert.AreEqual($@"Conversion rate between ""{valueToTest.Item4}"" and ""{valueToTest.Item2}"" is not defined.", ex.Message);
+                Assert.That(ex.Message, Is.EqualTo($@"Conversion rate between ""{valueToTest.Item4}"" and ""{valueToTest.Item2}"" is not defined."));
             }
             Assert.IsTrue(hasException, "An exception should have been thrown.");
-        }
-
-        [Test]
-        public void TestValueUnsupportedException()
-        {
-            //
         }
 
         #region TestCaseSources
