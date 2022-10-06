@@ -2,12 +2,9 @@
 using Metar.Decoder.Chunkdecoder;
 using Metar.Decoder.Entity;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using static Metar.Decoder.Entity.CloudLayer;
-using static Metar.Decoder.Entity.DecodedMetar;
 
 namespace Metar.Decoder_tests
 {

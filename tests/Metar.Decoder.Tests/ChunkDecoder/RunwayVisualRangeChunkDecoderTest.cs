@@ -1,9 +1,8 @@
-﻿using NUnit.Framework;
-using System.Collections.Generic;
-using Metar.Decoder;
-using Metar.Decoder.Entity;
+﻿using Metar.Decoder;
 using Metar.Decoder.Chunkdecoder;
-using System;
+using Metar.Decoder.Entity;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Metar.Decoder_tests.chunkdecoder
 {

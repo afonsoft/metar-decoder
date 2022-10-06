@@ -1,6 +1,5 @@
 ﻿using Metar.Decoder.Entity;
 using System.Collections.Generic;
-using System.Linq;
 using static Metar.Decoder.Entity.RunwayVisualRange;
 
 namespace Metar.Decoder.Chunkdecoder

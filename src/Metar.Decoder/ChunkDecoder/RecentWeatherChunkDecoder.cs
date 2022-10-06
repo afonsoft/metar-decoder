@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Metar.Decoder.Entity;
+﻿using Metar.Decoder.Entity;
+using System.Collections.Generic;
 
 namespace Metar.Decoder.Chunkdecoder
 {

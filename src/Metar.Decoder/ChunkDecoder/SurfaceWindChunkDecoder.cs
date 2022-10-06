@@ -1,5 +1,4 @@
 ﻿using Metar.Decoder.Entity;
-using System;
 using System.Collections.Generic;
 
 namespace Metar.Decoder.Chunkdecoder

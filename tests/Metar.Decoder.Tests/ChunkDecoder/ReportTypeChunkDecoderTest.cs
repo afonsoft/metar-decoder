@@ -1,16 +1,16 @@
-﻿using NUnit.Framework;
-using System.Collections.Generic;
-using System;
+﻿using Metar.Decoder;
 using Metar.Decoder.Chunkdecoder;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 using static Metar.Decoder.Entity.DecodedMetar;
-using Metar.Decoder;
 
 namespace Metar.Decoder_tests.chunkdecoder
 {
     [TestFixture, Category("ReportTypeChunkDecoder")]
     public class ReportTypeChunkDecoderTest
     {
-        private readonly ReportTypeChunkDecoder chunkDecoder = new ReportTypeChunkDecoder();
+        private readonly ReportTypeChunkDecoder chunkDecoder = new();
 
         /// <summary>
         /// Test parsing of valid report type chunks.

@@ -1,0 +1,29 @@
+name: Tests
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+       dotnet-version: 6.x
+    
+    - name: Update to Nuget
+      run: nuget update -self
+    - name: Clear NuGet cache
+      run: dotnet nuget locals all --clear
+    - name: Build Release 
+      run: dotnet build --configuration Release
+    - name: Test
+      run: dotnet test --no-build --verbosity normal --configuration Release

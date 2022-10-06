@@ -1,0 +1,32 @@
+version: 5.0.{build}
+image:
+- Visual Studio 2022
+- Ubuntu2004
+- macos-bigsur
+configuration: Release
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  version_prefix: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+environment:
+  EnableNuGetPackageRestore: true
+  ResolveNuGetPackageAssets: true
+  DOTNETCORE: 6
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+nuget:
+  disable_publish_on_pr: true
+  disable_publish_octopus: true
+build:
+  publish_nuget: true
+  publish_nuget_symbols: true
+  use_snupkg_format: true
+  include_nuget_references: true
+  verbosity: minimal
+build_script:
+  - dotnet build  --configuration Release --verbosity normal
