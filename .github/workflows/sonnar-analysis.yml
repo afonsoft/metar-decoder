@@ -27,6 +27,8 @@ jobs:
         run: nuget update -self
       - name: Clear NuGet cache
         run: dotnet nuget locals all --clear
+      - name: Install SonarQube Tools
+        run: dotnet tool install --global dotnet-sonarscanner
       - name: Fix Permission
         run: chmod 777 sonar/ -R
       - name: Prepare analysis on SonarQube

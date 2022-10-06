@@ -127,7 +127,6 @@
   <UsingTask TaskName="GetAnalyzerSettings" AssemblyFile="$([MSBUILD]::Unescape($(SonarQubeBuildTasksAssemblyFile)))" />
   <UsingTask TaskName="MakeUniqueDir" AssemblyFile="$([MSBUILD]::Unescape($(SonarQubeBuildTasksAssemblyFile)))" />
   <UsingTask TaskName="WriteZeroLengthFiles" AssemblyFile="$([MSBUILD]::Unescape($(SonarQubeBuildTasksAssemblyFile)))" />
-  <UsingTask TaskName="MoveDirectory" AssemblyFile="$([MSBUILD]::Unescape($(SonarQubeBuildTasksAssemblyFile)))" />
 
   <!-- **************************************************************************** -->
   <!-- **************************************************************************** -->
@@ -326,7 +325,7 @@
   <Target Name="InvokeSonarWriteProjectData_NonRazorProject"
           DependsOnTargets="SonarCategoriseProject;SonarWriteFilesToAnalyze;SonarCreateProjectSpecificDirs"
           AfterTargets="Build"
-          Condition=" $(SonarQubeTempPath) != '' AND '@(RazorCompile)'=='' ">
+          Condition=" $(SonarQubeTempPath) != '' AND ('@(RazorCompile)'=='' OR ('@(RazorCompile)'!='' AND '$(UseRazorSourceGenerator)'=='true'))  ">
     <CallTarget Targets="SonarWriteProjectData" />
   </Target>
 
@@ -334,7 +333,7 @@
           DependsOnTargets="SonarCategoriseProject;SonarWriteFilesToAnalyze;SonarCreateProjectSpecificDirs"
           BeforeTargets="SonarPrepareRazorProjectCodeAnalysis"
           AfterTargets="CoreCompile"
-          Condition=" $(SonarQubeTempPath) != '' AND '@(RazorCompile)'!='' ">
+          Condition=" $(SonarQubeTempPath) != '' AND '@(RazorCompile)'!='' AND ('$(UseRazorSourceGenerator)'=='' OR '$(UseRazorSourceGenerator)'=='false') ">
     <CallTarget Targets="SonarWriteProjectData" />
   </Target>
 
@@ -385,11 +384,12 @@
     <Message Importance="high" Text="Sonar: ($(MSBuildProjectFile)) Project processed successfully" />
   </Target>
 
-  <!-- Set the Razor specific error log properties and copy the results of the core compilation to a temporary folder.
-       Rename the output directory to "$(ProjectSpecificOutDir).tmp" to prevent RazorCoreCompilation from overriding its content.
-       It will be renamed back in SonarFinishRazorProjectCodeAnalysis target.
+  <!--
+    Set the Razor specific error log properties.
+    Move the results of the core compilation to a temporary folder to prevent RazorCoreCompilation from overriding its content.
+    The contents will be moved back in SonarFinishRazorProjectCodeAnalysis target.
   -->
-  <Target Name="SonarPrepareRazorProjectCodeAnalysis" BeforeTargets="RazorCoreCompile" AfterTargets="CoreCompile" Condition="'@(RazorCompile)'!=''" >
+  <Target Name="SonarPrepareRazorProjectCodeAnalysis" BeforeTargets="RazorCoreCompile" AfterTargets="CoreCompile" Condition="'@(RazorCompile)'!='' AND ('$(UseRazorSourceGenerator)'=='' OR '$(UseRazorSourceGenerator)'=='false')" >
     <PropertyGroup Condition=" $(SonarErrorLog) != '' ">
       <!-- https://github.com/SonarSource/sonar-scanner-msbuild/issues/1015 Respect user-provided value. When set, users should provide unique path for each build (project and target framework). -->
       <RazorSonarErrorLogName Condition=" $(RazorCompilationErrorLog) == '' ">Issues$(RazorTargetNameSuffix).json</RazorSonarErrorLogName>
@@ -401,22 +401,44 @@
     <PropertyGroup>
       <SonarTemporaryProjectSpecificOutDir>$(ProjectSpecificOutDir).tmp</SonarTemporaryProjectSpecificOutDir>
     </PropertyGroup>
-    <MoveDirectory SourceDirectory="$(ProjectSpecificOutDir)" DestinationDirectory="$(SonarTemporaryProjectSpecificOutDir)" />
-    <MakeDir Directories="$(ProjectSpecificOutDir)" />
+    <ItemGroup>
+      <CoreCompileOutFiles Include="$(ProjectSpecificOutDir)\**\*.*"/>
+    </ItemGroup>
+    <Move
+      SourceFiles="@(CoreCompileOutFiles)"
+      DestinationFolder="$(SonarTemporaryProjectSpecificOutDir)\%(RecursiveDir)" />
+    <Message Importance="high" Text="Sonar: Preparing for Razor compilation, moved files (@(CoreCompileOutFiles)) to $(SonarTemporaryProjectSpecificOutDir)." />
   </Target>
 
   <!-- In case of Razor compilation the output files generated during the core compilation step are already moved into a temporary folder.
        This target renames output directories to their final state and creates the ProjectInfo.xml for them.
   -->
-  <Target Name="SonarFinishRazorProjectCodeAnalysis" AfterTargets="RazorCoreCompile;InvokeSonarWriteProjectData_RazorProject" Condition=" $(SonarTemporaryProjectSpecificOutDir) != '' AND '@(RazorCompile)'!='' ">
+  <Target Name="SonarFinishRazorProjectCodeAnalysis" AfterTargets="RazorCoreCompile;InvokeSonarWriteProjectData_RazorProject" Condition=" $(SonarTemporaryProjectSpecificOutDir) != '' AND '@(RazorCompile)'!='' AND ('$(UseRazorSourceGenerator)'=='' OR '$(UseRazorSourceGenerator)'=='false') ">
     <PropertyGroup>
       <RazorSonarProjectSpecificOutDir>$(ProjectSpecificOutDir).Razor</RazorSonarProjectSpecificOutDir>
       <RazorSonarProjectInfo>$(RazorSonarProjectSpecificOutDir)\ProjectInfo.xml</RazorSonarProjectInfo>
     </PropertyGroup>
+    <ItemGroup>
+      <RazorCompilationOutFiles Include="$(ProjectSpecificOutDir)\**\*.*"/>
+      <SonarTempFiles Include="$(SonarTemporaryProjectSpecificOutDir)\**\*.*"/>
+    </ItemGroup>
+
     <!-- Move main and Razor results to their final location. -->
-    <MoveDirectory SourceDirectory="$(ProjectSpecificOutDir)" DestinationDirectory="$(RazorSonarProjectSpecificOutDir)" />
-    <MoveDirectory SourceDirectory="$(SonarTemporaryProjectSpecificOutDir)" DestinationDirectory="$(ProjectSpecificOutDir)" />
+    <Move
+      SourceFiles="@(RazorCompilationOutFiles)"
+      DestinationFolder="$(RazorSonarProjectSpecificOutDir)\%(RecursiveDir)" />
+    <Message Importance="high" Text="Sonar: After Razor compilation, moved files (@(RazorCompilationOutFiles)) to $(RazorSonarProjectSpecificOutDir)." />
+
+    <Move
+      SourceFiles="@(SonarTempFiles)"
+      DestinationFolder="$(ProjectSpecificOutDir)\%(RecursiveDir)" />
+    <Message Importance="high" Text="Sonar: After Razor compilation, moved files (@(SonarTempFiles)) to $(ProjectSpecificOutDir) and will remove the temporary folder." />
+    <RemoveDir Directories="$(SonarTemporaryProjectSpecificOutDir)" />
+
     <PropertyGroup>
+      <!-- This overwrites the previously set 'RazorSonarErrorLog' in 'SonarPrepareRazorProjectCodeAnalysis'
+           if 'RazorSonarErrorLogName' is set, which means 'RazorCompilationErrorLog' was null.
+           The condition is a bit difficult to follow, it would be easier to change it or also add "$(RazorSonarErrorLog) != ''" -->
       <RazorSonarErrorLog Condition=" $(RazorSonarErrorLogName) != '' ">$(RazorSonarProjectSpecificOutDir)\$(RazorSonarErrorLogName)</RazorSonarErrorLog>
       <RazorSonarErrorLogExists Condition=" $(RazorSonarErrorLog) != '' AND  $([System.IO.File]::Exists($(RazorSonarErrorLog))) == 'true' ">true</RazorSonarErrorLogExists>
     </PropertyGroup>
