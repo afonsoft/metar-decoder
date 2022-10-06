@@ -28,8 +28,8 @@ jobs:
       - name: Fix Permission
         run: chmod 777 sonar/ -R
       - name: Prepare analysis on SonarQube
-        run: dotnet sonar/SonarScanner.MSBuild.dll begin /o:"afonsoft-github" /k:"metar-decoder" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{secrets.SONNAR_TOKEN}} /d:sonar.scm.provider=git /d:sonar.coverage.exclusions="**Test*.cs"
+        run: dotnet sonar/SonarScanner.MSBuild.dll begin /o:"afonsoft-github" /k:"metar-decoder" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{secrets.SONAR_TOKEN}} /d:sonar.scm.provider=git /d:sonar.coverage.exclusions="**Test*.cs"
       - name: Build
         run: dotnet build --configuration $BUILD_CONFIG
       - name: Run Code Analysis
-        run: dotnet sonar/SonarScanner.MSBuild.dll end /d:sonar.login=${{secrets.SONNAR_TOKEN}}
+        run: dotnet sonar/SonarScanner.MSBuild.dll end /d:sonar.login=${{secrets.SONAR_TOKEN}}
