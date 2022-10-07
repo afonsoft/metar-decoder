@@ -1,13 +1,12 @@
 ## C# METAR decoder
-This library package is netstandard 2.0
 =================
+
 [![Latest Stable Version NuGet](https://img.shields.io/nuget/v/Metar.Decoder.svg)](https://www.nuget.org/packages/Metar.Decoder/)
 
 
-A .NET library to decode METAR strings
+A .NET library to decode METAR strings, this library package is netstandard 2.0. Working with Net Core and NET.
 
-This is largely based on [SafranCassiopee/php-metar-decoder](https://github.com/SafranCassiopee/php-metar-decoder)
-and [SafranCassiopee/csharp-metar-decoder](https://github.com/SafranCassiopee/csharp-metar-decoder)
+This is largely based on [SafranCassiopee/csharp-metar-decoder](https://github.com/SafranCassiopee/csharp-metar-decoder)
 
 Introduction
 ------------
