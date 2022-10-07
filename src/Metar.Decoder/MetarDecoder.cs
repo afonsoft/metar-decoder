@@ -138,7 +138,7 @@ namespace Metar.Decoder
                 }
 
                 // hook for report status decoder, abort if nil, but decoded metar is valid though
-                if (chunkDecoder is ReportStatusChunkDecoder && (decodedMetar.Status == "NIL" || string.IsNullOrEmpty(decodedMetar.Status)))
+                if (chunkDecoder is ReportStatusChunkDecoder && (decodedMetar.Status == "NIL"))
                 {
                     break;
                 }
