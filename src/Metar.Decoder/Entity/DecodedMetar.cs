@@ -44,7 +44,7 @@ namespace Metar.Decoder.Entity
         /// <summary>
         /// Decoding exceptions, if any
         /// </summary>
-        private List<MetarChunkDecoderException> _decodingExceptions = new List<MetarChunkDecoderException>();
+        private List<MetarChunkDecoderException> _decodingExceptions = new();
 
         /// <summary>
         /// If the decoded metar is invalid, get all the exceptions that occurred during decoding

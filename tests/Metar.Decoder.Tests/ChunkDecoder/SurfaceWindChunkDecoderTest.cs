@@ -26,7 +26,7 @@ namespace Metar.Decoder_tests.chunkdecoder
         public void TestParseSurfaceWindChunk(ValidSurfaceWindChunkDecoderTester chunkToTest)
         {
             var decoded = chunkDecoder.Parse(chunkToTest.Chunk);
-            Assert.IsNotNull(decoded);
+            Assert.That(decoded, Is.Not.Null);
             var wind = (decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[SurfaceWindChunkDecoder.SurfaceWindParameterName] as SurfaceWind;
             if (!chunkToTest.VariableDirection)
             {
@@ -61,7 +61,7 @@ namespace Metar.Decoder_tests.chunkdecoder
             {
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
-            Assert.IsFalse(decoded.ContainsKey(MetarDecoder.ResultKey));
+            Assert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
             Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 

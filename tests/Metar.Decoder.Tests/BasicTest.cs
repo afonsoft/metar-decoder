@@ -35,7 +35,7 @@ namespace Metar.Decoder_tests
         [Test, Category("Basic")]
         public void RunToCompletionTest()
         {
-            Assert.IsNotNull(DecodedMetars[0]);
+            Assert.That(DecodedMetars[0], Is.Not.Null);
         }
 
         /// <summary>

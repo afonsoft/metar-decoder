@@ -31,7 +31,7 @@ namespace Metar.Decoder_tests.chunkdecoder
             }
             else
             {
-                Assert.IsNull((((Dictionary<string, object>)decoded[MetarDecoder.ResultKey])[PressureChunkDecoder.PressureParameterName] as Value));
+                Assert.That((((Dictionary<string, object>)decoded[MetarDecoder.ResultKey])[PressureChunkDecoder.PressureParameterName] as Value), Is.Null);
             }
 
             //check RemainingMetar
@@ -51,7 +51,7 @@ namespace Metar.Decoder_tests.chunkdecoder
             {
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
-            Assert.IsFalse(decoded.ContainsKey(MetarDecoder.ResultKey));
+            Assert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
             Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 

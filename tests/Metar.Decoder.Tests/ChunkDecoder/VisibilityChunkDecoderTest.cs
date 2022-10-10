@@ -25,8 +25,8 @@ namespace Metar.Decoder_tests.chunkdecoder
             }
             else if (!chunkToTest.Visibility.HasValue)
             {
-                Assert.IsNull((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[VisibilityChunkDecoder.VisibilityParameterName]);
-                Assert.IsFalse((bool)(decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[VisibilityChunkDecoder.CavokParameterName]);
+                Assert.That((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[VisibilityChunkDecoder.VisibilityParameterName], Is.Null);
+                Assert.That((bool)(decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[VisibilityChunkDecoder.CavokParameterName], Is.False);
             }
             else
             {
@@ -55,7 +55,7 @@ namespace Metar.Decoder_tests.chunkdecoder
             {
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
-            Assert.IsFalse(decoded.ContainsKey(MetarDecoder.ResultKey));
+            Assert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
             Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 

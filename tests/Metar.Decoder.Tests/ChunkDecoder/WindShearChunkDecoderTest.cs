@@ -34,7 +34,7 @@ namespace Metar.Decoder_tests.chunkdecoder
         {
             //need fine tuning
             var decoded = chunkDecoder.Parse(chunk);
-            var res = decoded[MetarDecoder.ResultKey];
+            _ = decoded[MetarDecoder.ResultKey];
             Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunk));
         }
 
@@ -50,7 +50,7 @@ namespace Metar.Decoder_tests.chunkdecoder
             {
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
-            Assert.IsFalse(decoded.ContainsKey(MetarDecoder.ResultKey));
+            Assert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
             Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 

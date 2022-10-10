@@ -15,7 +15,7 @@ namespace Metar.Decoder_tests
     [TestFixture, Category("Integration")]
     public class Integration
     {
-        public readonly ReadOnlyCollection<string> TestMetarSource = new ReadOnlyCollection<string>(new List<string>() {
+        public readonly ReadOnlyCollection<string> TestMetarSource = new(new List<string>() {
             "CYFB 271515Z 32017KT 3SM DRSN BKN040 M29/M34 A2957 RMK SC7 SLP019",
             "EETU 271450Z 05005KT 9000 OVC006 01/M00 Q1019",
             "SBGU 271400Z 27006KT 8000 TS VCSH BKN020 FEW030CB BKN080 25/20 Q1017",
@@ -56,30 +56,30 @@ namespace Metar.Decoder_tests
 
             #region SurfaceWind
 
-            Assert.IsNotNull(decodedMetar.SurfaceWind);
+            Assert.That(decodedMetar.SurfaceWind, Is.Not.Null);
             Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualValue, Is.EqualTo(320));
             Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
-            Assert.IsFalse(decodedMetar.SurfaceWind.VariableDirection);
+            Assert.That(decodedMetar.SurfaceWind.VariableDirection, Is.False);
             Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualValue, Is.EqualTo(17));
             Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualUnit, Is.EqualTo(Value.Unit.Knot));
-            Assert.IsNull(decodedMetar.SurfaceWind.SpeedVariations);
-            Assert.IsNull(decodedMetar.SurfaceWind.DirectionVariations);
+            Assert.That(decodedMetar.SurfaceWind.SpeedVariations, Is.Null);
+            Assert.That(decodedMetar.SurfaceWind.DirectionVariations, Is.Null);
 
             #endregion SurfaceWind
 
             #region Visibility
 
-            Assert.IsNotNull(decodedMetar.Visibility);
+            Assert.That(decodedMetar.Visibility, Is.Not.Null);
             Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualValue, Is.EqualTo(3));
             Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(Value.Unit.StatuteMile));
-            Assert.IsNull(decodedMetar.Visibility.MinimumVisibility);
-            Assert.IsNull(decodedMetar.Visibility.MinimumVisibilityDirection);
-            Assert.IsFalse(decodedMetar.Visibility.NDV);
+            Assert.That(decodedMetar.Visibility.MinimumVisibility, Is.Null);
+            Assert.That(decodedMetar.Visibility.MinimumVisibilityDirection, Is.Null);
+            Assert.That(decodedMetar.Visibility.NDV, Is.False);
 
             #endregion Visibility
 
-            Assert.IsFalse(decodedMetar.Cavok);
-            Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
+            Assert.That(decodedMetar.Cavok, Is.False);
+            Assert.That(decodedMetar.RunwaysVisualRange, Is.Not.Null);
             Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
@@ -115,8 +115,8 @@ namespace Metar.Decoder_tests
 
             #endregion Temperatures & pressure
 
-            Assert.IsNull(decodedMetar.RecentWeather);
-            Assert.IsNull(decodedMetar.WindshearAllRunways);
+            Assert.That(decodedMetar.RecentWeather, Is.Null);
+            Assert.That(decodedMetar.WindshearAllRunways, Is.Null);
             Assert.That(decodedMetar.WindshearRunways.Count, Is.EqualTo(0));
         }
 
@@ -137,30 +137,30 @@ namespace Metar.Decoder_tests
 
             #region SurfaceWind
 
-            Assert.IsNotNull(decodedMetar.SurfaceWind);
+            Assert.That(decodedMetar.SurfaceWind, Is.Not.Null);
             Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualValue, Is.EqualTo(50));
             Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
-            Assert.IsFalse(decodedMetar.SurfaceWind.VariableDirection);
+            Assert.That(decodedMetar.SurfaceWind.VariableDirection, Is.False);
             Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualValue, Is.EqualTo(5));
             Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualUnit, Is.EqualTo(Value.Unit.Knot));
-            Assert.IsNull(decodedMetar.SurfaceWind.SpeedVariations);
-            Assert.IsNull(decodedMetar.SurfaceWind.DirectionVariations);
+            Assert.That(decodedMetar.SurfaceWind.SpeedVariations, Is.Null);
+            Assert.That(decodedMetar.SurfaceWind.DirectionVariations, Is.Null);
 
             #endregion SurfaceWind
 
             #region Visibility
 
-            Assert.IsNotNull(decodedMetar.Visibility);
+            Assert.That(decodedMetar.Visibility, Is.Not.Null);
             Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualValue, Is.EqualTo(9000));
             Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(Value.Unit.Meter));
-            Assert.IsNull(decodedMetar.Visibility.MinimumVisibility);
-            Assert.IsNull(decodedMetar.Visibility.MinimumVisibilityDirection);
-            Assert.IsFalse(decodedMetar.Visibility.NDV);
+            Assert.That(decodedMetar.Visibility.MinimumVisibility, Is.Null);
+            Assert.That(decodedMetar.Visibility.MinimumVisibilityDirection, Is.Null);
+            Assert.That(decodedMetar.Visibility.NDV, Is.False);
 
             #endregion Visibility
 
-            Assert.IsFalse(decodedMetar.Cavok);
-            Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
+            Assert.That(decodedMetar.Cavok, Is.False);
+            Assert.That(decodedMetar.RunwaysVisualRange, Is.Not.Null);
             Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
@@ -192,8 +192,8 @@ namespace Metar.Decoder_tests
 
             #endregion Temperatures & pressure
 
-            Assert.IsNull(decodedMetar.RecentWeather);
-            Assert.IsNull(decodedMetar.WindshearAllRunways);
+            Assert.That(decodedMetar.RecentWeather, Is.Null);
+            Assert.That(decodedMetar.WindshearAllRunways, Is.Null);
             Assert.That(decodedMetar.WindshearRunways.Count, Is.EqualTo(0));
         }
 
@@ -214,30 +214,30 @@ namespace Metar.Decoder_tests
 
             #region SurfaceWind
 
-            Assert.IsNotNull(decodedMetar.SurfaceWind);
+            Assert.That(decodedMetar.SurfaceWind, Is.Not.Null);
             Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualValue, Is.EqualTo(270));
             Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
-            Assert.IsFalse(decodedMetar.SurfaceWind.VariableDirection);
+            Assert.That(decodedMetar.SurfaceWind.VariableDirection, Is.False);
             Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualValue, Is.EqualTo(6));
             Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualUnit, Is.EqualTo(Value.Unit.Knot));
-            Assert.IsNull(decodedMetar.SurfaceWind.SpeedVariations);
-            Assert.IsNull(decodedMetar.SurfaceWind.DirectionVariations);
+            Assert.That(decodedMetar.SurfaceWind.SpeedVariations, Is.Null);
+            Assert.That(decodedMetar.SurfaceWind.DirectionVariations, Is.Null);
 
             #endregion SurfaceWind
 
             #region Visibility
 
-            Assert.IsNotNull(decodedMetar.Visibility);
+            Assert.That(decodedMetar.Visibility, Is.Not.Null);
             Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualValue, Is.EqualTo(8000));
             Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(Value.Unit.Meter));
-            Assert.IsNull(decodedMetar.Visibility.MinimumVisibility);
-            Assert.IsNull(decodedMetar.Visibility.MinimumVisibilityDirection);
-            Assert.IsFalse(decodedMetar.Visibility.NDV);
+            Assert.That(decodedMetar.Visibility.MinimumVisibility, Is.Null);
+            Assert.That(decodedMetar.Visibility.MinimumVisibilityDirection, Is.Null);
+            Assert.That(decodedMetar.Visibility.NDV, Is.False);
 
             #endregion Visibility
 
-            Assert.IsFalse(decodedMetar.Cavok);
-            Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
+            Assert.That(decodedMetar.Cavok, Is.False);
+            Assert.That(decodedMetar.RunwaysVisualRange, Is.Not.Null);
             Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
@@ -288,8 +288,8 @@ namespace Metar.Decoder_tests
 
             #endregion Temperatures & pressure
 
-            Assert.IsNull(decodedMetar.RecentWeather);
-            Assert.IsNull(decodedMetar.WindshearAllRunways);
+            Assert.That(decodedMetar.RecentWeather, Is.Null);
+            Assert.That(decodedMetar.WindshearAllRunways, Is.Null);
             Assert.That(decodedMetar.WindshearRunways.Count, Is.EqualTo(0));
         }
 
@@ -307,42 +307,42 @@ namespace Metar.Decoder_tests
             Assert.That(decodedMetar.DecodingExceptions.Count, Is.EqualTo(3));
             Assert.That(decodedMetar.Type, Is.EqualTo(MetarType.NULL));
             Assert.That(decodedMetar.ICAO, Is.EqualTo("SBGU"));
-            Assert.IsNull(decodedMetar.Day);
+            Assert.That(decodedMetar.Day, Is.Null);
             Assert.That(decodedMetar.Time, Is.EqualTo(string.Empty));
             Assert.That(decodedMetar.Status, Is.EqualTo(string.Empty));
 
             #region SurfaceWind
 
-            Assert.IsNotNull(decodedMetar.SurfaceWind);
+            Assert.That(decodedMetar.SurfaceWind, Is.Not.Null);
             //needs fixing
             Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualValue, Is.EqualTo(270));
             //needs fixing
             Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
-            Assert.IsFalse(decodedMetar.SurfaceWind.VariableDirection);
+            Assert.That(decodedMetar.SurfaceWind.VariableDirection, Is.False);
             //needs fixing
             Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualValue, Is.EqualTo(6));
             //needs fixing
             Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualUnit, Is.EqualTo(Value.Unit.Knot));
-            Assert.IsNull(decodedMetar.SurfaceWind.SpeedVariations);
-            Assert.IsNull(decodedMetar.SurfaceWind.DirectionVariations);
+            Assert.That(decodedMetar.SurfaceWind.SpeedVariations, Is.Null);
+            Assert.That(decodedMetar.SurfaceWind.DirectionVariations, Is.Null);
 
             #endregion SurfaceWind
 
             #region Visibility
 
-            Assert.IsNotNull(decodedMetar.Visibility);
+            Assert.That(decodedMetar.Visibility, Is.Not.Null);
             //needs fixing
             Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualValue, Is.EqualTo(8000));
             //needs fixing
             Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(Value.Unit.Meter));
-            Assert.IsNull(decodedMetar.Visibility.MinimumVisibility);
-            Assert.IsNull(decodedMetar.Visibility.MinimumVisibilityDirection);
-            Assert.IsFalse(decodedMetar.Visibility.NDV);
+            Assert.That(decodedMetar.Visibility.MinimumVisibility, Is.Null);
+            Assert.That(decodedMetar.Visibility.MinimumVisibilityDirection, Is.Null);
+            Assert.That(decodedMetar.Visibility.NDV, Is.False);
 
             #endregion Visibility
 
-            Assert.IsFalse(decodedMetar.Cavok);
-            Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
+            Assert.That(decodedMetar.Cavok, Is.False);
+            Assert.That(decodedMetar.RunwaysVisualRange, Is.Not.Null);
             Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
@@ -391,12 +391,12 @@ namespace Metar.Decoder_tests
             Assert.That(decodedMetar.DewPointTemperature.ActualValue, Is.EqualTo(20));
             Assert.That(decodedMetar.DewPointTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
-            Assert.IsNull(decodedMetar.Pressure);
+            Assert.That(decodedMetar.Pressure, Is.Null);
 
             #endregion Temperatures & pressure
 
-            Assert.IsNull(decodedMetar.RecentWeather);
-            Assert.IsNull(decodedMetar.WindshearAllRunways);
+            Assert.That(decodedMetar.RecentWeather, Is.Null);
+            Assert.That(decodedMetar.WindshearAllRunways, Is.Null);
             Assert.That(decodedMetar.WindshearRunways.Count, Is.EqualTo(0));
         }
 
@@ -417,30 +417,30 @@ namespace Metar.Decoder_tests
 
             #region SurfaceWind
 
-            Assert.IsNotNull(decodedMetar.SurfaceWind);
+            Assert.That(decodedMetar.SurfaceWind, Is.Not.Null);
             Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualValue, Is.EqualTo(320));
             Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
-            Assert.IsFalse(decodedMetar.SurfaceWind.VariableDirection);
+            Assert.That(decodedMetar.SurfaceWind.VariableDirection, Is.False);
             Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualValue, Is.EqualTo(17));
             Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualUnit, Is.EqualTo(Value.Unit.Knot));
-            Assert.IsNull(decodedMetar.SurfaceWind.SpeedVariations);
-            Assert.IsNull(decodedMetar.SurfaceWind.DirectionVariations);
+            Assert.That(decodedMetar.SurfaceWind.SpeedVariations, Is.Null);
+            Assert.That(decodedMetar.SurfaceWind.DirectionVariations, Is.Null);
 
             #endregion SurfaceWind
 
             #region Visibility
 
-            Assert.IsNotNull(decodedMetar.Visibility);
+            Assert.That(decodedMetar.Visibility, Is.Not.Null);
             Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualValue, Is.EqualTo(3));
             Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(Value.Unit.StatuteMile));
-            Assert.IsNull(decodedMetar.Visibility.MinimumVisibility);
-            Assert.IsNull(decodedMetar.Visibility.MinimumVisibilityDirection);
-            Assert.IsFalse(decodedMetar.Visibility.NDV);
+            Assert.That(decodedMetar.Visibility.MinimumVisibility, Is.Null);
+            Assert.That(decodedMetar.Visibility.MinimumVisibilityDirection, Is.Null);
+            Assert.That(decodedMetar.Visibility.NDV, Is.False);
 
             #endregion Visibility
 
-            Assert.IsFalse(decodedMetar.Cavok);
-            Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
+            Assert.That(decodedMetar.Cavok, Is.False);
+            Assert.That(decodedMetar.RunwaysVisualRange, Is.Not.Null);
             Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
@@ -476,8 +476,8 @@ namespace Metar.Decoder_tests
 
             #endregion Temperatures & pressure
 
-            Assert.IsNull(decodedMetar.RecentWeather);
-            Assert.IsNull(decodedMetar.WindshearAllRunways);
+            Assert.That(decodedMetar.RecentWeather, Is.Null);
+            Assert.That(decodedMetar.WindshearAllRunways, Is.Null);
             Assert.That(decodedMetar.WindshearRunways.Count, Is.EqualTo(0));
         }
 
@@ -498,30 +498,30 @@ namespace Metar.Decoder_tests
 
             #region SurfaceWind
 
-            Assert.IsNotNull(decodedMetar.SurfaceWind);
+            Assert.That(decodedMetar.SurfaceWind, Is.Not.Null);
             Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualValue, Is.EqualTo(50));
             Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
-            Assert.IsFalse(decodedMetar.SurfaceWind.VariableDirection);
+            Assert.That(decodedMetar.SurfaceWind.VariableDirection, Is.False);
             Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualValue, Is.EqualTo(5));
             Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualUnit, Is.EqualTo(Value.Unit.Knot));
-            Assert.IsNull(decodedMetar.SurfaceWind.SpeedVariations);
-            Assert.IsNull(decodedMetar.SurfaceWind.DirectionVariations);
+            Assert.That(decodedMetar.SurfaceWind.SpeedVariations, Is.Null);
+            Assert.That(decodedMetar.SurfaceWind.DirectionVariations, Is.Null);
 
             #endregion SurfaceWind
 
             #region Visibility
 
-            Assert.IsNotNull(decodedMetar.Visibility);
+            Assert.That(decodedMetar.Visibility, Is.Not.Null);
             Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualValue, Is.EqualTo(9000));
             Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(Value.Unit.Meter));
-            Assert.IsNull(decodedMetar.Visibility.MinimumVisibility);
-            Assert.IsNull(decodedMetar.Visibility.MinimumVisibilityDirection);
-            Assert.IsFalse(decodedMetar.Visibility.NDV);
+            Assert.That(decodedMetar.Visibility.MinimumVisibility, Is.Null);
+            Assert.That(decodedMetar.Visibility.MinimumVisibilityDirection, Is.Null);
+            Assert.That(decodedMetar.Visibility.NDV, Is.False);
 
             #endregion Visibility
 
-            Assert.IsFalse(decodedMetar.Cavok);
-            Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
+            Assert.That(decodedMetar.Cavok, Is.False);
+            Assert.That(decodedMetar.RunwaysVisualRange, Is.Not.Null);
             Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
@@ -553,8 +553,8 @@ namespace Metar.Decoder_tests
 
             #endregion Temperatures & pressure
 
-            Assert.IsNull(decodedMetar.RecentWeather);
-            Assert.IsNull(decodedMetar.WindshearAllRunways);
+            Assert.That(decodedMetar.RecentWeather, Is.Null);
+            Assert.That(decodedMetar.WindshearAllRunways, Is.Null);
             Assert.That(decodedMetar.WindshearRunways.Count, Is.EqualTo(0));
         }
 
@@ -575,30 +575,30 @@ namespace Metar.Decoder_tests
 
             #region SurfaceWind
 
-            Assert.IsNotNull(decodedMetar.SurfaceWind);
+            Assert.That(decodedMetar.SurfaceWind, Is.Not.Null);
             Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualValue, Is.EqualTo(270));
             Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
-            Assert.IsFalse(decodedMetar.SurfaceWind.VariableDirection);
+            Assert.That(decodedMetar.SurfaceWind.VariableDirection, Is.False);
             Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualValue, Is.EqualTo(6));
             Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualUnit, Is.EqualTo(Value.Unit.Knot));
-            Assert.IsNull(decodedMetar.SurfaceWind.SpeedVariations);
-            Assert.IsNull(decodedMetar.SurfaceWind.DirectionVariations);
+            Assert.That(decodedMetar.SurfaceWind.SpeedVariations, Is.Null);
+            Assert.That(decodedMetar.SurfaceWind.DirectionVariations, Is.Null);
 
             #endregion SurfaceWind
 
             #region Visibility
 
-            Assert.IsNotNull(decodedMetar.Visibility);
+            Assert.That(decodedMetar.Visibility, Is.Not.Null);
             Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualValue, Is.EqualTo(8000));
             Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(Value.Unit.Meter));
-            Assert.IsNull(decodedMetar.Visibility.MinimumVisibility);
-            Assert.IsNull(decodedMetar.Visibility.MinimumVisibilityDirection);
-            Assert.IsFalse(decodedMetar.Visibility.NDV);
+            Assert.That(decodedMetar.Visibility.MinimumVisibility, Is.Null);
+            Assert.That(decodedMetar.Visibility.MinimumVisibilityDirection, Is.Null);
+            Assert.That(decodedMetar.Visibility.NDV, Is.False);
 
             #endregion Visibility
 
-            Assert.IsFalse(decodedMetar.Cavok);
-            Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
+            Assert.That(decodedMetar.Cavok, Is.False);
+            Assert.That(decodedMetar.RunwaysVisualRange, Is.Not.Null);
             Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
@@ -649,8 +649,8 @@ namespace Metar.Decoder_tests
 
             #endregion Temperatures & pressure
 
-            Assert.IsNull(decodedMetar.RecentWeather);
-            Assert.IsNull(decodedMetar.WindshearAllRunways);
+            Assert.That(decodedMetar.RecentWeather, Is.Null);
+            Assert.That(decodedMetar.WindshearAllRunways, Is.Null);
             Assert.That(decodedMetar.WindshearRunways.Count, Is.EqualTo(0));
         }
 
@@ -668,24 +668,24 @@ namespace Metar.Decoder_tests
             Assert.That(decodedMetar.DecodingExceptions.Count, Is.EqualTo(1));
             Assert.That(decodedMetar.Type, Is.EqualTo(MetarType.NULL));
             Assert.That(decodedMetar.ICAO, Is.EqualTo("SBGU"));
-            Assert.IsNull(decodedMetar.Day);
+            Assert.That(decodedMetar.Day, Is.Null);
             Assert.That(decodedMetar.Time, Is.EqualTo(string.Empty));
             Assert.That(decodedMetar.Status, Is.EqualTo(string.Empty));
 
             #region SurfaceWind
 
-            Assert.IsNull(decodedMetar.SurfaceWind);
+            Assert.That(decodedMetar.SurfaceWind, Is.Null);
 
             #endregion SurfaceWind
 
             #region Visibility
 
-            Assert.IsNull(decodedMetar.Visibility);
+            Assert.That(decodedMetar.Visibility, Is.Null);
 
             #endregion Visibility
 
-            Assert.IsFalse(decodedMetar.Cavok);
-            Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
+            Assert.That(decodedMetar.Cavok, Is.False);
+            Assert.That(decodedMetar.RunwaysVisualRange, Is.Not.Null);
             Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
@@ -702,15 +702,15 @@ namespace Metar.Decoder_tests
 
             #region Temperatures & pressure
 
-            Assert.IsNull(decodedMetar.AirTemperature);
-            Assert.IsNull(decodedMetar.DewPointTemperature);
-            Assert.IsNull(decodedMetar.Pressure);
+            Assert.That(decodedMetar.AirTemperature, Is.Null);
+            Assert.That(decodedMetar.DewPointTemperature, Is.Null);
+            Assert.That(decodedMetar.Pressure, Is.Null);
 
             #endregion Temperatures & pressure
 
-            Assert.IsNull(decodedMetar.RecentWeather);
-            Assert.IsNull(decodedMetar.WindshearAllRunways);
-            Assert.IsNull(decodedMetar.WindshearRunways);
+            Assert.That(decodedMetar.RecentWeather, Is.Null);
+            Assert.That(decodedMetar.WindshearAllRunways, Is.Null);
+            Assert.That(decodedMetar.WindshearRunways, Is.Null);
         }
     }
 }

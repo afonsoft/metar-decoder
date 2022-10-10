@@ -87,7 +87,7 @@ namespace Metar.Decoder_tests
             Assert.That(rw.Characteristics, Is.EqualTo("FZ"));
             Assert.That(rw.Types[0], Is.EqualTo("RA"));
             Assert.That(d.WindshearRunways, Is.EqualTo(new string[] { "03" }));
-            Assert.IsFalse(d.WindshearAllRunways);
+            Assert.That(d.WindshearAllRunways, Is.False);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Metar.Decoder_tests
             var d = decoder.ParseNotStrict("METAR LFPB 190730Z AUTOPP 17005KT 6000 OVC024 02/00 Q10032 ");
             //                                                 here ^                              ^ and here
             // compare results
-            Assert.IsFalse(d.IsValid);
+            Assert.That(d.IsValid, Is.False);
             Assert.That(d.DecodingExceptions.Count, Is.EqualTo(2));
             Assert.That(d.Type, Is.EqualTo(MetarType.METAR));
             Assert.That(d.ICAO, Is.EqualTo("LFPB"));
@@ -150,7 +150,7 @@ namespace Metar.Decoder_tests
             Assert.That(c.BaseHeight.ActualValue, Is.EqualTo(2400));
             Assert.That(d.AirTemperature.ActualValue, Is.EqualTo(2));
             Assert.That(d.DewPointTemperature.ActualValue, Is.EqualTo(0));
-            Assert.IsNull(d.Pressure);
+            Assert.That(d.Pressure, Is.Null);
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace Metar.Decoder_tests
             var d = decoder.ParseNotStrict("METAR LFPB 190730Z AUTOP X17005KT 6000 OVC024 02/00 Q1032 ");
             //                                                here ^ ^ and here
             // compare results
-            Assert.IsFalse(d.IsValid);
+            Assert.That(d.IsValid, Is.False);
             // 3 errors because visibility decoder will choke once before finding the right piece of metar
             Assert.That(d.DecodingExceptions.Count, Is.EqualTo(3));
             Assert.That(d.Type, Is.EqualTo(MetarType.METAR));
@@ -171,7 +171,7 @@ namespace Metar.Decoder_tests
             Assert.That(d.Day, Is.EqualTo(19));
             Assert.That(d.Time, Is.EqualTo("07:30 UTC"));
             Assert.That(d.Status, Is.EqualTo(string.Empty));
-            Assert.IsNull(d.SurfaceWind);
+            Assert.That(d.SurfaceWind, Is.Null);
             var v = d.Visibility;
             Assert.That(v.PrevailingVisibility.ActualValue, Is.EqualTo(6000));
             var cs = d.Clouds;
@@ -191,9 +191,9 @@ namespace Metar.Decoder_tests
         {
             var metar = "PAWI 140753Z AUTO 08034G41KT 1/4SM SN FZFG M18/M21 A2951 RMK PK WND 08041/0752 SLP995 P0000 T11831206 TSNO  VIA AUTODIAL";
             var d = decoder.ParseStrict(metar);
-            Assert.IsFalse(d.IsValid);
+            Assert.That(d.IsValid, Is.False);
             d = decoder.ParseNotStrict(metar);
-            Assert.IsFalse(d.IsValid);
+            Assert.That(d.IsValid, Is.False);
             Assert.That(d.DecodingExceptions.Count, Is.EqualTo(1));
             var errors = d.DecodingExceptions;
             var error = errors[0];
@@ -230,7 +230,7 @@ namespace Metar.Decoder_tests
         {
             var d = decoder.ParseStrict("METAR LFPO 231027Z AUTO 24004KT CAVOK 02/M08 Q0995");
             Assert.IsTrue(d.Cavok);
-            Assert.IsNull(d.Visibility);
+            Assert.That(d.Visibility, Is.Null);
             Assert.That(d.Clouds.Count, Is.EqualTo(0));
             // check that we went to the end of the decoding though
             Assert.That(d.Pressure.ActualValue, Is.EqualTo(995));
@@ -247,7 +247,7 @@ namespace Metar.Decoder_tests
             // launch decoding
             var d = decoder.ParseNotStrict(metar_error.Item1);
             // check the error triggered
-            Assert.IsFalse(d.IsValid);
+            Assert.That(d.IsValid, Is.False);
             var errors = d.DecodingExceptions;
             var first_error = errors[0];
             Assert.That(first_error.ChunkDecoder.GetType().Name, Is.EqualTo(metar_error.Item2));

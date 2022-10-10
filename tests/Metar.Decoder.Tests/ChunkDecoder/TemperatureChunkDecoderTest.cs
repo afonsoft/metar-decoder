@@ -17,7 +17,7 @@ namespace Metar.Decoder_tests.chunkdecoder
             var decoded = chunkDecoder.Parse(chunkToTest.Chunk);
             if (!chunkToTest.AirTemperature.HasValue)
             {
-                Assert.IsFalse((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>).ContainsKey(TemperatureChunkDecoder.AirTemperatureParameterName));
+                Assert.That((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>).ContainsKey(TemperatureChunkDecoder.AirTemperatureParameterName), Is.False);
             }
             else
             {
@@ -26,7 +26,7 @@ namespace Metar.Decoder_tests.chunkdecoder
             }
             if (!chunkToTest.DewPointTemperature.HasValue)
             {
-                Assert.IsFalse((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>).ContainsKey(TemperatureChunkDecoder.DewPointTemperatureParameterName));
+                Assert.That((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>).ContainsKey(TemperatureChunkDecoder.DewPointTemperatureParameterName), Is.False);
             }
             else
             {
