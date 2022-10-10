@@ -22,8 +22,8 @@ namespace Metar.Decoder_tests.chunkdecoder
         public void TestParseReportTypeChunk(Tuple<string, MetarType, string> chunk)
         {
             var decoded = chunkDecoder.Parse(chunk.Item1);
-            Assert.AreEqual(chunk.Item2, (MetarType)((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[ReportTypeChunkDecoder.TypeParameterName]));
-            Assert.AreEqual(chunk.Item3, decoded[MetarDecoder.RemainingMetarKey]);
+            Assert.That((MetarType)((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[ReportTypeChunkDecoder.TypeParameterName]), Is.EqualTo(chunk.Item2));
+            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunk.Item3));
         }
 
         #region TestCaseSources

@@ -27,9 +27,9 @@ namespace Metar.Decoder_tests.chunkdecoder
         {
             var decoded = chunkDecoder.Parse(chunkToTest.Item1);
             var recent = (decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[RecentWeatherChunkDecoder.RecentWeatherParameterName] as WeatherPhenomenon;
-            Assert.AreEqual(chunkToTest.Item2, recent.Characteristics);
-            Assert.AreEqual(chunkToTest.Item3, recent.Types);
-            Assert.AreEqual(chunkToTest.Item4, decoded[MetarDecoder.RemainingMetarKey]);
+            Assert.That(recent.Characteristics, Is.EqualTo(chunkToTest.Item2));
+            Assert.That(recent.Types, Is.EqualTo(chunkToTest.Item3));
+            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.Item4));
         }
 
         #region TestCaseSources

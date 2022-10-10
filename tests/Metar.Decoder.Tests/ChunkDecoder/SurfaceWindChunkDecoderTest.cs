@@ -30,23 +30,23 @@ namespace Metar.Decoder_tests.chunkdecoder
             var wind = (decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[SurfaceWindChunkDecoder.SurfaceWindParameterName] as SurfaceWind;
             if (!chunkToTest.VariableDirection)
             {
-                Assert.AreEqual(chunkToTest.Direction, wind.MeanDirection.ActualValue);
-                Assert.AreEqual(Value.Unit.Degree, wind.MeanDirection.ActualUnit);
+                Assert.That(wind.MeanDirection.ActualValue, Is.EqualTo(chunkToTest.Direction));
+                Assert.That(wind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
             }
-            Assert.AreEqual(chunkToTest.VariableDirection, wind.VariableDirection);
+            Assert.That(wind.VariableDirection, Is.EqualTo(chunkToTest.VariableDirection));
             if (chunkToTest.DirectionVariations != null)
             {
-                Assert.AreEqual(chunkToTest.DirectionVariations[0], wind.DirectionVariations[0].ActualValue);
-                Assert.AreEqual(chunkToTest.DirectionVariations[1], wind.DirectionVariations[1].ActualValue);
-                Assert.AreEqual(Value.Unit.Degree, wind.DirectionVariations[0].ActualUnit);
+                Assert.That(wind.DirectionVariations[0].ActualValue, Is.EqualTo(chunkToTest.DirectionVariations[0]));
+                Assert.That(wind.DirectionVariations[1].ActualValue, Is.EqualTo(chunkToTest.DirectionVariations[1]));
+                Assert.That(wind.DirectionVariations[0].ActualUnit, Is.EqualTo(Value.Unit.Degree));
             }
-            Assert.AreEqual(chunkToTest.Speed, wind.MeanSpeed.ActualValue);
+            Assert.That(wind.MeanSpeed.ActualValue, Is.EqualTo(chunkToTest.Speed));
             if (chunkToTest.SpeedVariations.HasValue)
             {
-                Assert.AreEqual(chunkToTest.SpeedVariations, wind.SpeedVariations.ActualValue);
+                Assert.That(wind.SpeedVariations.ActualValue, Is.EqualTo(chunkToTest.SpeedVariations));
             }
-            Assert.AreEqual(chunkToTest.SpeedUnit, wind.MeanSpeed.ActualUnit);
-            Assert.AreEqual(chunkToTest.RemainingMetar, decoded[MetarDecoder.RemainingMetarKey]);
+            Assert.That(wind.MeanSpeed.ActualUnit, Is.EqualTo(chunkToTest.SpeedUnit));
+            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Metar.Decoder_tests.chunkdecoder
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
             Assert.IsFalse(decoded.ContainsKey(MetarDecoder.ResultKey));
-            Assert.AreEqual(chunk, ex.RemainingMetar);
+            Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Metar.Decoder_tests.chunkdecoder
             {
                 chunkDecoder.Parse("/////KT PPP");
             }) as MetarChunkDecoderException;
-            Assert.AreEqual("PPP", ex.NewRemainingMetar);
+            Assert.That(ex.NewRemainingMetar, Is.EqualTo("PPP"));
         }
 
         #region TestCaseSources

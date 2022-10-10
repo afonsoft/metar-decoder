@@ -23,22 +23,22 @@ namespace Metar.Decoder_tests.chunkdecoder
             var decoded = chunkDecoder.Parse(chunkToTest.Chunk);
             var runways = (decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[RunwayVisualRangeChunkDecoder.RunwaysVisualRangeParameterName] as List<RunwayVisualRange>;
             var visualRange = runways[0];
-            Assert.AreEqual(chunkToTest.NbRunways, runways.Count);
-            Assert.AreEqual(chunkToTest.runway1Name, visualRange.Runway);
-            Assert.AreEqual(chunkToTest.runway1Variable, visualRange.Variable);
+            Assert.That(runways.Count, Is.EqualTo(chunkToTest.NbRunways));
+            Assert.That(visualRange.Runway, Is.EqualTo(chunkToTest.runway1Name));
+            Assert.That(visualRange.Variable, Is.EqualTo(chunkToTest.runway1Variable));
             if (chunkToTest.runway1Variable)
             {
-                Assert.AreEqual(chunkToTest.runway1Interval[0], visualRange.VisualRangeInterval[0].ActualValue);
-                Assert.AreEqual(chunkToTest.runway1Interval[1], visualRange.VisualRangeInterval[1].ActualValue);
-                Assert.AreEqual(chunkToTest.runway1Unit, visualRange.VisualRangeInterval[0].ActualUnit);
+                Assert.That(visualRange.VisualRangeInterval[0].ActualValue, Is.EqualTo(chunkToTest.runway1Interval[0]));
+                Assert.That(visualRange.VisualRangeInterval[1].ActualValue, Is.EqualTo(chunkToTest.runway1Interval[1]));
+                Assert.That(visualRange.VisualRangeInterval[0].ActualUnit, Is.EqualTo(chunkToTest.runway1Unit));
             }
             else
             {
-                Assert.AreEqual(chunkToTest.runway1Vis, visualRange.VisualRange.ActualValue);
-                Assert.AreEqual(chunkToTest.runway1Unit, visualRange.VisualRange.ActualUnit);
+                Assert.That(visualRange.VisualRange.ActualValue, Is.EqualTo(chunkToTest.runway1Vis));
+                Assert.That(visualRange.VisualRange.ActualUnit, Is.EqualTo(chunkToTest.runway1Unit));
             }
 
-            Assert.AreEqual(chunkToTest.RemainingMetar, decoded[MetarDecoder.RemainingMetarKey]);
+            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Metar.Decoder_tests.chunkdecoder
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
             Assert.IsFalse(decoded.ContainsKey(MetarDecoder.ResultKey));
-            Assert.AreEqual(chunk, ex.RemainingMetar);
+            Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 
         #region TestCaseSources

@@ -21,8 +21,8 @@ namespace Metar.Decoder_tests.chunkdecoder
             }
             else
             {
-                Assert.AreEqual(chunkToTest.AirTemperature, ((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[TemperatureChunkDecoder.AirTemperatureParameterName] as Value).ActualValue);
-                Assert.AreEqual(Value.Unit.DegreeCelsius, ((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[TemperatureChunkDecoder.AirTemperatureParameterName] as Value).ActualUnit);
+                Assert.That(((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[TemperatureChunkDecoder.AirTemperatureParameterName] as Value).ActualValue, Is.EqualTo(chunkToTest.AirTemperature));
+                Assert.That(((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[TemperatureChunkDecoder.AirTemperatureParameterName] as Value).ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
             }
             if (!chunkToTest.DewPointTemperature.HasValue)
             {
@@ -30,10 +30,10 @@ namespace Metar.Decoder_tests.chunkdecoder
             }
             else
             {
-                Assert.AreEqual(chunkToTest.DewPointTemperature, ((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[TemperatureChunkDecoder.DewPointTemperatureParameterName] as Value).ActualValue);
-                Assert.AreEqual(Value.Unit.DegreeCelsius, ((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[TemperatureChunkDecoder.DewPointTemperatureParameterName] as Value).ActualUnit);
+                Assert.That(((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[TemperatureChunkDecoder.DewPointTemperatureParameterName] as Value).ActualValue, Is.EqualTo(chunkToTest.DewPointTemperature));
+                Assert.That(((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[TemperatureChunkDecoder.DewPointTemperatureParameterName] as Value).ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
             }
-            Assert.AreEqual(chunkToTest.RemainingMetar, decoded[MetarDecoder.RemainingMetarKey]);
+            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
         }
 
         public static List<TemperatureChunkDecoderTester> ValidChunks()

@@ -19,7 +19,7 @@ namespace Metar.Decoder_tests
         public void TestValueConversion(Tuple<float, Value.Unit, float, Value.Unit> valueToTest)
         {
             var value = new Value(valueToTest.Item1, valueToTest.Item2);
-            Assert.AreEqual(valueToTest.Item3, value.GetConvertedValue(valueToTest.Item4));
+            Assert.That(value.GetConvertedValue(valueToTest.Item4), Is.EqualTo(valueToTest.Item3));
         }
 
         /// <summary>

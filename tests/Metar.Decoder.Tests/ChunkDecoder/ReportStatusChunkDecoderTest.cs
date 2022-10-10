@@ -21,8 +21,8 @@ namespace Metar.Decoder_tests.chunkdecoder
         public void TestParseReportStatusChunk(Tuple<string, string, string> chunk)
         {
             var decoded = chunkDecoder.Parse(chunk.Item1);
-            Assert.AreEqual(chunk.Item2, (decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[ReportStatusChunkDecoder.StatusParameterName] as string);
-            Assert.AreEqual(chunk.Item3, decoded[MetarDecoder.RemainingMetarKey]);
+            Assert.That((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[ReportStatusChunkDecoder.StatusParameterName] as string, Is.EqualTo(chunk.Item2));
+            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunk.Item3));
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Metar.Decoder_tests.chunkdecoder
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
             Assert.IsFalse(decoded.ContainsKey(MetarDecoder.ResultKey));
-            Assert.AreEqual(chunk, ex.RemainingMetar);
+            Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 
         #region TestCaseSources

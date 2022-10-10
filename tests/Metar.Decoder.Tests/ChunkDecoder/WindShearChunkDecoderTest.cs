@@ -19,9 +19,9 @@ namespace Metar.Decoder_tests.chunkdecoder
         {
             var decoded = chunkDecoder.Parse(chunkToTest.Chunk);
             var result = decoded[MetarDecoder.ResultKey] as Dictionary<string, object>;
-            Assert.AreEqual(chunkToTest.AllRunways, (bool)result[WindShearChunkDecoder.WindshearAllRunwaysParameterName]);
-            Assert.AreEqual(chunkToTest.Runways, result[WindShearChunkDecoder.WindshearRunwaysParameterName] as List<string>);
-            Assert.AreEqual(chunkToTest.RemainingMetar, decoded[MetarDecoder.RemainingMetarKey]);
+            Assert.That((bool)result[WindShearChunkDecoder.WindshearAllRunwaysParameterName], Is.EqualTo(chunkToTest.AllRunways));
+            Assert.That(result[WindShearChunkDecoder.WindshearRunwaysParameterName] as List<string>, Is.EqualTo(chunkToTest.Runways));
+            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Metar.Decoder_tests.chunkdecoder
             //need fine tuning
             var decoded = chunkDecoder.Parse(chunk);
             var res = decoded[MetarDecoder.ResultKey];
-            Assert.AreEqual(chunk, decoded[MetarDecoder.RemainingMetarKey]);
+            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunk));
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Metar.Decoder_tests.chunkdecoder
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
             Assert.IsFalse(decoded.ContainsKey(MetarDecoder.ResultKey));
-            Assert.AreEqual(chunk, ex.RemainingMetar);
+            Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 
         #region TestCaseSources

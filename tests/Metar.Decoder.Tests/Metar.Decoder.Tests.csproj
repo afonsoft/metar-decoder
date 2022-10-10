@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+	<NoWarn>$(NoWarn);CS1591;SYSLIB0001;SYSLIB0002;SYSLIB0003</NoWarn>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
 	<GenerateAssemblyTitleAttribute>true</GenerateAssemblyTitleAttribute>
 	<GenerateAssemblyDescriptionAttribute>true</GenerateAssemblyDescriptionAttribute>

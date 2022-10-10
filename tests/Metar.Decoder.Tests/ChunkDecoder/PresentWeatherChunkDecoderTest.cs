@@ -21,21 +21,21 @@ namespace Metar.Decoder_tests.chunkdecoder
             var decoded = chunkDecoder.Parse(chunkToTest.Chunk);
             var pw = (decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[PresentWeatherChunkDecoder.PresentWeatherParameterName] as List<WeatherPhenomenon>;
 
-            Assert.AreEqual(chunkToTest.NbPhenomens, pw.Count);
+            Assert.That(pw.Count, Is.EqualTo(chunkToTest.NbPhenomens));
             if (chunkToTest.NbPhenomens > 0)
             {
                 var phenom1 = pw[0];
-                Assert.AreEqual(chunkToTest.intensity1, phenom1.IntensityProximity);
-                Assert.AreEqual(chunkToTest.carac1, phenom1.Characteristics);
-                Assert.AreEqual(chunkToTest.type1, phenom1.Types);
+                Assert.That(phenom1.IntensityProximity, Is.EqualTo(chunkToTest.intensity1));
+                Assert.That(phenom1.Characteristics, Is.EqualTo(chunkToTest.carac1));
+                Assert.That(phenom1.Types, Is.EqualTo(chunkToTest.type1));
             }
             if (chunkToTest.NbPhenomens > 1)
             {
                 var phenom2 = pw[1];
-                Assert.AreEqual(chunkToTest.type2, phenom2.Types);
+                Assert.That(phenom2.Types, Is.EqualTo(chunkToTest.type2));
             }
 
-            Assert.AreEqual(chunkToTest.RemainingMetar, decoded[MetarDecoder.RemainingMetarKey]);
+            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
         }
 
         #region TestCaseSources

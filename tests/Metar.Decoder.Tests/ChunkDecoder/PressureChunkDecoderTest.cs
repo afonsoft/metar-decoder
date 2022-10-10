@@ -26,8 +26,8 @@ namespace Metar.Decoder_tests.chunkdecoder
 
             if (chunkToTest.Item2.HasValue)
             {
-                Assert.AreEqual(chunkToTest.Item2, (((Dictionary<string, object>)decoded[MetarDecoder.ResultKey])[PressureChunkDecoder.PressureParameterName] as Value).ActualValue);
-                Assert.AreEqual(chunkToTest.Item3, (((Dictionary<string, object>)decoded[MetarDecoder.ResultKey])[PressureChunkDecoder.PressureParameterName] as Value).ActualUnit);
+                Assert.That((((Dictionary<string, object>)decoded[MetarDecoder.ResultKey])[PressureChunkDecoder.PressureParameterName] as Value).ActualValue, Is.EqualTo(chunkToTest.Item2));
+                Assert.That((((Dictionary<string, object>)decoded[MetarDecoder.ResultKey])[PressureChunkDecoder.PressureParameterName] as Value).ActualUnit, Is.EqualTo(chunkToTest.Item3));
             }
             else
             {
@@ -35,7 +35,7 @@ namespace Metar.Decoder_tests.chunkdecoder
             }
 
             //check RemainingMetar
-            Assert.AreEqual(chunkToTest.Item4, decoded[MetarDecoder.RemainingMetarKey]);
+            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.Item4));
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Metar.Decoder_tests.chunkdecoder
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
             Assert.IsFalse(decoded.ContainsKey(MetarDecoder.ResultKey));
-            Assert.AreEqual(chunk, ex.RemainingMetar);
+            Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 
         #region TestCaseSources

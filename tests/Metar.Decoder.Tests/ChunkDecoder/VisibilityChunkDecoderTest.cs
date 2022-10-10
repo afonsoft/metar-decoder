@@ -31,16 +31,16 @@ namespace Metar.Decoder_tests.chunkdecoder
             else
             {
                 var visibility = (decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[VisibilityChunkDecoder.VisibilityParameterName] as Visibility;
-                Assert.AreEqual(chunkToTest.Visibility, visibility.PrevailingVisibility.ActualValue);
-                Assert.AreEqual(chunkToTest.VisibilityUnit, visibility.PrevailingVisibility.ActualUnit);
-                Assert.AreEqual(chunkToTest.NDV, visibility.NDV);
+                Assert.That(visibility.PrevailingVisibility.ActualValue, Is.EqualTo(chunkToTest.Visibility));
+                Assert.That(visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(chunkToTest.VisibilityUnit));
+                Assert.That(visibility.NDV, Is.EqualTo(chunkToTest.NDV));
                 if (chunkToTest.Minimum.HasValue)
                 {
-                    Assert.AreEqual(chunkToTest.Minimum, visibility.MinimumVisibility.ActualValue);
-                    Assert.AreEqual(chunkToTest.MinimumDirection, visibility.MinimumVisibilityDirection);
+                    Assert.That(visibility.MinimumVisibility.ActualValue, Is.EqualTo(chunkToTest.Minimum));
+                    Assert.That(visibility.MinimumVisibilityDirection, Is.EqualTo(chunkToTest.MinimumDirection));
                 }
             }
-            Assert.AreEqual(chunkToTest.RemainingMetar, decoded[MetarDecoder.RemainingMetarKey]);
+            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Metar.Decoder_tests.chunkdecoder
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
             Assert.IsFalse(decoded.ContainsKey(MetarDecoder.ResultKey));
-            Assert.AreEqual(chunk, ex.RemainingMetar);
+            Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 
         #region TestCaseSources
