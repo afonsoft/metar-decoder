@@ -3,6 +3,11 @@
 
 [![Latest Stable Version NuGet](https://img.shields.io/nuget/v/Metar.Decoder.svg)](https://www.nuget.org/packages/Metar.Decoder/)
 
+| Code Smell | Bugs | Tests | Lang | Quality |
+| ------ | ------ | ------ | ------ | ------ |
+| [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=code_smells)](https://sonarcloud.io/dashboard?id=metar-decoder) | [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=bugs)](https://sonarcloud.io/dashboard?id=metar-decoder) | ![AppVeyor tests](https://img.shields.io/appveyor/tests/afonsoft/metar-decoder) | ![GitHub top language](https://img.shields.io/github/languages/top/afonsoft/metar-decoder) | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=alert_status)](https://sonarcloud.io/dashboard?id=metar-decoder) |
+
+
 
 A .NET library to decode METAR strings, this library package is netstandard 2.0. Working with Net Core and NET.
 
