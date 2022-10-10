@@ -13,6 +13,16 @@
 
 A .NET library to decode METAR strings, this library package is netstandard 2.0. Working with Net Core and NET.
 
+### DOWNLOAD
+
+![GitHub all releases](https://img.shields.io/github/downloads/afonsoft/metar-decoder/total)
+
+## Packages Nuget
+
+| Package | Nuget |
+| ------ | ------ |
+| [Metar.Decoder](https://www.nuget.org/packages/Metar.Decoder/) | [![NuGet version](https://badge.fury.io/nu/Metar.Decoder.svg)](https://badge.fury.io/nu/Metar.Decoder) |
+
 This is largely based on [SafranCassiopee/csharp-metar-decoder](https://github.com/SafranCassiopee/csharp-metar-decoder)
 
 Introduction
