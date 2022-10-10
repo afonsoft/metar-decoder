@@ -5,9 +5,9 @@
 
 [![GitHub license](https://img.shields.io/github/license/afonsoft/metar-decoder)](https://github.com/afonsoft/metar-decoder/blob/main/LICENSE)
 
-| Code Smell | Bugs | Lang | Quality | Issues |
-| ------ | ------ | ------ | ------ | ------ |  
-| [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=code_smells)](https://sonarcloud.io/dashboard?id=metar-decoder) | [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=bugs)](https://sonarcloud.io/dashboard?id=metar-decoder) | ![GitHub top language](https://img.shields.io/github/languages/top/afonsoft/metar-decoder) | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=alert_status)](https://sonarcloud.io/dashboard?id=metar-decoder) | [![GitHub issues](https://img.shields.io/github/issues/afonsoft/metar-decoder)](https://github.com/afonsoft/metar-decoder/issues) |
+| Code Smell | Bugs | Lang | Quality | Issues | Rating | Coverage |
+| ------ | ------ | ------ | ------ | ------ | ------ | ------ | 
+| [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=code_smells)](https://sonarcloud.io/dashboard?id=metar-decoder) | [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=bugs)](https://sonarcloud.io/dashboard?id=metar-decoder) | ![GitHub top language](https://img.shields.io/github/languages/top/afonsoft/metar-decoder) | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=alert_status)](https://sonarcloud.io/dashboard?id=metar-decoder) | [![GitHub issues](https://img.shields.io/github/issues/afonsoft/metar-decoder)](https://github.com/afonsoft/metar-decoder/issues) | [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=metar-decoder) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=coverage)](https://sonarcloud.io/summary/new_code?id=metar-decoder) |
 
 
 
