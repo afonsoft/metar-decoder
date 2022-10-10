@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace Metar.Decoder.Entity
 {
+    /// <summary>
+    /// Value
+    /// </summary>
     [DebuggerDisplay("{ActualValue} {ActualUnit}")]
     public sealed class Value
     {
@@ -64,7 +67,7 @@ namespace Metar.Decoder.Entity
         /// <summary>
         /// Conversions maps, internal usage only
         /// </summary>
-        private readonly Dictionary<Unit, Dictionary<Unit, double>> ConversionMaps = new Dictionary<Unit, Dictionary<Unit, double>>() {
+        private readonly Dictionary<Unit, Dictionary<Unit, double>> ConversionMaps = new() {
             {
                 Unit.MeterPerSecond, new Dictionary<Unit, double>()
                 {

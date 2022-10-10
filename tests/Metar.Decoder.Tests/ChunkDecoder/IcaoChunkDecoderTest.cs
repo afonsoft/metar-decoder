@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 namespace Metar.Decoder_tests.chunkdecoder
 {
+    /// <summary>
+    /// IcaoChunkDecoderTest
+    /// </summary>
     [TestFixture, Category("IcaoChunkDecoder")]
     public class IcaoChunkDecoderTest
     {
@@ -29,10 +32,10 @@ namespace Metar.Decoder_tests.chunkdecoder
             Assert.IsTrue(decoded.ContainsKey(MetarDecoder.ResultKey));
 
             //check ICAO
-            Assert.AreEqual(chunk.Item2, ((Dictionary<string, object>)decoded[MetarDecoder.ResultKey])[IcaoChunkDecoder.ICAOParameterName] as string);
+            Assert.That(((Dictionary<string, object>)decoded[MetarDecoder.ResultKey])[IcaoChunkDecoder.ICAOParameterName] as string, Is.EqualTo(chunk.Item2));
 
             //check RemainingMetar
-            Assert.AreEqual(chunk.Item3, decoded[MetarDecoder.RemainingMetarKey] as string);
+            Assert.That(decoded[MetarDecoder.RemainingMetarKey] as string, Is.EqualTo(chunk.Item3));
         }
 
         /// <summary>
@@ -49,7 +52,7 @@ namespace Metar.Decoder_tests.chunkdecoder
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
             Assert.IsFalse(decoded.ContainsKey(MetarDecoder.ResultKey));
-            Assert.AreEqual(chunk, ex.RemainingMetar);
+            Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 
         #region TestCaseSources

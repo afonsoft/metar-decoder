@@ -1,5 +1,8 @@
 ﻿namespace Metar.Decoder.Entity
 {
+    /// <summary>
+    /// SurfaceWind
+    /// </summary>
     public sealed class SurfaceWind
     {
         /// <summary>

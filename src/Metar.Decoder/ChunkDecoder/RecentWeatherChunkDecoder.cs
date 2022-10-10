@@ -22,8 +22,10 @@ namespace Metar.Decoder.Chunkdecoder
             if (found.Count > 1)
             {
                 // retrieve found params
-                var weather = new WeatherPhenomenon();
-                weather.Characteristics = found[1].Value;
+                var weather = new WeatherPhenomenon
+                {
+                    Characteristics = found[1].Value
+                };
                 for (var k = 2; k <= 4; ++k)
                 {
                     if (!string.IsNullOrEmpty(found[k].Value))

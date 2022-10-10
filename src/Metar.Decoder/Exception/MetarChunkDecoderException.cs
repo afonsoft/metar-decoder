@@ -16,10 +16,17 @@ namespace Metar.Decoder
 
         public MetarChunkDecoder ChunkDecoder { get; private set; }
 
+        /// <summary>
+        /// MetarChunkDecoderException
+        /// </summary>
         public MetarChunkDecoderException()
         {
         }
 
+        /// <summary>
+        /// MetarChunkDecoderException
+        /// </summary>
+        /// <param name="message">message</param>
         public MetarChunkDecoderException(string message) : base(message)
         {
         }
@@ -32,6 +39,13 @@ namespace Metar.Decoder
             NewRemainingMetar = info.GetString("NewRemainingMetar");
         }
 
+        /// <summary>
+        /// MetarChunkDecoderException
+        /// </summary>
+        /// <param name="remainingMetar">remainingMetar</param>
+        /// <param name="newRemainingMetar">newRemainingMetar</param>
+        /// <param name="message">message</param>
+        /// <param name="chunkDecoder">chunkDecoder</param>
         public MetarChunkDecoderException(string remainingMetar, string newRemainingMetar, string message, MetarChunkDecoder chunkDecoder) : base(message)
         {
             RemainingMetar = remainingMetar;
@@ -39,6 +53,12 @@ namespace Metar.Decoder
             ChunkDecoder = chunkDecoder;
         }
 
+        /// <summary>
+        /// GetObjectData
+        /// </summary>
+        /// <param name="info">info</param>
+        /// <param name="context">context</param>
+        /// <exception cref="ArgumentNullException"></exception>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             if (info == null)

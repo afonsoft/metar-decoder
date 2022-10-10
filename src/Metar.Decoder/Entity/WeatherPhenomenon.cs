@@ -3,9 +3,12 @@ using System.Collections.ObjectModel;
 
 namespace Metar.Decoder.Entity
 {
+    /// <summary>
+    /// WeatherPhenomenon
+    /// </summary>
     public sealed class WeatherPhenomenon
     {
-        private readonly List<string> _types = new List<string>();
+        private readonly List<string> _types = new();
 
         /// <summary>
         /// Intensity/proximity of the phenomenon + / - / VC (=vicinity)

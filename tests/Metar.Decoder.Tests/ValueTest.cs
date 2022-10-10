@@ -5,9 +5,16 @@ using System.Collections.Generic;
 
 namespace Metar.Decoder_tests
 {
+    /// <summary>
+    /// ValueTest
+    /// </summary>
     [TestFixture, Category("Entity")]
     public class ValueTest
     {
+        /// <summary>
+        /// TestValueConversion
+        /// </summary>
+        /// <param name="valueToTest"></param>
         [Test, TestCaseSource("ValidValues")]
         public void TestValueConversion(Tuple<float, Value.Unit, float, Value.Unit> valueToTest)
         {
@@ -15,6 +22,10 @@ namespace Metar.Decoder_tests
             Assert.AreEqual(valueToTest.Item3, value.GetConvertedValue(valueToTest.Item4));
         }
 
+        /// <summary>
+        /// TestValueNoRateException
+        /// </summary>
+        /// <param name="valueToTest"></param>
         [Test, TestCaseSource("ValueNoRateException")]
         public void TestValueNoRateException(Tuple<float, Value.Unit, float, Value.Unit> valueToTest)
         {
@@ -25,6 +36,10 @@ namespace Metar.Decoder_tests
             });
         }
 
+        /// <summary>
+        /// TestValueNoRateExceptionMessage
+        /// </summary>
+        /// <param name="valueToTest"></param>
         [Test, TestCaseSource("ValueNoRateException")]
         public void TestValueNoRateExceptionMessage(Tuple<float, Value.Unit, float, Value.Unit> valueToTest)
         {
@@ -44,6 +59,10 @@ namespace Metar.Decoder_tests
 
         #region TestCaseSources
 
+        /// <summary>
+        /// ValidValues
+        /// </summary>
+        /// <returns></returns>
         public static List<Tuple<float, Value.Unit, float, Value.Unit>> ValidValues()
         {
             return new List<Tuple<float, Value.Unit, float, Value.Unit>>()
@@ -61,6 +80,10 @@ namespace Metar.Decoder_tests
             };
         }
 
+        /// <summary>
+        /// ValueNoRateException
+        /// </summary>
+        /// <returns></returns>
         public static List<Tuple<float, Value.Unit, float, Value.Unit>> ValueNoRateException()
         {
             return new List<Tuple<float, Value.Unit, float, Value.Unit>>()
@@ -69,6 +92,10 @@ namespace Metar.Decoder_tests
             };
         }
 
+        /// <summary>
+        /// ValueUnsupportedException
+        /// </summary>
+        /// <returns></returns>
         public static List<Tuple<string, int, string, string>> ValueUnsupportedException()
         {
             return new List<Tuple<string, int, string, string>>()

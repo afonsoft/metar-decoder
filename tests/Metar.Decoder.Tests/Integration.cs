@@ -9,6 +9,9 @@ using static Metar.Decoder.Entity.DecodedMetar;
 
 namespace Metar.Decoder_tests
 {
+    /// <summary>
+    /// Integration
+    /// </summary>
     [TestFixture, Category("Integration")]
     public class Integration
     {
@@ -22,6 +25,9 @@ namespace Metar.Decoder_tests
         private List<DecodedMetar> DecodedMetarsNotStrict;
         private List<DecodedMetar> DecodedMetarsStrict;
 
+        /// <summary>
+        /// Setup
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -33,26 +39,29 @@ namespace Metar.Decoder_tests
             ).ToList();
         }
 
+        /// <summary>
+        /// CYFB271515ZNotStrictTest
+        /// </summary>
         [Test]
         public void CYFB271515ZNotStrictTest()
         {
             var decodedMetar = DecodedMetarsNotStrict[0];
-            Assert.AreEqual(TestMetarSource[0], decodedMetar.RawMetar);
-            Assert.AreEqual(0, decodedMetar.DecodingExceptions.Count);
-            Assert.AreEqual(MetarType.NULL, decodedMetar.Type);
-            Assert.AreEqual("CYFB", decodedMetar.ICAO);
-            Assert.AreEqual(27, decodedMetar.Day);
-            Assert.AreEqual("15:15 UTC", decodedMetar.Time);
-            Assert.AreEqual(string.Empty, decodedMetar.Status);
+            Assert.That(decodedMetar.RawMetar, Is.EqualTo(TestMetarSource[0]));
+            Assert.That(decodedMetar.DecodingExceptions.Count, Is.EqualTo(0));
+            Assert.That(decodedMetar.Type, Is.EqualTo(MetarType.NULL));
+            Assert.That(decodedMetar.ICAO, Is.EqualTo("CYFB"));
+            Assert.That(decodedMetar.Day, Is.EqualTo(27));
+            Assert.That(decodedMetar.Time, Is.EqualTo("15:15 UTC"));
+            Assert.That(decodedMetar.Status, Is.EqualTo(string.Empty));
 
             #region SurfaceWind
 
             Assert.IsNotNull(decodedMetar.SurfaceWind);
-            Assert.AreEqual(320, decodedMetar.SurfaceWind.MeanDirection.ActualValue);
-            Assert.AreEqual(Value.Unit.Degree, decodedMetar.SurfaceWind.MeanDirection.ActualUnit);
+            Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualValue, Is.EqualTo(320));
+            Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
             Assert.IsFalse(decodedMetar.SurfaceWind.VariableDirection);
-            Assert.AreEqual(17, decodedMetar.SurfaceWind.MeanSpeed.ActualValue);
-            Assert.AreEqual(Value.Unit.Knot, decodedMetar.SurfaceWind.MeanSpeed.ActualUnit);
+            Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualValue, Is.EqualTo(17));
+            Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualUnit, Is.EqualTo(Value.Unit.Knot));
             Assert.IsNull(decodedMetar.SurfaceWind.SpeedVariations);
             Assert.IsNull(decodedMetar.SurfaceWind.DirectionVariations);
 
@@ -61,8 +70,8 @@ namespace Metar.Decoder_tests
             #region Visibility
 
             Assert.IsNotNull(decodedMetar.Visibility);
-            Assert.AreEqual(3, decodedMetar.Visibility.PrevailingVisibility.ActualValue);
-            Assert.AreEqual(Value.Unit.StatuteMile, decodedMetar.Visibility.PrevailingVisibility.ActualUnit);
+            Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualValue, Is.EqualTo(3));
+            Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(Value.Unit.StatuteMile));
             Assert.IsNull(decodedMetar.Visibility.MinimumVisibility);
             Assert.IsNull(decodedMetar.Visibility.MinimumVisibilityDirection);
             Assert.IsFalse(decodedMetar.Visibility.NDV);
@@ -71,66 +80,69 @@ namespace Metar.Decoder_tests
 
             Assert.IsFalse(decodedMetar.Cavok);
             Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
-            Assert.AreEqual(0, decodedMetar.RunwaysVisualRange.Count);
+            Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
 
-            Assert.AreEqual(1, decodedMetar.PresentWeather.Count);
-            Assert.AreEqual(string.Empty, decodedMetar.PresentWeather[0].IntensityProximity);
-            Assert.AreEqual("DR", decodedMetar.PresentWeather[0].Characteristics);
-            Assert.AreEqual(1, decodedMetar.PresentWeather[0].Types.Count);
-            Assert.AreEqual("SN", decodedMetar.PresentWeather[0].Types[0]);
+            Assert.That(decodedMetar.PresentWeather.Count, Is.EqualTo(1));
+            Assert.That(decodedMetar.PresentWeather[0].IntensityProximity, Is.EqualTo(string.Empty));
+            Assert.That(decodedMetar.PresentWeather[0].Characteristics, Is.EqualTo("DR"));
+            Assert.That(decodedMetar.PresentWeather[0].Types.Count, Is.EqualTo(1));
+            Assert.That(decodedMetar.PresentWeather[0].Types[0], Is.EqualTo("SN"));
 
             #endregion PresentWeather
 
             #region Clouds
 
-            Assert.AreEqual(1, decodedMetar.Clouds.Count);
-            Assert.AreEqual(CloudAmount.BKN, decodedMetar.Clouds[0].Amount);
-            Assert.AreEqual(4000, decodedMetar.Clouds[0].BaseHeight.ActualValue);
-            Assert.AreEqual(Value.Unit.Feet, decodedMetar.Clouds[0].BaseHeight.ActualUnit);
-            Assert.AreEqual(CloudType.NULL, decodedMetar.Clouds[0].Type);
+            Assert.That(decodedMetar.Clouds.Count, Is.EqualTo(1));
+            Assert.That(decodedMetar.Clouds[0].Amount, Is.EqualTo(CloudAmount.BKN));
+            Assert.That(decodedMetar.Clouds[0].BaseHeight.ActualValue, Is.EqualTo(4000));
+            Assert.That(decodedMetar.Clouds[0].BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
+            Assert.That(decodedMetar.Clouds[0].Type, Is.EqualTo(CloudType.NULL));
 
             #endregion Clouds
 
             #region Temperatures & pressure
 
-            Assert.AreEqual(-29, decodedMetar.AirTemperature.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, decodedMetar.AirTemperature.ActualUnit);
+            Assert.That(decodedMetar.AirTemperature.ActualValue, Is.EqualTo(-29));
+            Assert.That(decodedMetar.AirTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
-            Assert.AreEqual(-34, decodedMetar.DewPointTemperature.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, decodedMetar.DewPointTemperature.ActualUnit);
+            Assert.That(decodedMetar.DewPointTemperature.ActualValue, Is.EqualTo(-34));
+            Assert.That(decodedMetar.DewPointTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
-            Assert.AreEqual(29.57, decodedMetar.Pressure.ActualValue);
-            Assert.AreEqual(Value.Unit.MercuryInch, decodedMetar.Pressure.ActualUnit);
+            Assert.That(decodedMetar.Pressure.ActualValue, Is.EqualTo(29.57));
+            Assert.That(decodedMetar.Pressure.ActualUnit, Is.EqualTo(Value.Unit.MercuryInch));
 
             #endregion Temperatures & pressure
 
             Assert.IsNull(decodedMetar.RecentWeather);
             Assert.IsNull(decodedMetar.WindshearAllRunways);
-            Assert.AreEqual(0, decodedMetar.WindshearRunways.Count);
+            Assert.That(decodedMetar.WindshearRunways.Count, Is.EqualTo(0));
         }
 
+        /// <summary>
+        /// EETU271450ZNotStrictTest
+        /// </summary>
         [Test]
         public void EETU271450ZNotStrictTest()
         {
             var decodedMetar = DecodedMetarsNotStrict[1];
-            Assert.AreEqual(TestMetarSource[1], decodedMetar.RawMetar);
-            Assert.AreEqual(0, decodedMetar.DecodingExceptions.Count);
-            Assert.AreEqual(MetarType.NULL, decodedMetar.Type);
-            Assert.AreEqual("EETU", decodedMetar.ICAO);
-            Assert.AreEqual(27, decodedMetar.Day);
-            Assert.AreEqual("14:50 UTC", decodedMetar.Time);
-            Assert.AreEqual(string.Empty, decodedMetar.Status);
+            Assert.That(decodedMetar.RawMetar, Is.EqualTo(TestMetarSource[1]));
+            Assert.That(decodedMetar.DecodingExceptions.Count, Is.EqualTo(0));
+            Assert.That(decodedMetar.Type, Is.EqualTo(MetarType.NULL));
+            Assert.That(decodedMetar.ICAO, Is.EqualTo("EETU"));
+            Assert.That(decodedMetar.Day, Is.EqualTo(27));
+            Assert.That(decodedMetar.Time, Is.EqualTo("14:50 UTC"));
+            Assert.That(decodedMetar.Status, Is.EqualTo(string.Empty));
 
             #region SurfaceWind
 
             Assert.IsNotNull(decodedMetar.SurfaceWind);
-            Assert.AreEqual(50, decodedMetar.SurfaceWind.MeanDirection.ActualValue);
-            Assert.AreEqual(Value.Unit.Degree, decodedMetar.SurfaceWind.MeanDirection.ActualUnit);
+            Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualValue, Is.EqualTo(50));
+            Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
             Assert.IsFalse(decodedMetar.SurfaceWind.VariableDirection);
-            Assert.AreEqual(5, decodedMetar.SurfaceWind.MeanSpeed.ActualValue);
-            Assert.AreEqual(Value.Unit.Knot, decodedMetar.SurfaceWind.MeanSpeed.ActualUnit);
+            Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualValue, Is.EqualTo(5));
+            Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualUnit, Is.EqualTo(Value.Unit.Knot));
             Assert.IsNull(decodedMetar.SurfaceWind.SpeedVariations);
             Assert.IsNull(decodedMetar.SurfaceWind.DirectionVariations);
 
@@ -139,8 +151,8 @@ namespace Metar.Decoder_tests
             #region Visibility
 
             Assert.IsNotNull(decodedMetar.Visibility);
-            Assert.AreEqual(9000, decodedMetar.Visibility.PrevailingVisibility.ActualValue);
-            Assert.AreEqual(Value.Unit.Meter, decodedMetar.Visibility.PrevailingVisibility.ActualUnit);
+            Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualValue, Is.EqualTo(9000));
+            Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(Value.Unit.Meter));
             Assert.IsNull(decodedMetar.Visibility.MinimumVisibility);
             Assert.IsNull(decodedMetar.Visibility.MinimumVisibilityDirection);
             Assert.IsFalse(decodedMetar.Visibility.NDV);
@@ -149,62 +161,65 @@ namespace Metar.Decoder_tests
 
             Assert.IsFalse(decodedMetar.Cavok);
             Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
-            Assert.AreEqual(0, decodedMetar.RunwaysVisualRange.Count);
+            Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
 
-            Assert.AreEqual(0, decodedMetar.PresentWeather.Count);
+            Assert.That(decodedMetar.PresentWeather.Count, Is.EqualTo(0));
 
             #endregion PresentWeather
 
             #region Clouds
 
-            Assert.AreEqual(1, decodedMetar.Clouds.Count);
-            Assert.AreEqual(CloudAmount.OVC, decodedMetar.Clouds[0].Amount);
-            Assert.AreEqual(600, decodedMetar.Clouds[0].BaseHeight.ActualValue);
-            Assert.AreEqual(Value.Unit.Feet, decodedMetar.Clouds[0].BaseHeight.ActualUnit);
-            Assert.AreEqual(CloudType.NULL, decodedMetar.Clouds[0].Type);
+            Assert.That(decodedMetar.Clouds.Count, Is.EqualTo(1));
+            Assert.That(decodedMetar.Clouds[0].Amount, Is.EqualTo(CloudAmount.OVC));
+            Assert.That(decodedMetar.Clouds[0].BaseHeight.ActualValue, Is.EqualTo(600));
+            Assert.That(decodedMetar.Clouds[0].BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
+            Assert.That(decodedMetar.Clouds[0].Type, Is.EqualTo(CloudType.NULL));
 
             #endregion Clouds
 
             #region Temperatures & pressure
 
-            Assert.AreEqual(1, decodedMetar.AirTemperature.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, decodedMetar.AirTemperature.ActualUnit);
+            Assert.That(decodedMetar.AirTemperature.ActualValue, Is.EqualTo(1));
+            Assert.That(decodedMetar.AirTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
-            Assert.AreEqual(0, decodedMetar.DewPointTemperature.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, decodedMetar.DewPointTemperature.ActualUnit);
+            Assert.That(decodedMetar.DewPointTemperature.ActualValue, Is.EqualTo(0));
+            Assert.That(decodedMetar.DewPointTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
-            Assert.AreEqual(1019, decodedMetar.Pressure.ActualValue);
-            Assert.AreEqual(Value.Unit.HectoPascal, decodedMetar.Pressure.ActualUnit);
+            Assert.That(decodedMetar.Pressure.ActualValue, Is.EqualTo(1019));
+            Assert.That(decodedMetar.Pressure.ActualUnit, Is.EqualTo(Value.Unit.HectoPascal));
 
             #endregion Temperatures & pressure
 
             Assert.IsNull(decodedMetar.RecentWeather);
             Assert.IsNull(decodedMetar.WindshearAllRunways);
-            Assert.AreEqual(0, decodedMetar.WindshearRunways.Count);
+            Assert.That(decodedMetar.WindshearRunways.Count, Is.EqualTo(0));
         }
 
+        /// <summary>
+        /// SBGU271400ZNotStrictTest
+        /// </summary>
         [Test]
         public void SBGU271400ZNotStrictTest()
         {
             var decodedMetar = DecodedMetarsNotStrict[2];
-            Assert.AreEqual(TestMetarSource[2], decodedMetar.RawMetar);
-            Assert.AreEqual(0, decodedMetar.DecodingExceptions.Count);
-            Assert.AreEqual(MetarType.NULL, decodedMetar.Type);
-            Assert.AreEqual("SBGU", decodedMetar.ICAO);
-            Assert.AreEqual(27, decodedMetar.Day);
-            Assert.AreEqual("14:00 UTC", decodedMetar.Time);
-            Assert.AreEqual(string.Empty, decodedMetar.Status);
+            Assert.That(decodedMetar.RawMetar, Is.EqualTo(TestMetarSource[2]));
+            Assert.That(decodedMetar.DecodingExceptions.Count, Is.EqualTo(0));
+            Assert.That(decodedMetar.Type, Is.EqualTo(MetarType.NULL));
+            Assert.That(decodedMetar.ICAO, Is.EqualTo("SBGU"));
+            Assert.That(decodedMetar.Day, Is.EqualTo(27));
+            Assert.That(decodedMetar.Time, Is.EqualTo("14:00 UTC"));
+            Assert.That(decodedMetar.Status, Is.EqualTo(string.Empty));
 
             #region SurfaceWind
 
             Assert.IsNotNull(decodedMetar.SurfaceWind);
-            Assert.AreEqual(270, decodedMetar.SurfaceWind.MeanDirection.ActualValue);
-            Assert.AreEqual(Value.Unit.Degree, decodedMetar.SurfaceWind.MeanDirection.ActualUnit);
+            Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualValue, Is.EqualTo(270));
+            Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
             Assert.IsFalse(decodedMetar.SurfaceWind.VariableDirection);
-            Assert.AreEqual(6, decodedMetar.SurfaceWind.MeanSpeed.ActualValue);
-            Assert.AreEqual(Value.Unit.Knot, decodedMetar.SurfaceWind.MeanSpeed.ActualUnit);
+            Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualValue, Is.EqualTo(6));
+            Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualUnit, Is.EqualTo(Value.Unit.Knot));
             Assert.IsNull(decodedMetar.SurfaceWind.SpeedVariations);
             Assert.IsNull(decodedMetar.SurfaceWind.DirectionVariations);
 
@@ -213,8 +228,8 @@ namespace Metar.Decoder_tests
             #region Visibility
 
             Assert.IsNotNull(decodedMetar.Visibility);
-            Assert.AreEqual(8000, decodedMetar.Visibility.PrevailingVisibility.ActualValue);
-            Assert.AreEqual(Value.Unit.Meter, decodedMetar.Visibility.PrevailingVisibility.ActualUnit);
+            Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualValue, Is.EqualTo(8000));
+            Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(Value.Unit.Meter));
             Assert.IsNull(decodedMetar.Visibility.MinimumVisibility);
             Assert.IsNull(decodedMetar.Visibility.MinimumVisibilityDirection);
             Assert.IsFalse(decodedMetar.Visibility.NDV);
@@ -223,88 +238,91 @@ namespace Metar.Decoder_tests
 
             Assert.IsFalse(decodedMetar.Cavok);
             Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
-            Assert.AreEqual(0, decodedMetar.RunwaysVisualRange.Count);
+            Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
 
-            Assert.AreEqual(2, decodedMetar.PresentWeather.Count);
+            Assert.That(decodedMetar.PresentWeather.Count, Is.EqualTo(2));
 
-            Assert.AreEqual(string.Empty, decodedMetar.PresentWeather[0].IntensityProximity);
-            Assert.AreEqual("TS", decodedMetar.PresentWeather[0].Characteristics);
-            Assert.AreEqual(0, decodedMetar.PresentWeather[0].Types.Count);
+            Assert.That(decodedMetar.PresentWeather[0].IntensityProximity, Is.EqualTo(string.Empty));
+            Assert.That(decodedMetar.PresentWeather[0].Characteristics, Is.EqualTo("TS"));
+            Assert.That(decodedMetar.PresentWeather[0].Types.Count, Is.EqualTo(0));
 
-            Assert.AreEqual("VC", decodedMetar.PresentWeather[1].IntensityProximity);
-            Assert.AreEqual("SH", decodedMetar.PresentWeather[1].Characteristics);
-            Assert.AreEqual(0, decodedMetar.PresentWeather[1].Types.Count);
+            Assert.That(decodedMetar.PresentWeather[1].IntensityProximity, Is.EqualTo("VC"));
+            Assert.That(decodedMetar.PresentWeather[1].Characteristics, Is.EqualTo("SH"));
+            Assert.That(decodedMetar.PresentWeather[1].Types.Count, Is.EqualTo(0));
 
             #endregion PresentWeather
 
             #region Clouds
 
-            Assert.AreEqual(3, decodedMetar.Clouds.Count);
+            Assert.That(decodedMetar.Clouds.Count, Is.EqualTo(3));
 
-            Assert.AreEqual(CloudAmount.BKN, decodedMetar.Clouds[0].Amount);
-            Assert.AreEqual(2000, decodedMetar.Clouds[0].BaseHeight.ActualValue);
-            Assert.AreEqual(Value.Unit.Feet, decodedMetar.Clouds[0].BaseHeight.ActualUnit);
-            Assert.AreEqual(CloudType.NULL, decodedMetar.Clouds[0].Type);
+            Assert.That(decodedMetar.Clouds[0].Amount, Is.EqualTo(CloudAmount.BKN));
+            Assert.That(decodedMetar.Clouds[0].BaseHeight.ActualValue, Is.EqualTo(2000));
+            Assert.That(decodedMetar.Clouds[0].BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
+            Assert.That(decodedMetar.Clouds[0].Type, Is.EqualTo(CloudType.NULL));
 
-            Assert.AreEqual(CloudAmount.FEW, decodedMetar.Clouds[1].Amount);
-            Assert.AreEqual(3000, decodedMetar.Clouds[1].BaseHeight.ActualValue);
-            Assert.AreEqual(Value.Unit.Feet, decodedMetar.Clouds[1].BaseHeight.ActualUnit);
-            Assert.AreEqual(CloudType.CB, decodedMetar.Clouds[1].Type);
+            Assert.That(decodedMetar.Clouds[1].Amount, Is.EqualTo(CloudAmount.FEW));
+            Assert.That(decodedMetar.Clouds[1].BaseHeight.ActualValue, Is.EqualTo(3000));
+            Assert.That(decodedMetar.Clouds[1].BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
+            Assert.That(decodedMetar.Clouds[1].Type, Is.EqualTo(CloudType.CB));
 
-            Assert.AreEqual(CloudAmount.BKN, decodedMetar.Clouds[2].Amount);
-            Assert.AreEqual(8000, decodedMetar.Clouds[2].BaseHeight.ActualValue);
-            Assert.AreEqual(Value.Unit.Feet, decodedMetar.Clouds[2].BaseHeight.ActualUnit);
-            Assert.AreEqual(CloudType.NULL, decodedMetar.Clouds[2].Type);
+            Assert.That(decodedMetar.Clouds[2].Amount, Is.EqualTo(CloudAmount.BKN));
+            Assert.That(decodedMetar.Clouds[2].BaseHeight.ActualValue, Is.EqualTo(8000));
+            Assert.That(decodedMetar.Clouds[2].BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
+            Assert.That(decodedMetar.Clouds[2].Type, Is.EqualTo(CloudType.NULL));
 
             #endregion Clouds
 
             #region Temperatures & pressure
 
-            Assert.AreEqual(25, decodedMetar.AirTemperature.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, decodedMetar.AirTemperature.ActualUnit);
+            Assert.That(decodedMetar.AirTemperature.ActualValue, Is.EqualTo(25));
+            Assert.That(decodedMetar.AirTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
-            Assert.AreEqual(20, decodedMetar.DewPointTemperature.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, decodedMetar.DewPointTemperature.ActualUnit);
+            Assert.That(decodedMetar.DewPointTemperature.ActualValue, Is.EqualTo(20));
+            Assert.That(decodedMetar.DewPointTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
-            Assert.AreEqual(1017, decodedMetar.Pressure.ActualValue);
-            Assert.AreEqual(Value.Unit.HectoPascal, decodedMetar.Pressure.ActualUnit);
+            Assert.That(decodedMetar.Pressure.ActualValue, Is.EqualTo(1017));
+            Assert.That(decodedMetar.Pressure.ActualUnit, Is.EqualTo(Value.Unit.HectoPascal));
 
             #endregion Temperatures & pressure
 
             Assert.IsNull(decodedMetar.RecentWeather);
             Assert.IsNull(decodedMetar.WindshearAllRunways);
-            Assert.AreEqual(0, decodedMetar.WindshearRunways.Count);
+            Assert.That(decodedMetar.WindshearRunways.Count, Is.EqualTo(0));
         }
 
+        /// <summary>
+        /// SBGU321400ZNotStrictTest
+        /// </summary>
         [Test]
         public void SBGU321400ZNotStrictTest()
         {
             var decodedMetar = DecodedMetarsNotStrict[3];
-            Assert.AreEqual(TestMetarSource[3], decodedMetar.RawMetar);
+            Assert.That(decodedMetar.RawMetar, Is.EqualTo(TestMetarSource[3]));
             //PHP version says there are 0, and reports 2 in the "Invalid format" message at top of page
             //issues probably lies with strict/no strict error handling
 
-            Assert.AreEqual(3, decodedMetar.DecodingExceptions.Count);
-            Assert.AreEqual(MetarType.NULL, decodedMetar.Type);
-            Assert.AreEqual("SBGU", decodedMetar.ICAO);
+            Assert.That(decodedMetar.DecodingExceptions.Count, Is.EqualTo(3));
+            Assert.That(decodedMetar.Type, Is.EqualTo(MetarType.NULL));
+            Assert.That(decodedMetar.ICAO, Is.EqualTo("SBGU"));
             Assert.IsNull(decodedMetar.Day);
-            Assert.AreEqual(string.Empty, decodedMetar.Time);
-            Assert.AreEqual(string.Empty, decodedMetar.Status);
+            Assert.That(decodedMetar.Time, Is.EqualTo(string.Empty));
+            Assert.That(decodedMetar.Status, Is.EqualTo(string.Empty));
 
             #region SurfaceWind
 
             Assert.IsNotNull(decodedMetar.SurfaceWind);
             //needs fixing
-            Assert.AreEqual(270, decodedMetar.SurfaceWind.MeanDirection.ActualValue);
+            Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualValue, Is.EqualTo(270));
             //needs fixing
-            Assert.AreEqual(Value.Unit.Degree, decodedMetar.SurfaceWind.MeanDirection.ActualUnit);
+            Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
             Assert.IsFalse(decodedMetar.SurfaceWind.VariableDirection);
             //needs fixing
-            Assert.AreEqual(6, decodedMetar.SurfaceWind.MeanSpeed.ActualValue);
+            Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualValue, Is.EqualTo(6));
             //needs fixing
-            Assert.AreEqual(Value.Unit.Knot, decodedMetar.SurfaceWind.MeanSpeed.ActualUnit);
+            Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualUnit, Is.EqualTo(Value.Unit.Knot));
             Assert.IsNull(decodedMetar.SurfaceWind.SpeedVariations);
             Assert.IsNull(decodedMetar.SurfaceWind.DirectionVariations);
 
@@ -314,9 +332,9 @@ namespace Metar.Decoder_tests
 
             Assert.IsNotNull(decodedMetar.Visibility);
             //needs fixing
-            Assert.AreEqual(8000, decodedMetar.Visibility.PrevailingVisibility.ActualValue);
+            Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualValue, Is.EqualTo(8000));
             //needs fixing
-            Assert.AreEqual(Value.Unit.Meter, decodedMetar.Visibility.PrevailingVisibility.ActualUnit);
+            Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(Value.Unit.Meter));
             Assert.IsNull(decodedMetar.Visibility.MinimumVisibility);
             Assert.IsNull(decodedMetar.Visibility.MinimumVisibilityDirection);
             Assert.IsFalse(decodedMetar.Visibility.NDV);
@@ -325,53 +343,53 @@ namespace Metar.Decoder_tests
 
             Assert.IsFalse(decodedMetar.Cavok);
             Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
-            Assert.AreEqual(0, decodedMetar.RunwaysVisualRange.Count);
+            Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
 
             //needs fixing
-            Assert.AreEqual(2, decodedMetar.PresentWeather.Count);
+            Assert.That(decodedMetar.PresentWeather.Count, Is.EqualTo(2));
 
-            Assert.AreEqual(string.Empty, decodedMetar.PresentWeather[0].IntensityProximity);
-            Assert.AreEqual("TS", decodedMetar.PresentWeather[0].Characteristics);
-            Assert.AreEqual(0, decodedMetar.PresentWeather[0].Types.Count);
+            Assert.That(decodedMetar.PresentWeather[0].IntensityProximity, Is.EqualTo(string.Empty));
+            Assert.That(decodedMetar.PresentWeather[0].Characteristics, Is.EqualTo("TS"));
+            Assert.That(decodedMetar.PresentWeather[0].Types.Count, Is.EqualTo(0));
 
-            Assert.AreEqual("VC", decodedMetar.PresentWeather[1].IntensityProximity);
-            Assert.AreEqual("SH", decodedMetar.PresentWeather[1].Characteristics);
-            Assert.AreEqual(0, decodedMetar.PresentWeather[1].Types.Count);
+            Assert.That(decodedMetar.PresentWeather[1].IntensityProximity, Is.EqualTo("VC"));
+            Assert.That(decodedMetar.PresentWeather[1].Characteristics, Is.EqualTo("SH"));
+            Assert.That(decodedMetar.PresentWeather[1].Types.Count, Is.EqualTo(0));
 
             #endregion PresentWeather
 
             #region Clouds
 
             //needs fixing
-            Assert.AreEqual(3, decodedMetar.Clouds.Count);
+            Assert.That(decodedMetar.Clouds.Count, Is.EqualTo(3));
 
-            Assert.AreEqual(CloudAmount.BKN, decodedMetar.Clouds[0].Amount);
-            Assert.AreEqual(2000, decodedMetar.Clouds[0].BaseHeight.ActualValue);
-            Assert.AreEqual(Value.Unit.Feet, decodedMetar.Clouds[0].BaseHeight.ActualUnit);
-            Assert.AreEqual(CloudType.NULL, decodedMetar.Clouds[0].Type);
+            Assert.That(decodedMetar.Clouds[0].Amount, Is.EqualTo(CloudAmount.BKN));
+            Assert.That(decodedMetar.Clouds[0].BaseHeight.ActualValue, Is.EqualTo(2000));
+            Assert.That(decodedMetar.Clouds[0].BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
+            Assert.That(decodedMetar.Clouds[0].Type, Is.EqualTo(CloudType.NULL));
 
-            Assert.AreEqual(CloudAmount.FEW, decodedMetar.Clouds[1].Amount);
-            Assert.AreEqual(3000, decodedMetar.Clouds[1].BaseHeight.ActualValue);
-            Assert.AreEqual(Value.Unit.Feet, decodedMetar.Clouds[1].BaseHeight.ActualUnit);
-            Assert.AreEqual(CloudType.CB, decodedMetar.Clouds[1].Type);
+            Assert.That(decodedMetar.Clouds[1].Amount, Is.EqualTo(CloudAmount.FEW));
+            Assert.That(decodedMetar.Clouds[1].BaseHeight.ActualValue, Is.EqualTo(3000));
+            Assert.That(decodedMetar.Clouds[1].BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
+            Assert.That(decodedMetar.Clouds[1].Type, Is.EqualTo(CloudType.CB));
 
-            Assert.AreEqual(CloudAmount.BKN, decodedMetar.Clouds[2].Amount);
-            Assert.AreEqual(8000, decodedMetar.Clouds[2].BaseHeight.ActualValue);
-            Assert.AreEqual(Value.Unit.Feet, decodedMetar.Clouds[2].BaseHeight.ActualUnit);
-            Assert.AreEqual(CloudType.NULL, decodedMetar.Clouds[2].Type);
+            Assert.That(decodedMetar.Clouds[2].Amount, Is.EqualTo(CloudAmount.BKN));
+            Assert.That(decodedMetar.Clouds[2].BaseHeight.ActualValue, Is.EqualTo(8000));
+            Assert.That(decodedMetar.Clouds[2].BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
+            Assert.That(decodedMetar.Clouds[2].Type, Is.EqualTo(CloudType.NULL));
 
             #endregion Clouds
 
             #region Temperatures & pressure
 
             //needs fixing
-            Assert.AreEqual(25, decodedMetar.AirTemperature.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, decodedMetar.AirTemperature.ActualUnit);
+            Assert.That(decodedMetar.AirTemperature.ActualValue, Is.EqualTo(25));
+            Assert.That(decodedMetar.AirTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
-            Assert.AreEqual(20, decodedMetar.DewPointTemperature.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, decodedMetar.DewPointTemperature.ActualUnit);
+            Assert.That(decodedMetar.DewPointTemperature.ActualValue, Is.EqualTo(20));
+            Assert.That(decodedMetar.DewPointTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
             Assert.IsNull(decodedMetar.Pressure);
 
@@ -379,29 +397,32 @@ namespace Metar.Decoder_tests
 
             Assert.IsNull(decodedMetar.RecentWeather);
             Assert.IsNull(decodedMetar.WindshearAllRunways);
-            Assert.AreEqual(0, decodedMetar.WindshearRunways.Count);
+            Assert.That(decodedMetar.WindshearRunways.Count, Is.EqualTo(0));
         }
 
+        /// <summary>
+        /// CYFB271515ZStrictTest
+        /// </summary>
         [Test]
         public void CYFB271515ZStrictTest()
         {
             var decodedMetar = DecodedMetarsStrict[0];
-            Assert.AreEqual(TestMetarSource[0], decodedMetar.RawMetar);
-            Assert.AreEqual(0, decodedMetar.DecodingExceptions.Count);
-            Assert.AreEqual(MetarType.NULL, decodedMetar.Type);
-            Assert.AreEqual("CYFB", decodedMetar.ICAO);
-            Assert.AreEqual(27, decodedMetar.Day);
-            Assert.AreEqual("15:15 UTC", decodedMetar.Time);
-            Assert.AreEqual(string.Empty, decodedMetar.Status);
+            Assert.That(decodedMetar.RawMetar, Is.EqualTo(TestMetarSource[0]));
+            Assert.That(decodedMetar.DecodingExceptions.Count, Is.EqualTo(0));
+            Assert.That(decodedMetar.Type, Is.EqualTo(MetarType.NULL));
+            Assert.That(decodedMetar.ICAO, Is.EqualTo("CYFB"));
+            Assert.That(decodedMetar.Day, Is.EqualTo(27));
+            Assert.That(decodedMetar.Time, Is.EqualTo("15:15 UTC"));
+            Assert.That(decodedMetar.Status, Is.EqualTo(string.Empty));
 
             #region SurfaceWind
 
             Assert.IsNotNull(decodedMetar.SurfaceWind);
-            Assert.AreEqual(320, decodedMetar.SurfaceWind.MeanDirection.ActualValue);
-            Assert.AreEqual(Value.Unit.Degree, decodedMetar.SurfaceWind.MeanDirection.ActualUnit);
+            Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualValue, Is.EqualTo(320));
+            Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
             Assert.IsFalse(decodedMetar.SurfaceWind.VariableDirection);
-            Assert.AreEqual(17, decodedMetar.SurfaceWind.MeanSpeed.ActualValue);
-            Assert.AreEqual(Value.Unit.Knot, decodedMetar.SurfaceWind.MeanSpeed.ActualUnit);
+            Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualValue, Is.EqualTo(17));
+            Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualUnit, Is.EqualTo(Value.Unit.Knot));
             Assert.IsNull(decodedMetar.SurfaceWind.SpeedVariations);
             Assert.IsNull(decodedMetar.SurfaceWind.DirectionVariations);
 
@@ -410,8 +431,8 @@ namespace Metar.Decoder_tests
             #region Visibility
 
             Assert.IsNotNull(decodedMetar.Visibility);
-            Assert.AreEqual(3, decodedMetar.Visibility.PrevailingVisibility.ActualValue);
-            Assert.AreEqual(Value.Unit.StatuteMile, decodedMetar.Visibility.PrevailingVisibility.ActualUnit);
+            Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualValue, Is.EqualTo(3));
+            Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(Value.Unit.StatuteMile));
             Assert.IsNull(decodedMetar.Visibility.MinimumVisibility);
             Assert.IsNull(decodedMetar.Visibility.MinimumVisibilityDirection);
             Assert.IsFalse(decodedMetar.Visibility.NDV);
@@ -420,66 +441,69 @@ namespace Metar.Decoder_tests
 
             Assert.IsFalse(decodedMetar.Cavok);
             Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
-            Assert.AreEqual(0, decodedMetar.RunwaysVisualRange.Count);
+            Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
 
-            Assert.AreEqual(1, decodedMetar.PresentWeather.Count);
-            Assert.AreEqual(string.Empty, decodedMetar.PresentWeather[0].IntensityProximity);
-            Assert.AreEqual("DR", decodedMetar.PresentWeather[0].Characteristics);
-            Assert.AreEqual(1, decodedMetar.PresentWeather[0].Types.Count);
-            Assert.AreEqual("SN", decodedMetar.PresentWeather[0].Types[0]);
+            Assert.That(decodedMetar.PresentWeather.Count, Is.EqualTo(1));
+            Assert.That(decodedMetar.PresentWeather[0].IntensityProximity, Is.EqualTo(string.Empty));
+            Assert.That(decodedMetar.PresentWeather[0].Characteristics, Is.EqualTo("DR"));
+            Assert.That(decodedMetar.PresentWeather[0].Types.Count, Is.EqualTo(1));
+            Assert.That(decodedMetar.PresentWeather[0].Types[0], Is.EqualTo("SN"));
 
             #endregion PresentWeather
 
             #region Clouds
 
-            Assert.AreEqual(1, decodedMetar.Clouds.Count);
-            Assert.AreEqual(CloudAmount.BKN, decodedMetar.Clouds[0].Amount);
-            Assert.AreEqual(4000, decodedMetar.Clouds[0].BaseHeight.ActualValue);
-            Assert.AreEqual(Value.Unit.Feet, decodedMetar.Clouds[0].BaseHeight.ActualUnit);
-            Assert.AreEqual(CloudType.NULL, decodedMetar.Clouds[0].Type);
+            Assert.That(decodedMetar.Clouds.Count, Is.EqualTo(1));
+            Assert.That(decodedMetar.Clouds[0].Amount, Is.EqualTo(CloudAmount.BKN));
+            Assert.That(decodedMetar.Clouds[0].BaseHeight.ActualValue, Is.EqualTo(4000));
+            Assert.That(decodedMetar.Clouds[0].BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
+            Assert.That(decodedMetar.Clouds[0].Type, Is.EqualTo(CloudType.NULL));
 
             #endregion Clouds
 
             #region Temperatures & pressure
 
-            Assert.AreEqual(-29, decodedMetar.AirTemperature.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, decodedMetar.AirTemperature.ActualUnit);
+            Assert.That(decodedMetar.AirTemperature.ActualValue, Is.EqualTo(-29));
+            Assert.That(decodedMetar.AirTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
-            Assert.AreEqual(-34, decodedMetar.DewPointTemperature.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, decodedMetar.DewPointTemperature.ActualUnit);
+            Assert.That(decodedMetar.DewPointTemperature.ActualValue, Is.EqualTo(-34));
+            Assert.That(decodedMetar.DewPointTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
-            Assert.AreEqual(29.57, decodedMetar.Pressure.ActualValue);
-            Assert.AreEqual(Value.Unit.MercuryInch, decodedMetar.Pressure.ActualUnit);
+            Assert.That(decodedMetar.Pressure.ActualValue, Is.EqualTo(29.57));
+            Assert.That(decodedMetar.Pressure.ActualUnit, Is.EqualTo(Value.Unit.MercuryInch));
 
             #endregion Temperatures & pressure
 
             Assert.IsNull(decodedMetar.RecentWeather);
             Assert.IsNull(decodedMetar.WindshearAllRunways);
-            Assert.AreEqual(0, decodedMetar.WindshearRunways.Count);
+            Assert.That(decodedMetar.WindshearRunways.Count, Is.EqualTo(0));
         }
 
+        /// <summary>
+        /// EETU271450ZStrictTest
+        /// </summary>
         [Test]
         public void EETU271450ZStrictTest()
         {
             var decodedMetar = DecodedMetarsStrict[1];
-            Assert.AreEqual(TestMetarSource[1], decodedMetar.RawMetar);
-            Assert.AreEqual(0, decodedMetar.DecodingExceptions.Count);
-            Assert.AreEqual(MetarType.NULL, decodedMetar.Type);
-            Assert.AreEqual("EETU", decodedMetar.ICAO);
-            Assert.AreEqual(27, decodedMetar.Day);
-            Assert.AreEqual("14:50 UTC", decodedMetar.Time);
-            Assert.AreEqual(string.Empty, decodedMetar.Status);
+            Assert.That(decodedMetar.RawMetar, Is.EqualTo(TestMetarSource[1]));
+            Assert.That(decodedMetar.DecodingExceptions.Count, Is.EqualTo(0));
+            Assert.That(decodedMetar.Type, Is.EqualTo(MetarType.NULL));
+            Assert.That(decodedMetar.ICAO, Is.EqualTo("EETU"));
+            Assert.That(decodedMetar.Day, Is.EqualTo(27));
+            Assert.That(decodedMetar.Time, Is.EqualTo("14:50 UTC"));
+            Assert.That(decodedMetar.Status, Is.EqualTo(string.Empty));
 
             #region SurfaceWind
 
             Assert.IsNotNull(decodedMetar.SurfaceWind);
-            Assert.AreEqual(50, decodedMetar.SurfaceWind.MeanDirection.ActualValue);
-            Assert.AreEqual(Value.Unit.Degree, decodedMetar.SurfaceWind.MeanDirection.ActualUnit);
+            Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualValue, Is.EqualTo(50));
+            Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
             Assert.IsFalse(decodedMetar.SurfaceWind.VariableDirection);
-            Assert.AreEqual(5, decodedMetar.SurfaceWind.MeanSpeed.ActualValue);
-            Assert.AreEqual(Value.Unit.Knot, decodedMetar.SurfaceWind.MeanSpeed.ActualUnit);
+            Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualValue, Is.EqualTo(5));
+            Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualUnit, Is.EqualTo(Value.Unit.Knot));
             Assert.IsNull(decodedMetar.SurfaceWind.SpeedVariations);
             Assert.IsNull(decodedMetar.SurfaceWind.DirectionVariations);
 
@@ -488,8 +512,8 @@ namespace Metar.Decoder_tests
             #region Visibility
 
             Assert.IsNotNull(decodedMetar.Visibility);
-            Assert.AreEqual(9000, decodedMetar.Visibility.PrevailingVisibility.ActualValue);
-            Assert.AreEqual(Value.Unit.Meter, decodedMetar.Visibility.PrevailingVisibility.ActualUnit);
+            Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualValue, Is.EqualTo(9000));
+            Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(Value.Unit.Meter));
             Assert.IsNull(decodedMetar.Visibility.MinimumVisibility);
             Assert.IsNull(decodedMetar.Visibility.MinimumVisibilityDirection);
             Assert.IsFalse(decodedMetar.Visibility.NDV);
@@ -498,62 +522,65 @@ namespace Metar.Decoder_tests
 
             Assert.IsFalse(decodedMetar.Cavok);
             Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
-            Assert.AreEqual(0, decodedMetar.RunwaysVisualRange.Count);
+            Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
 
-            Assert.AreEqual(0, decodedMetar.PresentWeather.Count);
+            Assert.That(decodedMetar.PresentWeather.Count, Is.EqualTo(0));
 
             #endregion PresentWeather
 
             #region Clouds
 
-            Assert.AreEqual(1, decodedMetar.Clouds.Count);
-            Assert.AreEqual(CloudAmount.OVC, decodedMetar.Clouds[0].Amount);
-            Assert.AreEqual(600, decodedMetar.Clouds[0].BaseHeight.ActualValue);
-            Assert.AreEqual(Value.Unit.Feet, decodedMetar.Clouds[0].BaseHeight.ActualUnit);
-            Assert.AreEqual(CloudType.NULL, decodedMetar.Clouds[0].Type);
+            Assert.That(decodedMetar.Clouds.Count, Is.EqualTo(1));
+            Assert.That(decodedMetar.Clouds[0].Amount, Is.EqualTo(CloudAmount.OVC));
+            Assert.That(decodedMetar.Clouds[0].BaseHeight.ActualValue, Is.EqualTo(600));
+            Assert.That(decodedMetar.Clouds[0].BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
+            Assert.That(decodedMetar.Clouds[0].Type, Is.EqualTo(CloudType.NULL));
 
             #endregion Clouds
 
             #region Temperatures & pressure
 
-            Assert.AreEqual(1, decodedMetar.AirTemperature.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, decodedMetar.AirTemperature.ActualUnit);
+            Assert.That(decodedMetar.AirTemperature.ActualValue, Is.EqualTo(1));
+            Assert.That(decodedMetar.AirTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
-            Assert.AreEqual(0, decodedMetar.DewPointTemperature.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, decodedMetar.DewPointTemperature.ActualUnit);
+            Assert.That(decodedMetar.DewPointTemperature.ActualValue, Is.EqualTo(0));
+            Assert.That(decodedMetar.DewPointTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
-            Assert.AreEqual(1019, decodedMetar.Pressure.ActualValue);
-            Assert.AreEqual(Value.Unit.HectoPascal, decodedMetar.Pressure.ActualUnit);
+            Assert.That(decodedMetar.Pressure.ActualValue, Is.EqualTo(1019));
+            Assert.That(decodedMetar.Pressure.ActualUnit, Is.EqualTo(Value.Unit.HectoPascal));
 
             #endregion Temperatures & pressure
 
             Assert.IsNull(decodedMetar.RecentWeather);
             Assert.IsNull(decodedMetar.WindshearAllRunways);
-            Assert.AreEqual(0, decodedMetar.WindshearRunways.Count);
+            Assert.That(decodedMetar.WindshearRunways.Count, Is.EqualTo(0));
         }
 
+        /// <summary>
+        /// SBGU271400ZStrictTest
+        /// </summary>
         [Test]
         public void SBGU271400ZStrictTest()
         {
             var decodedMetar = DecodedMetarsStrict[2];
-            Assert.AreEqual(TestMetarSource[2], decodedMetar.RawMetar);
-            Assert.AreEqual(0, decodedMetar.DecodingExceptions.Count);
-            Assert.AreEqual(MetarType.NULL, decodedMetar.Type);
-            Assert.AreEqual("SBGU", decodedMetar.ICAO);
-            Assert.AreEqual(27, decodedMetar.Day);
-            Assert.AreEqual("14:00 UTC", decodedMetar.Time);
-            Assert.AreEqual(string.Empty, decodedMetar.Status);
+            Assert.That(decodedMetar.RawMetar, Is.EqualTo(TestMetarSource[2]));
+            Assert.That(decodedMetar.DecodingExceptions.Count, Is.EqualTo(0));
+            Assert.That(decodedMetar.Type, Is.EqualTo(MetarType.NULL));
+            Assert.That(decodedMetar.ICAO, Is.EqualTo("SBGU"));
+            Assert.That(decodedMetar.Day, Is.EqualTo(27));
+            Assert.That(decodedMetar.Time, Is.EqualTo("14:00 UTC"));
+            Assert.That(decodedMetar.Status, Is.EqualTo(string.Empty));
 
             #region SurfaceWind
 
             Assert.IsNotNull(decodedMetar.SurfaceWind);
-            Assert.AreEqual(270, decodedMetar.SurfaceWind.MeanDirection.ActualValue);
-            Assert.AreEqual(Value.Unit.Degree, decodedMetar.SurfaceWind.MeanDirection.ActualUnit);
+            Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualValue, Is.EqualTo(270));
+            Assert.That(decodedMetar.SurfaceWind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
             Assert.IsFalse(decodedMetar.SurfaceWind.VariableDirection);
-            Assert.AreEqual(6, decodedMetar.SurfaceWind.MeanSpeed.ActualValue);
-            Assert.AreEqual(Value.Unit.Knot, decodedMetar.SurfaceWind.MeanSpeed.ActualUnit);
+            Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualValue, Is.EqualTo(6));
+            Assert.That(decodedMetar.SurfaceWind.MeanSpeed.ActualUnit, Is.EqualTo(Value.Unit.Knot));
             Assert.IsNull(decodedMetar.SurfaceWind.SpeedVariations);
             Assert.IsNull(decodedMetar.SurfaceWind.DirectionVariations);
 
@@ -562,8 +589,8 @@ namespace Metar.Decoder_tests
             #region Visibility
 
             Assert.IsNotNull(decodedMetar.Visibility);
-            Assert.AreEqual(8000, decodedMetar.Visibility.PrevailingVisibility.ActualValue);
-            Assert.AreEqual(Value.Unit.Meter, decodedMetar.Visibility.PrevailingVisibility.ActualUnit);
+            Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualValue, Is.EqualTo(8000));
+            Assert.That(decodedMetar.Visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(Value.Unit.Meter));
             Assert.IsNull(decodedMetar.Visibility.MinimumVisibility);
             Assert.IsNull(decodedMetar.Visibility.MinimumVisibilityDirection);
             Assert.IsFalse(decodedMetar.Visibility.NDV);
@@ -572,75 +599,78 @@ namespace Metar.Decoder_tests
 
             Assert.IsFalse(decodedMetar.Cavok);
             Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
-            Assert.AreEqual(0, decodedMetar.RunwaysVisualRange.Count);
+            Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
 
-            Assert.AreEqual(2, decodedMetar.PresentWeather.Count);
+            Assert.That(decodedMetar.PresentWeather.Count, Is.EqualTo(2));
 
-            Assert.AreEqual(string.Empty, decodedMetar.PresentWeather[0].IntensityProximity);
-            Assert.AreEqual("TS", decodedMetar.PresentWeather[0].Characteristics);
-            Assert.AreEqual(0, decodedMetar.PresentWeather[0].Types.Count);
+            Assert.That(decodedMetar.PresentWeather[0].IntensityProximity, Is.EqualTo(string.Empty));
+            Assert.That(decodedMetar.PresentWeather[0].Characteristics, Is.EqualTo("TS"));
+            Assert.That(decodedMetar.PresentWeather[0].Types.Count, Is.EqualTo(0));
 
-            Assert.AreEqual("VC", decodedMetar.PresentWeather[1].IntensityProximity);
-            Assert.AreEqual("SH", decodedMetar.PresentWeather[1].Characteristics);
-            Assert.AreEqual(0, decodedMetar.PresentWeather[1].Types.Count);
+            Assert.That(decodedMetar.PresentWeather[1].IntensityProximity, Is.EqualTo("VC"));
+            Assert.That(decodedMetar.PresentWeather[1].Characteristics, Is.EqualTo("SH"));
+            Assert.That(decodedMetar.PresentWeather[1].Types.Count, Is.EqualTo(0));
 
             #endregion PresentWeather
 
             #region Clouds
 
-            Assert.AreEqual(3, decodedMetar.Clouds.Count);
+            Assert.That(decodedMetar.Clouds.Count, Is.EqualTo(3));
 
-            Assert.AreEqual(CloudAmount.BKN, decodedMetar.Clouds[0].Amount);
-            Assert.AreEqual(2000, decodedMetar.Clouds[0].BaseHeight.ActualValue);
-            Assert.AreEqual(Value.Unit.Feet, decodedMetar.Clouds[0].BaseHeight.ActualUnit);
-            Assert.AreEqual(CloudType.NULL, decodedMetar.Clouds[0].Type);
+            Assert.That(decodedMetar.Clouds[0].Amount, Is.EqualTo(CloudAmount.BKN));
+            Assert.That(decodedMetar.Clouds[0].BaseHeight.ActualValue, Is.EqualTo(2000));
+            Assert.That(decodedMetar.Clouds[0].BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
+            Assert.That(decodedMetar.Clouds[0].Type, Is.EqualTo(CloudType.NULL));
 
-            Assert.AreEqual(CloudAmount.FEW, decodedMetar.Clouds[1].Amount);
-            Assert.AreEqual(3000, decodedMetar.Clouds[1].BaseHeight.ActualValue);
-            Assert.AreEqual(Value.Unit.Feet, decodedMetar.Clouds[1].BaseHeight.ActualUnit);
-            Assert.AreEqual(CloudType.CB, decodedMetar.Clouds[1].Type);
+            Assert.That(decodedMetar.Clouds[1].Amount, Is.EqualTo(CloudAmount.FEW));
+            Assert.That(decodedMetar.Clouds[1].BaseHeight.ActualValue, Is.EqualTo(3000));
+            Assert.That(decodedMetar.Clouds[1].BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
+            Assert.That(decodedMetar.Clouds[1].Type, Is.EqualTo(CloudType.CB));
 
-            Assert.AreEqual(CloudAmount.BKN, decodedMetar.Clouds[2].Amount);
-            Assert.AreEqual(8000, decodedMetar.Clouds[2].BaseHeight.ActualValue);
-            Assert.AreEqual(Value.Unit.Feet, decodedMetar.Clouds[2].BaseHeight.ActualUnit);
-            Assert.AreEqual(CloudType.NULL, decodedMetar.Clouds[2].Type);
+            Assert.That(decodedMetar.Clouds[2].Amount, Is.EqualTo(CloudAmount.BKN));
+            Assert.That(decodedMetar.Clouds[2].BaseHeight.ActualValue, Is.EqualTo(8000));
+            Assert.That(decodedMetar.Clouds[2].BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
+            Assert.That(decodedMetar.Clouds[2].Type, Is.EqualTo(CloudType.NULL));
 
             #endregion Clouds
 
             #region Temperatures & pressure
 
-            Assert.AreEqual(25, decodedMetar.AirTemperature.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, decodedMetar.AirTemperature.ActualUnit);
+            Assert.That(decodedMetar.AirTemperature.ActualValue, Is.EqualTo(25));
+            Assert.That(decodedMetar.AirTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
-            Assert.AreEqual(20, decodedMetar.DewPointTemperature.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, decodedMetar.DewPointTemperature.ActualUnit);
+            Assert.That(decodedMetar.DewPointTemperature.ActualValue, Is.EqualTo(20));
+            Assert.That(decodedMetar.DewPointTemperature.ActualUnit, Is.EqualTo(Value.Unit.DegreeCelsius));
 
-            Assert.AreEqual(1017, decodedMetar.Pressure.ActualValue);
-            Assert.AreEqual(Value.Unit.HectoPascal, decodedMetar.Pressure.ActualUnit);
+            Assert.That(decodedMetar.Pressure.ActualValue, Is.EqualTo(1017));
+            Assert.That(decodedMetar.Pressure.ActualUnit, Is.EqualTo(Value.Unit.HectoPascal));
 
             #endregion Temperatures & pressure
 
             Assert.IsNull(decodedMetar.RecentWeather);
             Assert.IsNull(decodedMetar.WindshearAllRunways);
-            Assert.AreEqual(0, decodedMetar.WindshearRunways.Count);
+            Assert.That(decodedMetar.WindshearRunways.Count, Is.EqualTo(0));
         }
 
+        /// <summary>
+        /// SBGU321400ZStrictTest
+        /// </summary>
         [Test]
         public void SBGU321400ZStrictTest()
         {
             var decodedMetar = DecodedMetarsStrict[3];
-            Assert.AreEqual(TestMetarSource[3], decodedMetar.RawMetar);
+            Assert.That(decodedMetar.RawMetar, Is.EqualTo(TestMetarSource[3]));
             //PHP version says there are 0, and reports 2 in the "Invalid format" message at top of page
             //issues probably lies with strict/no strict error handling
 
-            Assert.AreEqual(1, decodedMetar.DecodingExceptions.Count);
-            Assert.AreEqual(MetarType.NULL, decodedMetar.Type);
-            Assert.AreEqual("SBGU", decodedMetar.ICAO);
+            Assert.That(decodedMetar.DecodingExceptions.Count, Is.EqualTo(1));
+            Assert.That(decodedMetar.Type, Is.EqualTo(MetarType.NULL));
+            Assert.That(decodedMetar.ICAO, Is.EqualTo("SBGU"));
             Assert.IsNull(decodedMetar.Day);
-            Assert.AreEqual(string.Empty, decodedMetar.Time);
-            Assert.AreEqual(string.Empty, decodedMetar.Status);
+            Assert.That(decodedMetar.Time, Is.EqualTo(string.Empty));
+            Assert.That(decodedMetar.Status, Is.EqualTo(string.Empty));
 
             #region SurfaceWind
 
@@ -656,17 +686,17 @@ namespace Metar.Decoder_tests
 
             Assert.IsFalse(decodedMetar.Cavok);
             Assert.IsNotNull(decodedMetar.RunwaysVisualRange);
-            Assert.AreEqual(0, decodedMetar.RunwaysVisualRange.Count);
+            Assert.That(decodedMetar.RunwaysVisualRange.Count, Is.EqualTo(0));
 
             #region PresentWeather
 
-            Assert.AreEqual(0, decodedMetar.PresentWeather.Count);
+            Assert.That(decodedMetar.PresentWeather.Count, Is.EqualTo(0));
 
             #endregion PresentWeather
 
             #region Clouds
 
-            Assert.AreEqual(0, decodedMetar.Clouds.Count);
+            Assert.That(decodedMetar.Clouds.Count, Is.EqualTo(0));
 
             #endregion Clouds
 

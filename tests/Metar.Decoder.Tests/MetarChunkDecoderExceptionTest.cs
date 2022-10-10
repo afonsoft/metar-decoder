@@ -5,9 +5,15 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Metar.Decoder_tests
 {
+    /// <summary>
+    /// MetarChunkDecoderExceptionTest
+    /// </summary>
     [TestFixture, Category("MetarChunkDecoderException")]
     public class MetarChunkDecoderExceptionTest
     {
+        /// <summary>
+        /// SerializationWithNoMessageTest
+        /// </summary>
         [Test]
         public void SerializationWithNoMessageTest()
         {
@@ -20,6 +26,9 @@ namespace Metar.Decoder_tests
             });
         }
 
+        /// <summary>
+        /// SerializationWithMessageTest
+        /// </summary>
         [Test]
         public void SerializationWithMessageTest()
         {
@@ -32,6 +41,9 @@ namespace Metar.Decoder_tests
             });
         }
 
+        /// <summary>
+        /// SerializationWithSerializationInfoTest
+        /// </summary>
         [Test]
         public void SerializationWithSerializationInfoTest()
         {

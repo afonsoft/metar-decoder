@@ -1,5 +1,8 @@
 ﻿namespace Metar.Decoder.Entity
 {
+    /// <summary>
+    /// Visibility
+    /// </summary>
     public sealed class Visibility
     {
         /// <summary>

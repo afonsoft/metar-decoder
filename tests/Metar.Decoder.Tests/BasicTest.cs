@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace Metar.Decoder_tests
 {
+    /// <summary>
+    /// BasicTest
+    /// </summary>
     [TestFixture]
     public class BasicTest
     {
@@ -17,24 +20,36 @@ namespace Metar.Decoder_tests
 
         private List<DecodedMetar> DecodedMetars;
 
+        /// <summary>
+        /// Setup
+        /// </summary>
         [SetUp]
         public void Setup()
         {
             DecodedMetars = TestMetarSource.Select(metar => MetarDecoder.ParseWithMode(metar)).ToList();
         }
 
+        /// <summary>
+        /// RunToCompletionTest
+        /// </summary>
         [Test, Category("Basic")]
         public void RunToCompletionTest()
         {
             Assert.IsNotNull(DecodedMetars[0]);
         }
 
+        /// <summary>
+        /// CheckRawMetarNotNull
+        /// </summary>
         [Test, Category("Basic")]
         public void CheckRawMetarNotNull()
         {
             Assert.That(DecodedMetars[0].RawMetar, Is.EqualTo(TestMetarSource[0]));
         }
 
+        /// <summary>
+        /// ConsumeOneChunkTest
+        /// </summary>
         [Test, Category("Basic")]
         public void ConsumeOneChunkTest()
         {

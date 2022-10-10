@@ -31,7 +31,7 @@ namespace Metar.Decoder.Chunkdecoder
             var hour = Convert.ToInt32(found[2].Value);
             var minute = Convert.ToInt32(found[3].Value);
 
-            if (!checkValidity(day, hour, minute))
+            if (!CheckValidity(day, hour, minute))
             {
                 throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.InvalidDayHourMinuteRanges, this);
             }
@@ -49,7 +49,7 @@ namespace Metar.Decoder.Chunkdecoder
         /// <param name="hour"></param>
         /// <param name="minute"></param>
         /// <returns></returns>
-        private bool checkValidity(int day, int hour, int minute)
+        private bool CheckValidity(int day, int hour, int minute)
         {
             // check value range
             if (day < 1 || day > 31)

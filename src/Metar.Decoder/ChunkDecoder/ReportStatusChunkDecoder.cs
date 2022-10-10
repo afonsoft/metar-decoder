@@ -17,12 +17,9 @@ namespace Metar.Decoder.Chunkdecoder
             var found = consumed.Value;
             var newRemainingMetar = consumed.Key;
             var result = new Dictionary<string, object>();
-
-            var status = string.Empty;
-
             if (found.Count > 1)
             {
-                status = found[1].Value;
+                string status = found[1].Value;
                 if (status.Length != 3 && status != "AUTO")
                 {
                     throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.InvalidReportStatus, this);

@@ -56,10 +56,11 @@ namespace Metar.Decoder.Chunkdecoder
             }
 
             // retrieve and validate found params
-            var surfaceWind = new SurfaceWind();
-
-            // mean speed
-            surfaceWind.MeanSpeed = new Value(Value.ToInt(found[2].Value).Value, speedUnit);
+            var surfaceWind = new SurfaceWind
+            {
+                // mean speed
+                MeanSpeed = new Value(Value.ToInt(found[2].Value).Value, speedUnit)
+            };
 
             // mean direction
             if (found[1].Value == "VRB")

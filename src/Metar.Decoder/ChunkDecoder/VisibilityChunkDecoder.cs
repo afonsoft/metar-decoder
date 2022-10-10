@@ -32,8 +32,9 @@ namespace Metar.Decoder.Chunkdecoder
             {
                 throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.ForVisibilityInformationBadFormat, this);
             }
-            var cavok = false;
+
             Visibility visibility = null;
+            bool cavok;
             if (found[1].Value == CavokRegexPattern)
             {
                 // cloud and visibility OK

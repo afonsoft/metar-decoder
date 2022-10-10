@@ -36,7 +36,7 @@ namespace Metar.Decoder.Chunkdecoder
                 // convert value if needed
                 if (found[1].Value == "A")
                 {
-                    raw_value = raw_value / 100;
+                    raw_value /= 100;
                 }
                 var units = Unit.None;
                 switch (found[1].Value)

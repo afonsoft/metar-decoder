@@ -31,16 +31,16 @@ namespace Metar.Decoder_tests.chunkdecoder
             //check Day
             Assert.IsTrue(((Dictionary<string, object>)decoded[MetarDecoder.ResultKey]).ContainsKey(DatetimeChunkDecoder.DayParameterName));
             Assert.NotNull(((Dictionary<string, object>)decoded[MetarDecoder.ResultKey])[DatetimeChunkDecoder.DayParameterName]);
-            Assert.AreEqual(chunk.Item2, (int)((Dictionary<string, object>)decoded[MetarDecoder.ResultKey])[DatetimeChunkDecoder.DayParameterName]);
+            Assert.That((int)((Dictionary<string, object>)decoded[MetarDecoder.ResultKey])[DatetimeChunkDecoder.DayParameterName], Is.EqualTo(chunk.Item2));
 
             //check Time
             Assert.IsTrue(((Dictionary<string, object>)decoded[MetarDecoder.ResultKey]).ContainsKey(DatetimeChunkDecoder.TimeParameterName));
             Assert.NotNull(((Dictionary<string, object>)decoded[MetarDecoder.ResultKey])[DatetimeChunkDecoder.TimeParameterName]);
-            Assert.AreEqual(chunk.Item3 + " UTC", ((Dictionary<string, object>)decoded[MetarDecoder.ResultKey])[DatetimeChunkDecoder.TimeParameterName] as string);
+            Assert.That(((Dictionary<string, object>)decoded[MetarDecoder.ResultKey])[DatetimeChunkDecoder.TimeParameterName] as string, Is.EqualTo(chunk.Item3 + " UTC"));
 
             //check RemainingMetar
             Assert.IsTrue(decoded.ContainsKey(MetarDecoder.RemainingMetarKey));
-            Assert.AreEqual(chunk.Item4, decoded[MetarDecoder.RemainingMetarKey] as string);
+            Assert.That(decoded[MetarDecoder.RemainingMetarKey] as string, Is.EqualTo(chunk.Item4));
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Metar.Decoder_tests.chunkdecoder
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
             Assert.IsFalse(decoded.ContainsKey(MetarDecoder.ResultKey));
-            Assert.AreEqual(chunk, ex.RemainingMetar);
+            Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 
         #region TestCaseSources

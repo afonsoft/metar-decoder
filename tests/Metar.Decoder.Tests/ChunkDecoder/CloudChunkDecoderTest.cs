@@ -7,6 +7,9 @@ using static Metar.Decoder.Entity.CloudLayer;
 
 namespace Metar.Decoder_tests.chunkdecoder
 {
+    /// <summary>
+    /// CloudChunkDecoderTest
+    /// </summary>
     [TestFixture, Category("CloudChunkDecoder")]
     public class CloudChunkDecoderTest
     {
