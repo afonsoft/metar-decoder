@@ -38,6 +38,6 @@ jobs:
       - name: Build
         run: dotnet build --configuration $BUILD_CONFIG
       - name: Run Test
-        run: dotnet test tests/Metar.Decoder.Tests/Metar.Decoder.Tests.csproj --collect:"Code Coverage" --logger "trx;LogFileName=Metar.Decoder.Tests.trx" --results-directory resultTest/ --no-build --no-restore --configuration release -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
+        run: dotnet test tests/Metar.Decoder.Tests/Metar.Decoder.Tests.csproj --collect:"Code Coverage" --logger "trx;LogFileName=Metar.Decoder.Tests.trx" --results-directory resultTest/ --no-build --no-restore --configuration $BUILD_CONFIG -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
       - name: Run Code Analysis
         run: dotnet sonarscanner end /d:sonar.login=${{secrets.SONAR_TOKEN}}
