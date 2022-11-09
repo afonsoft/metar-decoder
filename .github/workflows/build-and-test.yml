@@ -24,7 +24,7 @@ jobs:
       run: nuget update -self
     - name: Clear NuGet cache
       run: dotnet nuget locals all --clear
-    - name: Build Release 
-      run: dotnet build --configuration Release
+    - name: Build Debug 
+      run: dotnet build --configuration Debug
     - name: Test
-      run: dotnet test --no-build --verbosity normal --configuration Release
+      run: dotnet test --no-build --verbosity normal --configuration Debug

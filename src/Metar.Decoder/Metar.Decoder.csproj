@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
-		<Version>1.0.2</Version>
+		<TargetFrameworks>netstandard2.0;net5.0;net6.0</TargetFrameworks>
+		<Version>1.0.3</Version>
 		<NoWarn>$(NoWarn);CS1591;SYSLIB0001;SYSLIB0002;SYSLIB0003</NoWarn>
 		<PackageProjectUrl>https://github.com/afonsoft/metar-decoder</PackageProjectUrl>
 		<RepositoryType>git</RepositoryType>

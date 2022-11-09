@@ -11,7 +11,7 @@
 
 
 
-A .NET library to decode METAR strings, this library package is netstandard 2.0. Working with Net Core and NET.
+A .NET library to decode METAR strings, this library package is netstandard 2.0 / NET5.0 and NET6.0. Working with Net Core and NET.
 
 ### DOWNLOAD
 
@@ -40,7 +40,7 @@ Raw METAR format is highly standardized through the International Civil Aviation
 Requirements
 ------------
 
-This library package is netstandard 2.0
+This library package is netstandard 2.0 / NET5.0 and NET6.0
 
 
 If you want to integrate the library easily in your project, you should consider using the official nuget package available from https://www.nuget.org/.

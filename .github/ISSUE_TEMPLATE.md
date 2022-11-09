@@ -14,4 +14,5 @@ Please write in English or Portugues.
 
 Please use Stack Overflow for your questions about using the framework, templates and samples:
 
-https://stackoverflow.com/questions/tagged/aspnetboilerplate
+https://stackoverflow.com/questions/tagged/Metar.Decoder
+https://stackoverflow.com/questions/tagged/Metar-Decoder
