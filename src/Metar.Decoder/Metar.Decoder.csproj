@@ -43,19 +43,25 @@
 	<PropertyGroup>
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="EAF.ico" />
+	  <None Remove="EAF.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Include="EAF.ico">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="EAF.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
 			
 	<ItemGroup>
 	  <None Include="..\..\README.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	</ItemGroup>
-	<ItemGroup>
-	  <None Update="EAF.png">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	<None Update="EAF.ico">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>
