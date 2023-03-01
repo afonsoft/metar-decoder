@@ -1,9 +1,9 @@
-﻿using Taf.Decoder;
-using Taf.Decoder.chunkdecoder;
-using Taf.Decoder.entity;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Taf.Decoder;
+using Taf.Decoder.chunkdecoder;
+using Taf.Decoder.entity;
 
 namespace Taf.Decoder_tests.ChunkDecoder
 {
@@ -46,6 +46,7 @@ namespace Taf.Decoder_tests.ChunkDecoder
         public string Chunk { get; set; }
         public List<WeatherPhenomenon> WeatherPhenomons { get; set; }
         public string Remaining { get; set; }
+
         public override string ToString()
         {
             return Chunk;

@@ -1,7 +1,7 @@
-﻿using Taf.Decoder.entity;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Taf.Decoder.entity;
 
 namespace Taf.Decoder_tests
 {
@@ -49,6 +49,7 @@ namespace Taf.Decoder_tests
         }
 
         #region TestCaseSources
+
         public static List<Tuple<float, Value.Unit, float, Value.Unit>> ValidValues()
         {
             return new List<Tuple<float, Value.Unit, float, Value.Unit>>()
@@ -83,6 +84,7 @@ namespace Taf.Decoder_tests
                 new Tuple<string, int, string, string>("311200Z CCC", 31, "12:00", "CCC"),
             };
         }
-        #endregion
+
+        #endregion TestCaseSources
     }
 }

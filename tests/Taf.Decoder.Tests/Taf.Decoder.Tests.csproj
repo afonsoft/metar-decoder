@@ -17,6 +17,7 @@
     <Authors>Afonso Dutra Nogueira Filho</Authors>
 	<Copyright>AFONSOFT© 2023</Copyright>
 	<Company>Afonsoft</Company>
+	<WarningLevel>0</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>

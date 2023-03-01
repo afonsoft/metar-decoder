@@ -1,8 +1,8 @@
-﻿using Taf.Decoder;
-using Taf.Decoder.chunkdecoder;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Taf.Decoder;
+using Taf.Decoder.chunkdecoder;
 
 namespace Taf.Decoder_tests.ChunkDecoder
 {
@@ -18,6 +18,7 @@ namespace Taf.Decoder_tests.ChunkDecoder
             Assert.AreEqual(chunk.Item2, (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[ReportTypeChunkDecoder.TypeParameterName]);
             Assert.AreEqual(chunk.Item3, decoded[TafDecoder.RemainingTafKey]);
         }
+
         public static List<Tuple<string, Taf.Decoder.entity.DecodedTaf.TafType, string>> ValidChunks => new List<Tuple<string, Taf.Decoder.entity.DecodedTaf.TafType, string>>()
         {
             new Tuple<string, Taf.Decoder.entity.DecodedTaf.TafType, string>("TAF LFPG",     Taf.Decoder.entity.DecodedTaf.TafType.TAF,       "LFPG"),

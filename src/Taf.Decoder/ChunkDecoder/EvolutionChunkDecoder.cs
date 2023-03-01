@@ -42,6 +42,17 @@ namespace Taf.Decoder.chunkdecoder
             _withCavok = withCavok;
         }
 
+        /// <summary>
+        /// Not implemented because EvolutionChunkDecoder is not part of the decoder chain
+        /// </summary>
+        /// <param name="remainingTaf"></param>
+        /// <param name="withCavok"></param>
+        /// <returns></returns>
+        public override Dictionary<string, object> Parse(string remainingTaf, bool withCavok = false)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Parse(string remainingTaf, DecodedTaf decodedTaf)
         {
             string newRemainingTaf;
@@ -249,7 +260,7 @@ namespace Taf.Decoder.chunkdecoder
         /// Look recursively for probability (PROBnn) attributes and embed a new evolution object one level deeper for each
         /// </summary>
         /// <param name="evolution"></param>
-        /// <param name="remaining_evo"></param>
+        /// <param name="chunk"></param>
         /// <param name="decodedTaf"></param>
         /// <returns></returns>
         private string ProbabilityChunkDecoder(Evolution evolution, string chunk, DecodedTaf decodedTaf)
@@ -285,17 +296,6 @@ namespace Taf.Decoder.chunkdecoder
             }
 
             return string.Empty;
-        }
-
-        /// <summary>
-        /// Not implemented because EvolutionChunkDecoder is not part of the decoder chain
-        /// </summary>
-        /// <param name="remainingTaf"></param>
-        /// <param name="withCavok"></param>
-        /// <returns></returns>
-        public override Dictionary<string, object> Parse(string remainingTaf, bool withCavok = false)
-        {
-            throw new NotImplementedException();
         }
     }
 }

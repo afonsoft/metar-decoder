@@ -1,9 +1,9 @@
-﻿using Taf.Decoder;
-using Taf.Decoder.chunkdecoder;
-using Taf.Decoder.entity;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Taf.Decoder;
+using Taf.Decoder.chunkdecoder;
+using Taf.Decoder.entity;
 
 namespace Taf.Decoder_tests.ChunkDecoder
 {
@@ -34,7 +34,6 @@ namespace Taf.Decoder_tests.ChunkDecoder
             Assert.AreEqual(chunk.Item6, maximumTemperature.Day);
             Assert.AreEqual(chunk.Item7, maximumTemperature.Hour);
         }
-
 
         /// <summary>
         /// Test parsing of invalid temperature chunks

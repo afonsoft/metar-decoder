@@ -7,12 +7,12 @@ namespace Taf.Decoder.chunkdecoder
     {
         public const string WeatherPhenomenonParameterName = "WeatherPhenomenons";
 
-        public static readonly HashSet<string> Descriptions = new HashSet<string>() {
+        private static readonly HashSet<string> Descriptions = new HashSet<string>() {
             "TS", "FZ", "SH", "BL",
             "DR", "MI", "BC", "PR",
         };
 
-        public static readonly HashSet<string> Phenomenons = new HashSet<string>() {
+        private static readonly HashSet<string> Phenomenons = new HashSet<string>() {
             "DZ", "RA", "SN", "SG",
             "PL", "DS", "GR", "GS",
             "UP", "IC", "FG", "BR",

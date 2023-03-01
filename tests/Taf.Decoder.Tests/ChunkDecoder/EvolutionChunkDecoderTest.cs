@@ -1,8 +1,8 @@
-﻿using Taf.Decoder;
+﻿using NUnit.Framework;
+using System.Collections.Generic;
+using Taf.Decoder;
 using Taf.Decoder.chunkdecoder;
 using Taf.Decoder.entity;
-using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace Taf.Decoder_tests.ChunkDecoder
 {
@@ -84,6 +84,7 @@ namespace Taf.Decoder_tests.ChunkDecoder
                 Assert.AreEqual(chunk.Element.MaximumTemperatureValue, (maxTemps[0].Entity as Temperature).TemperatureValue.ActualValue);
             }
         }
+
         public static List<EvolutionChunkDecoderTester> Chunks => new List<EvolutionChunkDecoderTester>()
         {
             new EvolutionChunkDecoderTester() {

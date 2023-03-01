@@ -1,8 +1,8 @@
-﻿using Taf.Decoder;
-using Taf.Decoder.chunkdecoder;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Taf.Decoder;
+using Taf.Decoder.chunkdecoder;
 
 namespace Taf.Decoder_tests.ChunkDecoder
 {

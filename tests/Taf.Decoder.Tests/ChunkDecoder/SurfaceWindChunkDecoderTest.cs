@@ -1,9 +1,9 @@
-﻿using Taf.Decoder;
-using Taf.Decoder.chunkdecoder;
-using Taf.Decoder.entity;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Taf.Decoder;
+using Taf.Decoder.chunkdecoder;
+using Taf.Decoder.entity;
 using static Taf.Decoder.entity.Value;
 
 namespace Taf.Decoder_tests.ChunkDecoder
@@ -69,7 +69,7 @@ namespace Taf.Decoder_tests.ChunkDecoder
         public static void TestEmptyInformationChunk()
         {
             Dictionary<string, object> decoded = null;
-            var exception = Assert.Throws(typeof(TafChunkDecoderException), () =>   
+            var exception = Assert.Throws(typeof(TafChunkDecoderException), () =>
             {
                 decoded = chunkDecoder.Parse("/////KT PPP");
             }) as TafChunkDecoderException;
@@ -105,6 +105,7 @@ namespace Taf.Decoder_tests.ChunkDecoder
             public Unit SpeedUnit;
             public Value[] DirectionVariations;
             public string Remaining;
+
             public override string ToString()
             {
                 return Chunk;

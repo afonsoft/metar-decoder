@@ -1,9 +1,9 @@
-﻿using Taf.Decoder;
-using Taf.Decoder.chunkdecoder;
-using Taf.Decoder.entity;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Taf.Decoder;
+using Taf.Decoder.chunkdecoder;
+using Taf.Decoder.entity;
 
 namespace Taf.Decoder_tests.ChunkDecoder
 {
@@ -30,7 +30,7 @@ namespace Taf.Decoder_tests.ChunkDecoder
             {
                 Assert.IsNull(visibility);
             }
-            if (!cavok && visibility != null) 
+            if (!cavok && visibility != null)
             {
                 Assert.AreEqual(chunk.Item4, visibility.ActualVisibility.ActualValue);
                 Assert.AreEqual(chunk.Item5, visibility.ActualVisibility.ActualUnit);
@@ -55,7 +55,6 @@ namespace Taf.Decoder_tests.ChunkDecoder
             });
             Assert.AreEqual("Bad format for visibility information", exception.Message);
         }
-
 
         public static List<Tuple<string, bool, bool, double?, Value.Unit, string>> ValidChunks => new List<Tuple<string, bool, bool, double?, Value.Unit, string>>()
         {

@@ -1,9 +1,9 @@
-﻿using Taf.Decoder;
-using Taf.Decoder.entity;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Taf.Decoder;
+using Taf.Decoder.entity;
 
 namespace Taf.Decoder_tests
 {

@@ -4,8 +4,6 @@ namespace Taf.Decoder.entity
 {
     public sealed class WeatherPhenomenon : AbstractEntity
     {
-        private readonly List<string> _types = new List<string>();
-
         /// <summary>
         /// Intensity/proximity of the phenomenon + / - / VC (=vicinity)
         /// </summary>

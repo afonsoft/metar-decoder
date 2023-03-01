@@ -1,11 +1,10 @@
-﻿
-using Taf.Decoder;
-using Taf.Decoder.chunkdecoder;
-using Taf.Decoder.entity;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Taf.Decoder;
+using Taf.Decoder.chunkdecoder;
+using Taf.Decoder.entity;
 using static Taf.Decoder.entity.DecodedTaf;
 
 [TestFixture, Category("TafDecoder")]
@@ -71,6 +70,7 @@ public class TafDecoderTest
         Assert.AreEqual(3, maximumTemperature.Day);
         Assert.AreEqual(18, maximumTemperature.Hour);
     }
+
     /// <summary>
     /// Test parsing of a valid TAF
     /// </summary>
@@ -132,6 +132,7 @@ public class TafDecoderTest
         Assert.AreEqual(3, maximumTemperature.Day);
         Assert.AreEqual(18, maximumTemperature.Hour);
     }
+
     /// <summary>
     /// Test parsing of a short, invalid TAF, without strict option activated
     /// </summary>
@@ -145,6 +146,7 @@ public class TafDecoderTest
         d = TafDecoder.ParseNotStrict("TAF TAF LIRU 032244Z 0318/0420 2300ABKT PSSM\nBKN020CB TX05/0318Z TNM03/0405Z\n");
         Assert.IsFalse(d.IsValid);
     }
+
     /// <summary>
     /// Test object-wide strict option
     /// </summary>
@@ -160,13 +162,14 @@ public class TafDecoderTest
         d = TafDecoder.Parse("TAF TAF LIR 032244Z 0318/0206 23010KT\n");
         Assert.AreEqual(6, d.DecodingExceptions.Count);
     }
+
     /// <summary>
     /// Test parsing of invalid TAFs
     /// </summary>
     [Test, TestCaseSource("ErrorChunks")]
     public void TestParseErrors(Tuple<string, Type, string> source)
     {
-        // launch decoding  
+        // launch decoding
         DecodedTaf decodedTaf = TafDecoder.ParseNotStrict(source.Item1);
 
         // check the error triggered
@@ -178,7 +181,6 @@ public class TafDecoderTest
         decodedTaf.ResetDecodingExceptions();
         Assert.AreEqual(0, decodedTaf.DecodingExceptions.Count, "DecodingExceptions should be empty.");
     }
-
 
     public static List<Tuple<string, Type, string>> ErrorChunks()
     {

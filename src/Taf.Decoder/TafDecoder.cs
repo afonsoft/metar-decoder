@@ -73,7 +73,8 @@ namespace Taf.Decoder
         /// <summary>
         /// Decode a full taf string into a complete taf object.
         /// </summary>
-        /// <param name="rawTaf"></param>
+        /// <param name="rawTaf">raw Taf</param>
+        /// <param name="isStrict"></param>
         /// <returns></returns>
         public static DecodedTaf ParseWithMode(string rawTaf, bool isStrict = false)
         {
