@@ -51,6 +51,7 @@ jobs:
         dotnet-version: | 
           5.0.x
           6.0.x
+          7.0.x
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:

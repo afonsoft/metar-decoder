@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metar.Decoder", "src\Metar.Decoder\Metar.Decoder.csproj", "{6BB1EBAA-BA8D-4EB9-BCED-B8107C095C32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metar.Decoder.Tests", "tests\Metar.Decoder.Tests\Metar.Decoder.Tests.csproj", "{D77C299F-C1D2-4430-8A51-75040AD96A23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metar.Decoder.Tests", "tests\Metar.Decoder.Tests\Metar.Decoder.Tests.csproj", "{D77C299F-C1D2-4430-8A51-75040AD96A23}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{800103E6-6B75-4E98-A57F-155A8876A893}"
 	ProjectSection(SolutionItems) = preProject
@@ -34,6 +34,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\sonnar-analysis.yml = .github\workflows\sonnar-analysis.yml
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taf.Decoder", "src\Taf.Decoder\Taf.Decoder.csproj", "{AE66DEE5-5224-49D7-B951-482A349B207E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taf.Decoder.Tests", "tests\Taf.Decoder.Tests\Taf.Decoder.Tests.csproj", "{C58B6E7C-0006-4B88-9DA6-9AEC49A99063}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +52,14 @@ Global
 		{D77C299F-C1D2-4430-8A51-75040AD96A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D77C299F-C1D2-4430-8A51-75040AD96A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D77C299F-C1D2-4430-8A51-75040AD96A23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE66DEE5-5224-49D7-B951-482A349B207E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE66DEE5-5224-49D7-B951-482A349B207E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE66DEE5-5224-49D7-B951-482A349B207E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE66DEE5-5224-49D7-B951-482A349B207E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C58B6E7C-0006-4B88-9DA6-9AEC49A99063}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C58B6E7C-0006-4B88-9DA6-9AEC49A99063}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C58B6E7C-0006-4B88-9DA6-9AEC49A99063}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C58B6E7C-0006-4B88-9DA6-9AEC49A99063}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +69,8 @@ Global
 		{D77C299F-C1D2-4430-8A51-75040AD96A23} = {7EE5F2B8-6E98-4102-BF6A-A79A5C43DD98}
 		{800103E6-6B75-4E98-A57F-155A8876A893} = {54033303-4A4F-43BB-B78B-C112804E7CC8}
 		{A513FE32-7915-4773-BBC0-AFF59D002919} = {800103E6-6B75-4E98-A57F-155A8876A893}
+		{AE66DEE5-5224-49D7-B951-482A349B207E} = {32A5342F-C74B-4164-8D1B-BBFE4FAAE96F}
+		{C58B6E7C-0006-4B88-9DA6-9AEC49A99063} = {7EE5F2B8-6E98-4102-BF6A-A79A5C43DD98}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E1E6DD78-3C62-4061-9E6A-A389DAA177B0}

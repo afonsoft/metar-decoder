@@ -9,5 +9,7 @@ echo.
 dotnet test tests/Metar.Decoder.Tests/Metar.Decoder.Tests.csproj --collect:"Code Coverage" --logger "trx;LogFileName=Metar.Decoder.Tests.trx" --results-directory resultTest/ --no-build --no-restore --configuration release -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
 echo .
 dotnet sonar\SonarScanner.MSBuild.dll end /d:sonar.login=a10c5ba8c51553dcdbe8f87d07806305bf6b8eeb
+echo.
+dotnet test tests/Metar.Decoder.Tests/Taf.Decoder.Tests.csproj --collect:"Code Coverage" --logger "trx;LogFileName=Taf.Decoder.Tests.trx" --results-directory resultTest/ --no-build --no-restore --configuration release -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
+echo.
 pause
-

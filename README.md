@@ -1,4 +1,4 @@
-## C# METAR decoder
+## C# METAR decoder & TAF decoder
 =================
 
 [![Latest Stable Version NuGet](https://img.shields.io/nuget/v/Metar.Decoder.svg)](https://www.nuget.org/packages/Metar.Decoder/)
@@ -22,12 +22,16 @@ A .NET library to decode METAR strings, this library package is netstandard 2.0 
 | Package | Nuget |
 | ------ | ------ |
 | [Metar.Decoder](https://www.nuget.org/packages/Metar.Decoder/) | [![NuGet version](https://badge.fury.io/nu/Metar.Decoder.svg)](https://badge.fury.io/nu/Metar.Decoder) |
+| [Tad.Decoder](https://www.nuget.org/packages/Taf.Decoder/) | [![NuGet version](https://badge.fury.io/nu/Taf.Decoder.svg)](https://badge.fury.io/nu/Taf.Decoder) |
 
 This is largely based on [SafranCassiopee/csharp-metar-decoder](https://github.com/SafranCassiopee/csharp-metar-decoder)
+This is largely based on [SafranCassiopee/csharp-taf-decoder](https://github.com/SafranCassiopee/csharp-taf-decoder)
+
 
 Introduction
 ------------
 
+METAR decoder
 This piece of software is a library package that provides a parser to decode raw METAR observation.
 
 METAR is a format made for weather information reporting. METAR weather reports are predominantly used by pilots and by meteorologists, who use it to assist in weather forecasting.
@@ -37,16 +41,27 @@ Raw METAR format is highly standardized through the International Civil Aviation
 *    [METAR format specification](http://www.wmo.int/pages/prog/www/WMOCodes/WMO306_vI1/VolumeI.1.html)
 *    [METAR documentation](http://meteocentre.com/doc/metar.html)
 
+TAF decoder
+A .NET library to decode TAF (Terminal Aerodrome Forecast) strings, fully unit tested
+This piece of software is a library package that provides a parser to decode raw TAF messages.
+
+TAF is a format made for weather information forecast. It is predominantly used by in aviation, during flight preparation. Raw TAF format is highly standardized through the International Civil Aviation Organization (ICAO).
+
+*    [TAF definition on wikipedia](https://en.wikipedia.org/wiki/Terminal_aerodrome_forecast)
+*    [TAF format specification](http://www.wmo.int/pages/prog/www/WMOCodes/WMO306_vI1/VolumeI.1.html)
+
+
 Requirements
 ------------
 
-This library package is netstandard 2.0 / NET5.0 and NET6.0
+This library package is netstandard 2.0 / NET5.0, NET6.0 and NET7.0
 
 
 If you want to integrate the library easily in your project, you should consider using the official nuget package available from https://www.nuget.org/.
 
 ```
 nuget install Metar.Decoder
+nuget install Taf.Decoder
 ```
 
 It is not mandatory though.
@@ -60,6 +75,8 @@ From the Package Manager Console in Visual Studio
 
 ```shell
 nuget install Metar.Decoder
+nuget install Taf.Decoder
+
 ```
 
 Add a reference to the library, then add the following using directives:
@@ -67,6 +84,11 @@ Add a reference to the library, then add the following using directives:
 ```csharp
 using Metar.Decoder;
 using Metar.Decoder.Entity;
+```
+
+```csharp
+using Taf.Decoder;
+using Taf.Decoder.Entity;
 ```
 
 - By hand
@@ -157,6 +179,15 @@ Please check the [DecodedMetar class](https://github.com/afonsoft/metar-decoder/
   d.WindshearRunways; //{ "03" }
 
 ```
+
+```csharp
+
+  var d = TAFDecoder.ParseWithMode("TAF LEMD 080500Z 0806/0912 23010KT 9999 SCT025 TX12/0816Z TN04/0807Z");
+
+ (TODO)
+ 
+```
+
 
 About Value objects
 -------------------

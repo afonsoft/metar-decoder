@@ -12,8 +12,8 @@
 	<GenerateAssemblyCopyrightAttribute>true</GenerateAssemblyCopyrightAttribute>
     <IsPackable>false</IsPackable>
   	<LangVersion>9.0</LangVersion>
-    <RootNamespace>Metar.Decoder.Tests</RootNamespace>
-	<AssemblyName>Metar.Decoder.Tests</AssemblyName>
+    <RootNamespace>Taf.Decoder.Tests</RootNamespace>
+	<AssemblyName>Taf.Decoder.Tests</AssemblyName>
     <Authors>Afonso Dutra Nogueira Filho</Authors>
 	<Copyright>AFONSOFT© 2023</Copyright>
 	<Company>Afonsoft</Company>
@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Metar.Decoder\Metar.Decoder.csproj" />
+    <ProjectReference Include="..\..\src\Taf.Decoder\Taf.Decoder.csproj" />
   </ItemGroup>
 
 </Project>
