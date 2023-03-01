@@ -42,12 +42,6 @@ namespace Taf.Decoder_tests
             Assert.IsTrue(hasException, "An exception should have been thrown.");
         }
 
-        [Test]
-        public void TestValueUnsupportedException()
-        {
-            //
-        }
-
         #region TestCaseSources
 
         public static List<Tuple<float, Value.Unit, float, Value.Unit>> ValidValues()

@@ -359,3 +359,5 @@ MigrationBackup/
 /nupkg/test
 /Templates/Angular/Eaf.ProjectName.UI/.vscode/chrome
 /.vs
+
+*.log
