@@ -23,8 +23,6 @@ jobs:
               5.0.x
               6.0.x
               7.0.x
-      - name: Update to library
-        run: apt install -y glibc libxml2 
       - name: Update to Nuget
         run: nuget update -self
       - name: Clear NuGet cache
