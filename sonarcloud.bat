@@ -1,7 +1,7 @@
 @echo off
 REM dotnet tool install --global dotnet-sonarscanner
 dotnet restore MetarDecoder.sln --ignore-failed-sources
-dotnet sonar\SonarScanner.MSBuild.dll begin /o:"afonsoft-github" /k:"metar-decoder" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login={KEY} /d:sonar.scm.provider=git /d:sonar.coverage.exclusions=**Test*.cs,**/*Test*.cs /d:sonar.cs.vstest.reportsPaths=resultTest/*.trx
+dotnet sonar\SonarScanner.MSBuild.dll begin /o:"afonsoft-github" /k:"metar-decoder" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login={KEY} /d:sonar.scm.provider=git /d:sonar.coverage.exclusions=**Test*.cs /d:sonar.cs.vstest.reportsPaths=resultTest/*.trx
 dotnet build MetarDecoder.sln --configuration Release --verbosity minimal --no-incremental --ignore-failed-sources /nr:false
 echo.
 echo START Metar TEST
