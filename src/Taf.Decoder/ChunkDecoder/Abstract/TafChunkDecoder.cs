@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -14,7 +15,7 @@ namespace Taf.Decoder.chunkdecoder
         /// <returns></returns>
         public List<Group> Consume(string remainingTaf, out string newRemainingTaf)
         {
-            var chunkRegex = new Regex(GetRegex());
+            var chunkRegex = new Regex(GetRegex(), RegexOptions.None, TimeSpan.FromMilliseconds(500));
 
             // try to match chunk's regexp on remaining taf
             var groups = chunkRegex.Match(remainingTaf).Groups.Cast<Group>().ToList();

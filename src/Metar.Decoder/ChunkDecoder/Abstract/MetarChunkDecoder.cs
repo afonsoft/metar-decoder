@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -13,7 +14,7 @@ namespace Metar.Decoder.Chunkdecoder
         /// <returns></returns>
         public KeyValuePair<string, List<Group>> Consume(string remainingMetar)
         {
-            var chunkRegex = new Regex(GetRegex());
+            var chunkRegex = new Regex(GetRegex(), RegexOptions.None, TimeSpan.FromMilliseconds(500));
 
             // try to match chunk's regexp on remaining metar
             var groups = chunkRegex.Match(remainingMetar).Groups.Cast<Group>().ToList();

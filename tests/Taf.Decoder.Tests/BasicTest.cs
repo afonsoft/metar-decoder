@@ -31,7 +31,7 @@ namespace Taf.Decoder_tests
         [Test, Category("Basic")]
         public void CheckRawTafNotNull()
         {
-            Assert.AreEqual(TestTafSource[0], DecodedTafs[0].RawTaf);
+            Assert.That(TestTafSource[0], Is.EqualTo(DecodedTafs[0].RawTaf));
         }
     }
 }
