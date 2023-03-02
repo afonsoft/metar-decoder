@@ -34,7 +34,7 @@ jobs:
       - name: Fix Permission
         run: chmod 777 sonar/ -R
       - name: Prepare analysis on SonarQube
-        run: dotnet sonarscanner begin /o:"afonsoft-github" /k:"metar-decoder" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{secrets.SONAR_TOKEN}} /d:sonar.scm.provider=git /d:sonar.coverage.exclusions="**Test*.cs" /d:sonar.cs.vstest.reportsPaths=resultTest/*.trx /d:sonar.cs.opencover.reportsPaths=/coverage.opencover.xml
+        run: dotnet sonarscanner begin /o:"afonsoft-github" /k:"metar-decoder" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{secrets.SONAR_TOKEN}} /d:sonar.scm.provider=git /d:sonar.coverage.exclusions=**Test*.cs,**/*Test*.cs /d:sonar.cs.vstest.reportsPaths=resultTest/*.trx /d:sonar.cs.opencover.reportsPaths=/coverage.opencover.xml
       - name: Build
         run: dotnet build --configuration $BUILD_CONFIG
       - name: Run Metar Test
