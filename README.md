@@ -22,7 +22,7 @@ A .NET library to decode METAR strings, this library package is netstandard 2.0 
 | Package | Nuget |
 | ------ | ------ |
 | [Metar.Decoder](https://www.nuget.org/packages/Metar.Decoder/) | [![NuGet version](https://badge.fury.io/nu/Metar.Decoder.svg)](https://badge.fury.io/nu/Metar.Decoder) |
-| [Tad.Decoder](https://www.nuget.org/packages/Taf.Decoder/) | [![NuGet version](https://badge.fury.io/nu/Taf.Decoder.svg)](https://badge.fury.io/nu/Taf.Decoder) |
+| [Taf.Decoder](https://www.nuget.org/packages/Taf.Decoder/) | [![NuGet version](https://badge.fury.io/nu/Taf.Decoder.svg)](https://badge.fury.io/nu/Taf.Decoder) |
 
 This is largely based on [SafranCassiopee/csharp-metar-decoder](https://github.com/SafranCassiopee/csharp-metar-decoder)
 This is largely based on [SafranCassiopee/csharp-taf-decoder](https://github.com/SafranCassiopee/csharp-taf-decoder)
