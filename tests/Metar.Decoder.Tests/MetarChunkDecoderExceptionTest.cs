@@ -3,6 +3,8 @@ using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Json;
+using System.Xml.Serialization;
 
 namespace Metar.Decoder_tests
 {
@@ -20,10 +22,9 @@ namespace Metar.Decoder_tests
         {
             var dto = new MetarChunkDecoderException();
             var mem = new MemoryStream();
-            var b = new BinaryFormatter();
             ClassicAssert.DoesNotThrow(() =>
              {
-                 b.Serialize(mem, dto);
+                 JsonSerializer.Serialize(mem, dto);
              });
         }
 
@@ -35,10 +36,9 @@ namespace Metar.Decoder_tests
         {
             var dto = new MetarChunkDecoderException("Test");
             var mem = new MemoryStream();
-            var b = new BinaryFormatter();
             ClassicAssert.DoesNotThrow(() =>
              {
-                 b.Serialize(mem, dto);
+                 JsonSerializer.Serialize(mem, dto);
              });
         }
 
@@ -50,10 +50,9 @@ namespace Metar.Decoder_tests
         {
             var dto = new MetarChunkDecoderException("Test");
             var mem = new MemoryStream();
-            var b = new BinaryFormatter();
             ClassicAssert.DoesNotThrow(() =>
              {
-                 b.Serialize(mem, dto);
+                 JsonSerializer.Serialize(mem, dto);
              });
         }
     }
