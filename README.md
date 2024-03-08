@@ -7,11 +7,11 @@
 
 | Code Smell | Bugs | Lang | Quality | Issues | Rating | Coverage |
 | ------ | ------ | ------ | ------ | ------ | ------ | ------ | 
-| [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=code_smells)](https://sonarcloud.io/dashboard?id=metar-decoder) | [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=bugs)](https://sonarcloud.io/dashboard?id=metar-decoder) | ![GitHub top language](https://img.shields.io/github/languages/top/afonsoft/metar-decoder) | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=alert_status)](https://sonarcloud.io/dashboard?id=metar-decoder) | [![GitHub issues](https://img.shields.io/github/issues/afonsoft/metar-decoder)](https://github.com/afonsoft/metar-decoder/issues) | [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=metar-decoder) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=metar-decoder&metric=coverage)](https://sonarcloud.io/summary/new_code?id=metar-decoder) |
+| [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=code_smells)](https://sonarcloud.io/dashboard?id=afonsoft_metar-decoder) | [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=bugs)](https://sonarcloud.io/dashboard?id=afonsoft_metar-decoder) | ![GitHub top language](https://img.shields.io/github/languages/top/afonsoft/metar-decoder) | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=alert_status)](https://sonarcloud.io/dashboard?id=afonsoft_metar-decoder) | [![GitHub issues](https://img.shields.io/github/issues/afonsoft/metar-decoder)](https://github.com/afonsoft/metar-decoder/issues) | [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=afonsoft_metar-decoder) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=coverage)](https://sonarcloud.io/summary/new_code?id=afonsoft_metar-decoder) |
 
 
 
-A .NET library to decode METAR strings, this library package is netstandard 2.0 / NET5.0 and NET6.0. Working with Net Core and NET.
+A .NET library to decode METAR strings, this library package is netstandard 2.0 / NET6.0 and NET8.0. Working with Net Core and NET.
 
 ### DOWNLOAD
 
@@ -54,7 +54,7 @@ TAF is a format made for weather information forecast. It is predominantly used 
 Requirements
 ------------
 
-This library package is netstandard 2.0 / NET5.0, NET6.0 and NET7.0
+This library package is netstandard 2.0 / NET6.0 and NET8.0
 
 
 If you want to integrate the library easily in your project, you should consider using the official nuget package available from https://www.nuget.org/.
