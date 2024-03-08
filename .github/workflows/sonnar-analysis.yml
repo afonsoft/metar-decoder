@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.2.0
       - name: Setup .NET
@@ -22,6 +24,11 @@ jobs:
            dotnet-version: | 
               6.0.x
               8.0.x
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'zulu' # Alternative distribution options are available.
       - name: Update to Nuget
         run: nuget update -self
       - name: Clear NuGet cache
@@ -33,7 +40,7 @@ jobs:
       - name: Fix Permission
         run: chmod 777 sonar/ -R
       - name: Prepare analysis on SonarQube
-        run: dotnet sonarscanner begin /o:"afonsoft-github" /k:"metar-decoder" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{secrets.SONAR_TOKEN}} /d:sonar.scm.provider=git /d:sonar.coverage.exclusions=**Test*.cs /d:sonar.cs.vstest.reportsPaths=resultTest/*.trx /d:sonar.cs.opencover.reportsPaths=/coverage.opencover.xml
+        run: dotnet sonarscanner begin /o:"afonsoft" /k:"afonsoft_metar-decoder" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{secrets.SONAR_TOKEN}} /d:sonar.scm.provider=git /d:sonar.coverage.exclusions=**Test*.cs /d:sonar.cs.vstest.reportsPaths=resultTest/*.trx /d:sonar.cs.opencover.reportsPaths=/coverage.opencover.xml
       - name: Build
         run: dotnet build --configuration $BUILD_CONFIG
       - name: Run Metar Test
