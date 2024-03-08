@@ -1,8 +1,6 @@
 ## C# METAR decoder & TAF decoder
 =================
 
-[![Latest Stable Version NuGet](https://img.shields.io/nuget/v/Metar.Decoder.svg)](https://www.nuget.org/packages/Metar.Decoder/)
-
 [![GitHub license](https://img.shields.io/github/license/afonsoft/metar-decoder)](https://github.com/afonsoft/metar-decoder/blob/main/LICENSE)
 
 | Code Smell | Bugs | Lang | Quality | Issues | Rating | Coverage |
