@@ -2,6 +2,7 @@
 using Metar.Decoder.Chunkdecoder;
 using Metar.Decoder.Entity;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 
@@ -27,9 +28,9 @@ namespace Metar.Decoder_tests.chunkdecoder
         {
             var decoded = chunkDecoder.Parse(chunkToTest.Item1);
             var recent = (decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[RecentWeatherChunkDecoder.RecentWeatherParameterName] as WeatherPhenomenon;
-            Assert.That(recent.Characteristics, Is.EqualTo(chunkToTest.Item2));
-            Assert.That(recent.Types, Is.EqualTo(chunkToTest.Item3));
-            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.Item4));
+            ClassicAssert.That(recent.Characteristics, Is.EqualTo(chunkToTest.Item2));
+            ClassicAssert.That(recent.Types, Is.EqualTo(chunkToTest.Item3));
+            ClassicAssert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.Item4));
         }
 
         #region TestCaseSources

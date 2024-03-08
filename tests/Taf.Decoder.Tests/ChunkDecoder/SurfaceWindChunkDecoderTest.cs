@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using Taf.Decoder;
@@ -25,28 +26,28 @@ namespace Taf.Decoder_tests.ChunkDecoder
 
             if (!chunk.VariableDirection)
             {
-                Assert.AreEqual(chunk.Direction, surfaceWind.MeanDirection.ActualValue);
-                Assert.AreEqual(Unit.Degree, surfaceWind.MeanDirection.ActualUnit);
+                ClassicAssert.AreEqual(chunk.Direction, surfaceWind.MeanDirection.ActualValue);
+                ClassicAssert.AreEqual(Unit.Degree, surfaceWind.MeanDirection.ActualUnit);
             }
-            Assert.AreEqual(chunk.VariableDirection, surfaceWind.VariableDirection);
+            ClassicAssert.AreEqual(chunk.VariableDirection, surfaceWind.VariableDirection);
             if (surfaceWind.DirectionVariations != null)
             {
                 var minimumDirectionVariation = surfaceWind.DirectionVariations[0];
                 var maximumDirectionVariation = surfaceWind.DirectionVariations[1];
                 if (chunk.DirectionVariations != null)
                 {
-                    Assert.AreEqual(chunk.DirectionVariations[0].ActualValue, minimumDirectionVariation.ActualValue);
-                    Assert.AreEqual(chunk.DirectionVariations[1].ActualValue, maximumDirectionVariation.ActualValue);
-                    Assert.AreEqual(Unit.Degree, minimumDirectionVariation.ActualUnit);
+                    ClassicAssert.AreEqual(chunk.DirectionVariations[0].ActualValue, minimumDirectionVariation.ActualValue);
+                    ClassicAssert.AreEqual(chunk.DirectionVariations[1].ActualValue, maximumDirectionVariation.ActualValue);
+                    ClassicAssert.AreEqual(Unit.Degree, minimumDirectionVariation.ActualUnit);
                 }
             }
-            Assert.AreEqual(chunk.Speed, surfaceWind.MeanSpeed.ActualValue);
+            ClassicAssert.AreEqual(chunk.Speed, surfaceWind.MeanSpeed.ActualValue);
             if (chunk.SpeedVariations != null)
             {
-                Assert.AreEqual(chunk.SpeedVariations, surfaceWind.SpeedVariations.ActualValue);
+                ClassicAssert.AreEqual(chunk.SpeedVariations, surfaceWind.SpeedVariations.ActualValue);
             }
-            Assert.AreEqual(chunk.SpeedUnit, surfaceWind.MeanSpeed.ActualUnit);
-            Assert.AreEqual(chunk.Remaining, decoded[TafDecoder.RemainingTafKey]);
+            ClassicAssert.AreEqual(chunk.SpeedUnit, surfaceWind.MeanSpeed.ActualUnit);
+            ClassicAssert.AreEqual(chunk.Remaining, decoded[TafDecoder.RemainingTafKey]);
         }
 
         /// <summary>
@@ -56,10 +57,10 @@ namespace Taf.Decoder_tests.ChunkDecoder
         [Test, TestCaseSource("InvalidChunks")]
         public static void TestParseInvalidChunk(string chunk)
         {
-            Assert.Throws(typeof(TafChunkDecoderException), () =>
-            {
-                chunkDecoder.Parse(chunk);
-            });
+            ClassicAssert.Throws(typeof(TafChunkDecoderException), () =>
+             {
+                 chunkDecoder.Parse(chunk);
+             });
         }
 
         /// <summary>
@@ -69,11 +70,11 @@ namespace Taf.Decoder_tests.ChunkDecoder
         public static void TestEmptyInformationChunk()
         {
             Dictionary<string, object> decoded = null;
-            var exception = Assert.Throws(typeof(TafChunkDecoderException), () =>
+            var exception = ClassicAssert.Throws(typeof(TafChunkDecoderException), () =>
             {
                 decoded = chunkDecoder.Parse("/////KT PPP");
             }) as TafChunkDecoderException;
-            Assert.AreEqual("PPP", exception.NewRemainingTaf);
+            ClassicAssert.AreEqual("PPP", exception.NewRemainingTaf);
         }
 
         public static List<SurfaceWindChunkDecoderTester> ValidChunks => new List<SurfaceWindChunkDecoderTester>()

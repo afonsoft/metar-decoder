@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Collections.Generic;
 using Taf.Decoder;
 using Taf.Decoder.chunkdecoder;
@@ -20,37 +21,37 @@ namespace Taf.Decoder_tests.ChunkDecoder
             evoDecoder.Parse(chunk.EvoChunk + " END", decodedTaf);
 
             var windEvolutions = decodedTaf?.SurfaceWind?.Evolutions;
-            Assert.IsNotNull(windEvolutions, "No surface winds!");
+            ClassicAssert.IsNotNull(windEvolutions, "No surface winds!");
             if (windEvolutions.Count == 0)
             {
-                Assert.Fail("No wind evolution!");
+                ClassicAssert.Fail("No wind evolution!");
             }
             // global evolution attributes (no point testing them in each evolution as they never change)
-            Assert.AreEqual(chunk.Type, windEvolutions[0].Type);
-            Assert.AreEqual(chunk.Probability, windEvolutions[0].Probability);
-            Assert.AreEqual(chunk.FromDay, windEvolutions[0].FromDay);
-            Assert.AreEqual(chunk.FromTime, windEvolutions[0].FromTime);
-            Assert.AreEqual(chunk.ToDay, windEvolutions[0].ToDay);
-            Assert.AreEqual(chunk.ToTime, windEvolutions[0].ToTime);
+            ClassicAssert.AreEqual(chunk.Type, windEvolutions[0].Type);
+            ClassicAssert.AreEqual(chunk.Probability, windEvolutions[0].Probability);
+            ClassicAssert.AreEqual(chunk.FromDay, windEvolutions[0].FromDay);
+            ClassicAssert.AreEqual(chunk.FromTime, windEvolutions[0].FromTime);
+            ClassicAssert.AreEqual(chunk.ToDay, windEvolutions[0].ToDay);
+            ClassicAssert.AreEqual(chunk.ToTime, windEvolutions[0].ToTime);
             if (!string.IsNullOrEmpty(chunk.Element.EmbEvolutionType))
             {
                 // it's embedded in the second evolution
-                Assert.LessOrEqual(2, windEvolutions.Count);
+                ClassicAssert.LessOrEqual(2, windEvolutions.Count);
                 var embEvolutions = windEvolutions[1].Evolutions;
-                Assert.AreEqual(chunk.Element.EmbEvolutionType, embEvolutions[0].Type);
+                ClassicAssert.AreEqual(chunk.Element.EmbEvolutionType, embEvolutions[0].Type);
             }
             // surfaceWind attributes
-            Assert.AreEqual(chunk.Element.WindDirection, (windEvolutions[0].Entity as SurfaceWind).MeanDirection.ActualValue);
-            Assert.AreEqual(chunk.Element.WindSpeed, (windEvolutions[0].Entity as SurfaceWind).MeanSpeed.ActualValue);
+            ClassicAssert.AreEqual(chunk.Element.WindDirection, (windEvolutions[0].Entity as SurfaceWind).MeanDirection.ActualValue);
+            ClassicAssert.AreEqual(chunk.Element.WindSpeed, (windEvolutions[0].Entity as SurfaceWind).MeanSpeed.ActualValue);
 
             var visiEvolutions = decodedTaf.Visibility.Evolutions;
-            Assert.IsNotNull(visiEvolutions);
-            Assert.AreEqual(chunk.Element.Cavok, visiEvolutions[0].Cavok);
+            ClassicAssert.IsNotNull(visiEvolutions);
+            ClassicAssert.AreEqual(chunk.Element.Cavok, visiEvolutions[0].Cavok);
             if (!visiEvolutions[0].Cavok)
             {
                 // cavok and visibility are mutually exclusive
-                Assert.AreEqual(chunk.Element.Visibility, (visiEvolutions[0].Entity as Visibility).ActualVisibility.ActualValue);
-                Assert.AreEqual(chunk.Element.Greater, (visiEvolutions[0].Entity as Visibility).Greater);
+                ClassicAssert.AreEqual(chunk.Element.Visibility, (visiEvolutions[0].Entity as Visibility).ActualVisibility.ActualValue);
+                ClassicAssert.AreEqual(chunk.Element.Greater, (visiEvolutions[0].Entity as Visibility).Greater);
             }
             if (chunk.Element.WeatherPhenomena.Count > 0)
             {
@@ -59,9 +60,9 @@ namespace Taf.Decoder_tests.ChunkDecoder
                     var proxyWeatherPhenomena = decodedTaf.WeatherPhenomenons;
                     var weatherPhenomena = proxyWeatherPhenomena[0].Evolutions;
                     var entity = weatherPhenomena[0].Entity as List<WeatherPhenomenon>;
-                    Assert.AreEqual(chunk.Element.WeatherIntensity, entity[0].IntensityProximity);
-                    Assert.AreEqual(chunk.Element.WeatherDesc, entity[0].Descriptor);
-                    Assert.AreEqual(chunk.Element.WeatherPhenomena, entity[0].Phenomena);
+                    ClassicAssert.AreEqual(chunk.Element.WeatherIntensity, entity[0].IntensityProximity);
+                    ClassicAssert.AreEqual(chunk.Element.WeatherDesc, entity[0].Descriptor);
+                    ClassicAssert.AreEqual(chunk.Element.WeatherPhenomena, entity[0].Phenomena);
                 }
             }
             var clouds = decodedTaf.Clouds;
@@ -69,19 +70,19 @@ namespace Taf.Decoder_tests.ChunkDecoder
             {
                 // 1 instead of 0 because each evo is considered a new layer
                 var cloudsEvolutions = clouds[1].Evolutions;
-                Assert.AreEqual(chunk.Type, cloudsEvolutions[0].Type);
+                ClassicAssert.AreEqual(chunk.Type, cloudsEvolutions[0].Type);
                 var cloudsLayers = cloudsEvolutions[0].Entity as List<CloudLayer>;
-                Assert.AreEqual(chunk.Element.CloudsAmount, cloudsLayers[0].Amount);
-                Assert.AreEqual(chunk.Element.CloudsBaseHeight, cloudsLayers[0].BaseHeight.ActualValue);
+                ClassicAssert.AreEqual(chunk.Element.CloudsAmount, cloudsLayers[0].Amount);
+                ClassicAssert.AreEqual(chunk.Element.CloudsBaseHeight, cloudsLayers[0].BaseHeight.ActualValue);
             }
             if (chunk.Element.MinimumTemperatureValue.HasValue)
             {
-                Assert.IsNotNull(decodedTaf.MinimumTemperature);
-                Assert.IsNotNull(decodedTaf.MaximumTemperature);
+                ClassicAssert.IsNotNull(decodedTaf.MinimumTemperature);
+                ClassicAssert.IsNotNull(decodedTaf.MaximumTemperature);
                 var minTemps = decodedTaf.MinimumTemperature.Evolutions;
                 var maxTemps = decodedTaf.MaximumTemperature.Evolutions;
-                Assert.AreEqual(chunk.Element.MinimumTemperatureValue, (minTemps[0].Entity as Temperature).TemperatureValue.ActualValue);
-                Assert.AreEqual(chunk.Element.MaximumTemperatureValue, (maxTemps[0].Entity as Temperature).TemperatureValue.ActualValue);
+                ClassicAssert.AreEqual(chunk.Element.MinimumTemperatureValue, (minTemps[0].Entity as Temperature).TemperatureValue.ActualValue);
+                ClassicAssert.AreEqual(chunk.Element.MaximumTemperatureValue, (maxTemps[0].Entity as Temperature).TemperatureValue.ActualValue);
             }
         }
 

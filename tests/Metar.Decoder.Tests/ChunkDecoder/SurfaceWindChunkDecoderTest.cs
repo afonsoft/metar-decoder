@@ -2,6 +2,7 @@
 using Metar.Decoder.Chunkdecoder;
 using Metar.Decoder.Entity;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Collections.Generic;
 
 namespace Metar.Decoder_tests.chunkdecoder
@@ -26,27 +27,27 @@ namespace Metar.Decoder_tests.chunkdecoder
         public void TestParseSurfaceWindChunk(ValidSurfaceWindChunkDecoderTester chunkToTest)
         {
             var decoded = chunkDecoder.Parse(chunkToTest.Chunk);
-            Assert.That(decoded, Is.Not.Null);
+            ClassicAssert.That(decoded, Is.Not.Null);
             var wind = (decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[SurfaceWindChunkDecoder.SurfaceWindParameterName] as SurfaceWind;
             if (!chunkToTest.VariableDirection)
             {
-                Assert.That(wind.MeanDirection.ActualValue, Is.EqualTo(chunkToTest.Direction));
-                Assert.That(wind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
+                ClassicAssert.That(wind.MeanDirection.ActualValue, Is.EqualTo(chunkToTest.Direction));
+                ClassicAssert.That(wind.MeanDirection.ActualUnit, Is.EqualTo(Value.Unit.Degree));
             }
-            Assert.That(wind.VariableDirection, Is.EqualTo(chunkToTest.VariableDirection));
+            ClassicAssert.That(wind.VariableDirection, Is.EqualTo(chunkToTest.VariableDirection));
             if (chunkToTest.DirectionVariations != null)
             {
-                Assert.That(wind.DirectionVariations[0].ActualValue, Is.EqualTo(chunkToTest.DirectionVariations[0]));
-                Assert.That(wind.DirectionVariations[1].ActualValue, Is.EqualTo(chunkToTest.DirectionVariations[1]));
-                Assert.That(wind.DirectionVariations[0].ActualUnit, Is.EqualTo(Value.Unit.Degree));
+                ClassicAssert.That(wind.DirectionVariations[0].ActualValue, Is.EqualTo(chunkToTest.DirectionVariations[0]));
+                ClassicAssert.That(wind.DirectionVariations[1].ActualValue, Is.EqualTo(chunkToTest.DirectionVariations[1]));
+                ClassicAssert.That(wind.DirectionVariations[0].ActualUnit, Is.EqualTo(Value.Unit.Degree));
             }
-            Assert.That(wind.MeanSpeed.ActualValue, Is.EqualTo(chunkToTest.Speed));
+            ClassicAssert.That(wind.MeanSpeed.ActualValue, Is.EqualTo(chunkToTest.Speed));
             if (chunkToTest.SpeedVariations.HasValue)
             {
-                Assert.That(wind.SpeedVariations.ActualValue, Is.EqualTo(chunkToTest.SpeedVariations));
+                ClassicAssert.That(wind.SpeedVariations.ActualValue, Is.EqualTo(chunkToTest.SpeedVariations));
             }
-            Assert.That(wind.MeanSpeed.ActualUnit, Is.EqualTo(chunkToTest.SpeedUnit));
-            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
+            ClassicAssert.That(wind.MeanSpeed.ActualUnit, Is.EqualTo(chunkToTest.SpeedUnit));
+            ClassicAssert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
         }
 
         /// <summary>
@@ -57,12 +58,12 @@ namespace Metar.Decoder_tests.chunkdecoder
         public void TestParseInvalidChunk(string chunk)
         {
             var decoded = new Dictionary<string, object>();
-            var ex = Assert.Throws(typeof(MetarChunkDecoderException), () =>
+            var ex = ClassicAssert.Throws(typeof(MetarChunkDecoderException), () =>
             {
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
-            Assert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
-            Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
+            ClassicAssert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
+            ClassicAssert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 
         /// <summary>
@@ -71,11 +72,11 @@ namespace Metar.Decoder_tests.chunkdecoder
         [Test]
         public void TestEmptyInformationChunk()
         {
-            var ex = Assert.Throws(typeof(MetarChunkDecoderException), () =>
+            var ex = ClassicAssert.Throws(typeof(MetarChunkDecoderException), () =>
             {
                 chunkDecoder.Parse("/////KT PPP");
             }) as MetarChunkDecoderException;
-            Assert.That(ex.NewRemainingMetar, Is.EqualTo("PPP"));
+            ClassicAssert.That(ex.NewRemainingMetar, Is.EqualTo("PPP"));
         }
 
         #region TestCaseSources

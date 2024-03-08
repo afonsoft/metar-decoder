@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using Taf.Decoder;
@@ -19,8 +20,8 @@ namespace Taf.Decoder_tests.ChunkDecoder
         public static void testParseIcaoChunk(Tuple<string, string, string> chunk)
         {
             var decoded = chunkDecoder.Parse(chunk.Item1);
-            Assert.AreEqual(chunk.Item2, (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[IcaoChunkDecoder.ICAOParameterName]);
-            Assert.AreEqual(chunk.Item3, decoded[TafDecoder.RemainingTafKey]);
+            ClassicAssert.AreEqual(chunk.Item2, (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[IcaoChunkDecoder.ICAOParameterName]);
+            ClassicAssert.AreEqual(chunk.Item3, decoded[TafDecoder.RemainingTafKey]);
         }
 
         /// <summary>
@@ -30,10 +31,10 @@ namespace Taf.Decoder_tests.ChunkDecoder
         [Test, TestCaseSource("InvalidChunks")]
         public static void TestParseInvalidChunk(string chunk)
         {
-            Assert.Throws(typeof(TafChunkDecoderException), () =>
-            {
-                chunkDecoder.Parse(chunk);
-            });
+            ClassicAssert.Throws(typeof(TafChunkDecoderException), () =>
+             {
+                 chunkDecoder.Parse(chunk);
+             });
         }
 
         public static List<Tuple<string, string, string>> ValidChunks => new List<Tuple<string, string, string>>()

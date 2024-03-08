@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using Taf.Decoder;
@@ -15,8 +16,8 @@ namespace Taf.Decoder_tests.ChunkDecoder
         public void TestParse(Tuple<string, Taf.Decoder.entity.DecodedTaf.TafType, string> chunk)
         {
             var decoded = chunkDecoder.Parse(chunk.Item1);
-            Assert.AreEqual(chunk.Item2, (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[ReportTypeChunkDecoder.TypeParameterName]);
-            Assert.AreEqual(chunk.Item3, decoded[TafDecoder.RemainingTafKey]);
+            ClassicAssert.AreEqual(chunk.Item2, (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[ReportTypeChunkDecoder.TypeParameterName]);
+            ClassicAssert.AreEqual(chunk.Item3, decoded[TafDecoder.RemainingTafKey]);
         }
 
         public static List<Tuple<string, Taf.Decoder.entity.DecodedTaf.TafType, string>> ValidChunks => new List<Tuple<string, Taf.Decoder.entity.DecodedTaf.TafType, string>>()

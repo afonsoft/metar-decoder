@@ -1,5 +1,6 @@
 ﻿using Metar.Decoder.Entity;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 
@@ -19,7 +20,7 @@ namespace Metar.Decoder_tests
         public void TestValueConversion(Tuple<float, Value.Unit, float, Value.Unit> valueToTest)
         {
             var value = new Value(valueToTest.Item1, valueToTest.Item2);
-            Assert.That(value.GetConvertedValue(valueToTest.Item4), Is.EqualTo(valueToTest.Item3));
+            ClassicAssert.That(value.GetConvertedValue(valueToTest.Item4), Is.EqualTo(valueToTest.Item3));
         }
 
         /// <summary>
@@ -30,10 +31,10 @@ namespace Metar.Decoder_tests
         public void TestValueNoRateException(Tuple<float, Value.Unit, float, Value.Unit> valueToTest)
         {
             var value = new Value(valueToTest.Item1, valueToTest.Item2);
-            Assert.Throws(typeof(ArgumentException), () =>
-            {
-                value.GetConvertedValue(valueToTest.Item4);
-            });
+            ClassicAssert.Throws(typeof(ArgumentException), () =>
+             {
+                 value.GetConvertedValue(valueToTest.Item4);
+             });
         }
 
         /// <summary>
@@ -52,9 +53,9 @@ namespace Metar.Decoder_tests
             catch (ArgumentException ex)
             {
                 hasException = true;
-                Assert.That(ex.Message, Is.EqualTo($@"Conversion rate between ""{valueToTest.Item4}"" and ""{valueToTest.Item2}"" is not defined."));
+                ClassicAssert.That(ex.Message, Is.EqualTo($@"Conversion rate between ""{valueToTest.Item4}"" and ""{valueToTest.Item2}"" is not defined."));
             }
-            Assert.IsTrue(hasException, "An exception should have been thrown.");
+            ClassicAssert.IsTrue(hasException, "An exception should have been thrown.");
         }
 
         #region TestCaseSources

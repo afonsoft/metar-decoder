@@ -2,6 +2,7 @@
 using Metar.Decoder.Chunkdecoder;
 using Metar.Decoder.Entity;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Collections.Generic;
 using static Metar.Decoder.Entity.CloudLayer;
 
@@ -25,24 +26,24 @@ namespace Metar.Decoder_tests.chunkdecoder
             var decoded = chunkDecoder.Parse(chunkToTest.Chunk);
             var clouds = (decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[CloudChunkDecoder.CloudsParameterName] as List<CloudLayer>;
 
-            Assert.That(clouds.Count, Is.EqualTo(chunkToTest.NbLayers));
+            ClassicAssert.That(clouds.Count, Is.EqualTo(chunkToTest.NbLayers));
 
             if (clouds.Count > 0)
             {
                 var cloud = clouds[0];
-                Assert.That(cloud.Amount, Is.EqualTo(chunkToTest.layer1Amount));
+                ClassicAssert.That(cloud.Amount, Is.EqualTo(chunkToTest.layer1Amount));
                 if (chunkToTest.layer1BaseHeight != null)
                 {
-                    Assert.That(cloud.BaseHeight.ActualValue, Is.EqualTo(chunkToTest.layer1BaseHeight));
-                    Assert.That(cloud.BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
+                    ClassicAssert.That(cloud.BaseHeight.ActualValue, Is.EqualTo(chunkToTest.layer1BaseHeight));
+                    ClassicAssert.That(cloud.BaseHeight.ActualUnit, Is.EqualTo(Value.Unit.Feet));
                 }
                 else
                 {
-                    Assert.That(cloud.BaseHeight, Is.Null);
+                    ClassicAssert.That(cloud.BaseHeight, Is.Null);
                 }
-                Assert.That(cloud.Type, Is.EqualTo(chunkToTest.layer1Type));
+                ClassicAssert.That(cloud.Type, Is.EqualTo(chunkToTest.layer1Type));
             }
-            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
+            ClassicAssert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace Metar.Decoder_tests.chunkdecoder
         public void TestParseCAVOKChunk(string chunk)
         {
             var decoded = chunkDecoder.Parse(chunk, true);
-            Assert.That(((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[CloudChunkDecoder.CloudsParameterName] as List<CloudLayer>).Count, Is.EqualTo(0));
+            ClassicAssert.That(((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[CloudChunkDecoder.CloudsParameterName] as List<CloudLayer>).Count, Is.EqualTo(0));
         }
 
         /// <summary>
@@ -64,12 +65,12 @@ namespace Metar.Decoder_tests.chunkdecoder
         public void TestParseInvalidChunk(string chunk)
         {
             var decoded = new Dictionary<string, object>();
-            var ex = Assert.Throws(typeof(MetarChunkDecoderException), () =>
+            var ex = ClassicAssert.Throws(typeof(MetarChunkDecoderException), () =>
             {
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
-            Assert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
-            Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
+            ClassicAssert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
+            ClassicAssert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 
         #region TestCaseSources

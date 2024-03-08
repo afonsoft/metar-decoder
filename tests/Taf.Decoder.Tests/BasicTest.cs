@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -25,13 +26,13 @@ namespace Taf.Decoder_tests
         [Test, Category("Basic")]
         public void RunToCompletionTest()
         {
-            Assert.IsNotNull(DecodedTafs[0]);
+            ClassicAssert.IsNotNull(DecodedTafs[0]);
         }
 
         [Test, Category("Basic")]
         public void CheckRawTafNotNull()
         {
-            Assert.That(TestTafSource[0], Is.EqualTo(DecodedTafs[0].RawTaf));
+            ClassicAssert.That(TestTafSource[0], Is.EqualTo(DecodedTafs[0].RawTaf));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using Taf.Decoder;
@@ -24,22 +25,22 @@ namespace Taf.Decoder_tests.ChunkDecoder
             var visibility = (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[VisibilityChunkDecoder.VisibilityParameterName] as Visibility;
             var cavok = (bool)((decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[VisibilityChunkDecoder.CavokParameterName]);
 
-            Assert.AreEqual(chunk.Item2, cavok);
+            ClassicAssert.AreEqual(chunk.Item2, cavok);
 
             if (!chunk.Item4.HasValue)
             {
-                Assert.IsNull(visibility);
+                ClassicAssert.IsNull(visibility);
             }
             if (!cavok && visibility != null)
             {
-                Assert.AreEqual(chunk.Item4, visibility.ActualVisibility.ActualValue);
-                Assert.AreEqual(chunk.Item5, visibility.ActualVisibility.ActualUnit);
+                ClassicAssert.AreEqual(chunk.Item4, visibility.ActualVisibility.ActualValue);
+                ClassicAssert.AreEqual(chunk.Item5, visibility.ActualVisibility.ActualUnit);
                 if (chunk.Item3)
                 {
-                    Assert.IsTrue(visibility.Greater);
+                    ClassicAssert.IsTrue(visibility.Greater);
                 }
             }
-            Assert.AreEqual(chunk.Item6, decoded[TafDecoder.RemainingTafKey]);
+            ClassicAssert.AreEqual(chunk.Item6, decoded[TafDecoder.RemainingTafKey]);
         }
 
         /// <summary>
@@ -49,11 +50,11 @@ namespace Taf.Decoder_tests.ChunkDecoder
         [Test, TestCaseSource("InvalidChunks")]
         public static void TestParseInvalidChunk(string chunk)
         {
-            var exception = Assert.Throws(typeof(TafChunkDecoderException), () =>
+            var exception = ClassicAssert.Throws(typeof(TafChunkDecoderException), () =>
             {
                 chunkDecoder.Parse(chunk);
             });
-            Assert.AreEqual("Bad format for visibility information", exception.Message);
+            ClassicAssert.AreEqual("Bad format for visibility information", exception.Message);
         }
 
         public static List<Tuple<string, bool, bool, double?, Value.Unit, string>> ValidChunks => new List<Tuple<string, bool, bool, double?, Value.Unit, string>>()

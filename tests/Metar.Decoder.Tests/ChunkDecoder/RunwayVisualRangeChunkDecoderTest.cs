@@ -2,6 +2,7 @@
 using Metar.Decoder.Chunkdecoder;
 using Metar.Decoder.Entity;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Collections.Generic;
 
 namespace Metar.Decoder_tests.chunkdecoder
@@ -23,22 +24,22 @@ namespace Metar.Decoder_tests.chunkdecoder
             var decoded = chunkDecoder.Parse(chunkToTest.Chunk);
             var runways = (decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[RunwayVisualRangeChunkDecoder.RunwaysVisualRangeParameterName] as List<RunwayVisualRange>;
             var visualRange = runways[0];
-            Assert.That(runways.Count, Is.EqualTo(chunkToTest.NbRunways));
-            Assert.That(visualRange.Runway, Is.EqualTo(chunkToTest.runway1Name));
-            Assert.That(visualRange.Variable, Is.EqualTo(chunkToTest.runway1Variable));
+            ClassicAssert.That(runways.Count, Is.EqualTo(chunkToTest.NbRunways));
+            ClassicAssert.That(visualRange.Runway, Is.EqualTo(chunkToTest.runway1Name));
+            ClassicAssert.That(visualRange.Variable, Is.EqualTo(chunkToTest.runway1Variable));
             if (chunkToTest.runway1Variable)
             {
-                Assert.That(visualRange.VisualRangeInterval[0].ActualValue, Is.EqualTo(chunkToTest.runway1Interval[0]));
-                Assert.That(visualRange.VisualRangeInterval[1].ActualValue, Is.EqualTo(chunkToTest.runway1Interval[1]));
-                Assert.That(visualRange.VisualRangeInterval[0].ActualUnit, Is.EqualTo(chunkToTest.runway1Unit));
+                ClassicAssert.That(visualRange.VisualRangeInterval[0].ActualValue, Is.EqualTo(chunkToTest.runway1Interval[0]));
+                ClassicAssert.That(visualRange.VisualRangeInterval[1].ActualValue, Is.EqualTo(chunkToTest.runway1Interval[1]));
+                ClassicAssert.That(visualRange.VisualRangeInterval[0].ActualUnit, Is.EqualTo(chunkToTest.runway1Unit));
             }
             else
             {
-                Assert.That(visualRange.VisualRange.ActualValue, Is.EqualTo(chunkToTest.runway1Vis));
-                Assert.That(visualRange.VisualRange.ActualUnit, Is.EqualTo(chunkToTest.runway1Unit));
+                ClassicAssert.That(visualRange.VisualRange.ActualValue, Is.EqualTo(chunkToTest.runway1Vis));
+                ClassicAssert.That(visualRange.VisualRange.ActualUnit, Is.EqualTo(chunkToTest.runway1Unit));
             }
 
-            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
+            ClassicAssert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
         }
 
         /// <summary>
@@ -49,12 +50,12 @@ namespace Metar.Decoder_tests.chunkdecoder
         public void TestParseInvalidChunk(string chunk)
         {
             var decoded = new Dictionary<string, object>();
-            var ex = Assert.Throws(typeof(MetarChunkDecoderException), () =>
+            var ex = ClassicAssert.Throws(typeof(MetarChunkDecoderException), () =>
             {
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
-            Assert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
-            Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
+            ClassicAssert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
+            ClassicAssert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 
         #region TestCaseSources

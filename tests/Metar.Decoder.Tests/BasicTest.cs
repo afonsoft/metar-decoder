@@ -2,6 +2,7 @@
 using Metar.Decoder.Chunkdecoder;
 using Metar.Decoder.Entity;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace Metar.Decoder_tests
         [Test, Category("Basic")]
         public void RunToCompletionTest()
         {
-            Assert.That(DecodedMetars[0], Is.Not.Null);
+            ClassicAssert.That(DecodedMetars[0], Is.Not.Null);
         }
 
         /// <summary>
@@ -44,7 +45,7 @@ namespace Metar.Decoder_tests
         [Test, Category("Basic")]
         public void CheckRawMetarNotNull()
         {
-            Assert.That(DecodedMetars[0].RawMetar, Is.EqualTo(TestMetarSource[0]));
+            ClassicAssert.That(DecodedMetars[0].RawMetar, Is.EqualTo(TestMetarSource[0]));
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace Metar.Decoder_tests
         {
             var result = MetarChunkDecoder.ConsumeOneChunk(TestMetarSource[0]);
 
-            Assert.That(result, Is.EqualTo("231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN //FEW015 17/10 Q1009 REFZRA WS R03"));
+            ClassicAssert.That(result, Is.EqualTo("231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN //FEW015 17/10 Q1009 REFZRA WS R03"));
         }
     }
 }

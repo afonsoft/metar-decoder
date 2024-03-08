@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using Taf.Decoder;
@@ -23,16 +24,16 @@ namespace Taf.Decoder_tests.ChunkDecoder
             var minimumTemperature = (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[TemperatureChunkDecoder.MinimumTemperatureParameterName] as Temperature;
             var maximumTemperature = (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[TemperatureChunkDecoder.MaximumTemperatureParameterName] as Temperature;
 
-            Assert.AreEqual("TN", minimumTemperature.Type);
-            Assert.AreEqual(chunk.Item2, minimumTemperature.TemperatureValue.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, minimumTemperature.TemperatureValue.ActualUnit);
-            Assert.AreEqual(chunk.Item3, minimumTemperature.Day);
-            Assert.AreEqual(chunk.Item4, minimumTemperature.Hour);
-            Assert.AreEqual("TX", maximumTemperature.Type);
-            Assert.AreEqual(chunk.Item5, maximumTemperature.TemperatureValue.ActualValue);
-            Assert.AreEqual(Value.Unit.DegreeCelsius, maximumTemperature.TemperatureValue.ActualUnit);
-            Assert.AreEqual(chunk.Item6, maximumTemperature.Day);
-            Assert.AreEqual(chunk.Item7, maximumTemperature.Hour);
+            ClassicAssert.AreEqual("TN", minimumTemperature.Type);
+            ClassicAssert.AreEqual(chunk.Item2, minimumTemperature.TemperatureValue.ActualValue);
+            ClassicAssert.AreEqual(Value.Unit.DegreeCelsius, minimumTemperature.TemperatureValue.ActualUnit);
+            ClassicAssert.AreEqual(chunk.Item3, minimumTemperature.Day);
+            ClassicAssert.AreEqual(chunk.Item4, minimumTemperature.Hour);
+            ClassicAssert.AreEqual("TX", maximumTemperature.Type);
+            ClassicAssert.AreEqual(chunk.Item5, maximumTemperature.TemperatureValue.ActualValue);
+            ClassicAssert.AreEqual(Value.Unit.DegreeCelsius, maximumTemperature.TemperatureValue.ActualUnit);
+            ClassicAssert.AreEqual(chunk.Item6, maximumTemperature.Day);
+            ClassicAssert.AreEqual(chunk.Item7, maximumTemperature.Hour);
         }
 
         /// <summary>
@@ -42,11 +43,11 @@ namespace Taf.Decoder_tests.ChunkDecoder
         [Test, TestCaseSource("InvalidChunks")]
         public static void TestParseInvalidChunk(string chunk)
         {
-            var exception = Assert.Throws(typeof(TafChunkDecoderException), () =>
+            var exception = ClassicAssert.Throws(typeof(TafChunkDecoderException), () =>
             {
                 chunkDecoder.Parse(chunk);
             });
-            Assert.AreEqual("Inconsistent values for temperature information", exception.Message);
+            ClassicAssert.AreEqual("Inconsistent values for temperature information", exception.Message);
         }
 
         public static List<Tuple<string, int, int, int, int, int, int>> ValidChunks => new List<Tuple<string, int, int, int, int, int, int>>()

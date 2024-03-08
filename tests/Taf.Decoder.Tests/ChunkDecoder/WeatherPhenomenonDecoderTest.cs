@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using Taf.Decoder;
@@ -24,11 +25,11 @@ namespace Taf.Decoder_tests.ChunkDecoder
             var weatherPhenomenon = (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[WeatherChunkDecoder.WeatherPhenomenonParameterName] as List<WeatherPhenomenon>;
             for (var i = 0; i < weatherPhenomenon.Count; i++)
             {
-                Assert.AreEqual(chunk.WeatherPhenomons[i].IntensityProximity, weatherPhenomenon[i].IntensityProximity);
-                Assert.AreEqual(chunk.WeatherPhenomons[i].Descriptor, weatherPhenomenon[i].Descriptor);
-                Assert.AreEqual(chunk.WeatherPhenomons[i].Phenomena, weatherPhenomenon[i].Phenomena);
+                ClassicAssert.AreEqual(chunk.WeatherPhenomons[i].IntensityProximity, weatherPhenomenon[i].IntensityProximity);
+                ClassicAssert.AreEqual(chunk.WeatherPhenomons[i].Descriptor, weatherPhenomenon[i].Descriptor);
+                ClassicAssert.AreEqual(chunk.WeatherPhenomons[i].Phenomena, weatherPhenomenon[i].Phenomena);
             }
-            Assert.AreEqual(chunk.Remaining, decoded[TafDecoder.RemainingTafKey]);
+            ClassicAssert.AreEqual(chunk.Remaining, decoded[TafDecoder.RemainingTafKey]);
         }
 
         public static List<WeatherPhenomenonChunkDecoderTester> ValidChunks => new List<WeatherPhenomenonChunkDecoderTester>()

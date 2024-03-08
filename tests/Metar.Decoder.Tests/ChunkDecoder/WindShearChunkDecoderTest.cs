@@ -1,6 +1,7 @@
 ﻿using Metar.Decoder;
 using Metar.Decoder.Chunkdecoder;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Collections.Generic;
 
 namespace Metar.Decoder_tests.chunkdecoder
@@ -19,9 +20,9 @@ namespace Metar.Decoder_tests.chunkdecoder
         {
             var decoded = chunkDecoder.Parse(chunkToTest.Chunk);
             var result = decoded[MetarDecoder.ResultKey] as Dictionary<string, object>;
-            Assert.That((bool)result[WindShearChunkDecoder.WindshearAllRunwaysParameterName], Is.EqualTo(chunkToTest.AllRunways));
-            Assert.That(result[WindShearChunkDecoder.WindshearRunwaysParameterName] as List<string>, Is.EqualTo(chunkToTest.Runways));
-            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
+            ClassicAssert.That((bool)result[WindShearChunkDecoder.WindshearAllRunwaysParameterName], Is.EqualTo(chunkToTest.AllRunways));
+            ClassicAssert.That(result[WindShearChunkDecoder.WindshearRunwaysParameterName] as List<string>, Is.EqualTo(chunkToTest.Runways));
+            ClassicAssert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
         }
 
         /// <summary>
@@ -35,7 +36,7 @@ namespace Metar.Decoder_tests.chunkdecoder
             //need fine tuning
             var decoded = chunkDecoder.Parse(chunk);
             _ = decoded[MetarDecoder.ResultKey];
-            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunk));
+            ClassicAssert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunk));
         }
 
         /// <summary>
@@ -46,12 +47,12 @@ namespace Metar.Decoder_tests.chunkdecoder
         public void TestParseInvalidChunk(string chunk)
         {
             var decoded = new Dictionary<string, object>();
-            var ex = Assert.Throws(typeof(MetarChunkDecoderException), () =>
+            var ex = ClassicAssert.Throws(typeof(MetarChunkDecoderException), () =>
             {
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
-            Assert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
-            Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
+            ClassicAssert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
+            ClassicAssert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 
         #region TestCaseSources

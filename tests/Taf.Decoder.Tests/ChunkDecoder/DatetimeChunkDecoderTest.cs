@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using Taf.Decoder;
@@ -20,9 +21,9 @@ namespace Taf.Decoder_tests.ChunkDecoder
         {
             var decoded = chunkDecoder.Parse(chunk.Item1);
             var expectedTime = chunk.Item3 + " UTC";
-            Assert.AreEqual(chunk.Item2, (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[DatetimeChunkDecoder.DayParameterName]);
-            Assert.AreEqual(expectedTime, (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[DatetimeChunkDecoder.TimeParameterName]);
-            Assert.AreEqual(chunk.Item4, (decoded[TafDecoder.RemainingTafKey]));
+            ClassicAssert.AreEqual(chunk.Item2, (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[DatetimeChunkDecoder.DayParameterName]);
+            ClassicAssert.AreEqual(expectedTime, (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[DatetimeChunkDecoder.TimeParameterName]);
+            ClassicAssert.AreEqual(chunk.Item4, (decoded[TafDecoder.RemainingTafKey]));
         }
 
         /// <summary>
@@ -32,10 +33,10 @@ namespace Taf.Decoder_tests.ChunkDecoder
         [Test, TestCaseSource("InvalidChunks")]
         public static void TestParseInvalidChunk(string chunk)
         {
-            Assert.Throws(typeof(TafChunkDecoderException), () =>
-            {
-                chunkDecoder.Parse(chunk);
-            });
+            ClassicAssert.Throws(typeof(TafChunkDecoderException), () =>
+             {
+                 chunkDecoder.Parse(chunk);
+             });
         }
 
         public static List<Tuple<string, int, string, string>> ValidChunks => new List<Tuple<string, int, string, string>>()

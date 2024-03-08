@@ -1,6 +1,7 @@
 ﻿using Metar.Decoder;
 using Metar.Decoder.Chunkdecoder;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using static Metar.Decoder.Entity.DecodedMetar;
@@ -22,8 +23,8 @@ namespace Metar.Decoder_tests.chunkdecoder
         public void TestParseReportTypeChunk(Tuple<string, MetarType, string> chunk)
         {
             var decoded = chunkDecoder.Parse(chunk.Item1);
-            Assert.That((MetarType)((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[ReportTypeChunkDecoder.TypeParameterName]), Is.EqualTo(chunk.Item2));
-            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunk.Item3));
+            ClassicAssert.That((MetarType)((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[ReportTypeChunkDecoder.TypeParameterName]), Is.EqualTo(chunk.Item2));
+            ClassicAssert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunk.Item3));
         }
 
         #region TestCaseSources

@@ -2,6 +2,7 @@
 using Metar.Decoder.Chunkdecoder;
 using Metar.Decoder.Entity;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Collections.Generic;
 
 namespace Metar.Decoder_tests.chunkdecoder
@@ -21,26 +22,26 @@ namespace Metar.Decoder_tests.chunkdecoder
             var decoded = chunkDecoder.Parse(chunkToTest.Chunk);
             if (chunkToTest.Cavok)
             {
-                Assert.IsTrue((bool)(decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[VisibilityChunkDecoder.CavokParameterName]);
+                ClassicAssert.IsTrue((bool)(decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[VisibilityChunkDecoder.CavokParameterName]);
             }
             else if (!chunkToTest.Visibility.HasValue)
             {
-                Assert.That((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[VisibilityChunkDecoder.VisibilityParameterName], Is.Null);
-                Assert.That((bool)(decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[VisibilityChunkDecoder.CavokParameterName], Is.False);
+                ClassicAssert.That((decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[VisibilityChunkDecoder.VisibilityParameterName], Is.Null);
+                ClassicAssert.That((bool)(decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[VisibilityChunkDecoder.CavokParameterName], Is.False);
             }
             else
             {
                 var visibility = (decoded[MetarDecoder.ResultKey] as Dictionary<string, object>)[VisibilityChunkDecoder.VisibilityParameterName] as Visibility;
-                Assert.That(visibility.PrevailingVisibility.ActualValue, Is.EqualTo(chunkToTest.Visibility));
-                Assert.That(visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(chunkToTest.VisibilityUnit));
-                Assert.That(visibility.NDV, Is.EqualTo(chunkToTest.NDV));
+                ClassicAssert.That(visibility.PrevailingVisibility.ActualValue, Is.EqualTo(chunkToTest.Visibility));
+                ClassicAssert.That(visibility.PrevailingVisibility.ActualUnit, Is.EqualTo(chunkToTest.VisibilityUnit));
+                ClassicAssert.That(visibility.NDV, Is.EqualTo(chunkToTest.NDV));
                 if (chunkToTest.Minimum.HasValue)
                 {
-                    Assert.That(visibility.MinimumVisibility.ActualValue, Is.EqualTo(chunkToTest.Minimum));
-                    Assert.That(visibility.MinimumVisibilityDirection, Is.EqualTo(chunkToTest.MinimumDirection));
+                    ClassicAssert.That(visibility.MinimumVisibility.ActualValue, Is.EqualTo(chunkToTest.Minimum));
+                    ClassicAssert.That(visibility.MinimumVisibilityDirection, Is.EqualTo(chunkToTest.MinimumDirection));
                 }
             }
-            Assert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
+            ClassicAssert.That(decoded[MetarDecoder.RemainingMetarKey], Is.EqualTo(chunkToTest.RemainingMetar));
         }
 
         /// <summary>
@@ -51,12 +52,12 @@ namespace Metar.Decoder_tests.chunkdecoder
         public void TestParseInvalidChunk(string chunk)
         {
             var decoded = new Dictionary<string, object>();
-            var ex = Assert.Throws(typeof(MetarChunkDecoderException), () =>
+            var ex = ClassicAssert.Throws(typeof(MetarChunkDecoderException), () =>
             {
                 decoded = chunkDecoder.Parse(chunk);
             }) as MetarChunkDecoderException;
-            Assert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
-            Assert.That(ex.RemainingMetar, Is.EqualTo(chunk));
+            ClassicAssert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
+            ClassicAssert.That(ex.RemainingMetar, Is.EqualTo(chunk));
         }
 
         #region TestCaseSources

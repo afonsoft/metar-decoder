@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using Taf.Decoder.entity;
@@ -12,17 +13,17 @@ namespace Taf.Decoder_tests
         public void TestValueConversion(Tuple<float, Value.Unit, float, Value.Unit> valueToTest)
         {
             var value = new Value(valueToTest.Item1, valueToTest.Item2);
-            Assert.AreEqual(valueToTest.Item3, value.GetConvertedValue(valueToTest.Item4));
+            ClassicAssert.AreEqual(valueToTest.Item3, value.GetConvertedValue(valueToTest.Item4));
         }
 
         [Test, TestCaseSource("ValueNoRateException")]
         public void TestValueNoRateException(Tuple<float, Value.Unit, float, Value.Unit> valueToTest)
         {
             var value = new Value(valueToTest.Item1, valueToTest.Item2);
-            Assert.Throws(typeof(ArgumentException), () =>
-            {
-                value.GetConvertedValue(valueToTest.Item4);
-            });
+            ClassicAssert.Throws(typeof(ArgumentException), () =>
+             {
+                 value.GetConvertedValue(valueToTest.Item4);
+             });
         }
 
         [Test, TestCaseSource("ValueNoRateException")]
@@ -37,9 +38,9 @@ namespace Taf.Decoder_tests
             catch (ArgumentException ex)
             {
                 hasException = true;
-                Assert.AreEqual($@"Conversion rate between ""{valueToTest.Item4}"" and ""{valueToTest.Item2}"" is not defined.", ex.Message);
+                ClassicAssert.AreEqual($@"Conversion rate between ""{valueToTest.Item4}"" and ""{valueToTest.Item2}"" is not defined.", ex.Message);
             }
-            Assert.IsTrue(hasException, "An exception should have been thrown.");
+            ClassicAssert.IsTrue(hasException, "An exception should have been thrown.");
         }
 
         #region TestCaseSources

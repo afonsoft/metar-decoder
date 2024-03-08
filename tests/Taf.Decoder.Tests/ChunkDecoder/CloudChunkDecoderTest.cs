@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using Taf.Decoder;
@@ -20,23 +21,23 @@ namespace Taf.Decoder_tests.ChunkDecoder
         {
             var decoded = chunkDecoder.Parse(chunk.Item1);
             var clouds = (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[CloudChunkDecoder.CloudsParameterName] as List<CloudLayer>;
-            Assert.AreEqual(chunk.Item2, clouds.Count);
+            ClassicAssert.AreEqual(chunk.Item2, clouds.Count);
             if (clouds.Count > 0)
             {
                 var cloud = clouds[0];
-                Assert.AreEqual(chunk.Item3, cloud.Amount);
+                ClassicAssert.AreEqual(chunk.Item3, cloud.Amount);
                 if (chunk.Item4.HasValue)
                 {
-                    Assert.AreEqual(chunk.Item4, cloud.BaseHeight.ActualValue);
-                    Assert.AreEqual(Value.Unit.Feet, cloud.BaseHeight.ActualUnit);
+                    ClassicAssert.AreEqual(chunk.Item4, cloud.BaseHeight.ActualValue);
+                    ClassicAssert.AreEqual(Value.Unit.Feet, cloud.BaseHeight.ActualUnit);
                 }
                 else
                 {
-                    Assert.IsNull(cloud.BaseHeight);
+                    ClassicAssert.IsNull(cloud.BaseHeight);
                 }
-                Assert.AreEqual(chunk.Item5, cloud.Type);
+                ClassicAssert.AreEqual(chunk.Item5, cloud.Type);
             }
-            Assert.AreEqual(chunk.Item6, decoded[TafDecoder.RemainingTafKey]);
+            ClassicAssert.AreEqual(chunk.Item6, decoded[TafDecoder.RemainingTafKey]);
         }
 
         /// <summary>
@@ -47,12 +48,12 @@ namespace Taf.Decoder_tests.ChunkDecoder
         public static void TestParseCAVOKChunk(string chunk)
         {
             Dictionary<string, object> decoded = null;
-            Assert.DoesNotThrow(() =>
-            {
-                decoded = chunkDecoder.Parse(chunk, true);
-            });
+            ClassicAssert.DoesNotThrow(() =>
+             {
+                 decoded = chunkDecoder.Parse(chunk, true);
+             });
             var clouds = (decoded[TafDecoder.ResultKey] as Dictionary<string, object>)[CloudChunkDecoder.CloudsParameterName] as List<CloudLayer>;
-            Assert.AreEqual(0, clouds.Count);
+            ClassicAssert.AreEqual(0, clouds.Count);
         }
 
         /// <summary>
@@ -62,10 +63,10 @@ namespace Taf.Decoder_tests.ChunkDecoder
         [Test, TestCaseSource("InvalidChunks")]
         public static void TestParseInvalidChunk(string chunk)
         {
-            Assert.Throws(typeof(TafChunkDecoderException), () =>
-            {
-                chunkDecoder.Parse(chunk);
-            });
+            ClassicAssert.Throws(typeof(TafChunkDecoderException), () =>
+             {
+                 chunkDecoder.Parse(chunk);
+             });
         }
 
         public static List<Tuple<string, int, CloudLayer.CloudAmount, int?, CloudLayer.CloudType, string>> ValidChunks => new List<Tuple<string, int, CloudLayer.CloudAmount, int?, CloudLayer.CloudType, string>>()
