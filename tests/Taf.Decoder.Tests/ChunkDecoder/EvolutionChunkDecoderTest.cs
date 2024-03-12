@@ -11,12 +11,13 @@ namespace Taf.Decoder_tests.ChunkDecoder
     public class EvolutionChunkDecoderTest
     {
         private static readonly EvolutionChunkDecoder evoDecoder = new EvolutionChunkDecoder(true, false);
+        private static readonly TafDecoder decoder = new TafDecoder();
 
         //  Test parsing of evolution chunks
         [Test, TestCaseSource("Chunks")]
         public void TestParse(EvolutionChunkDecoderTester chunk)
         {
-            var decodedTaf = TafDecoder.ParseStrict(chunk.Base);
+            var decodedTaf = decoder.ParseStrict(chunk.Base);
             evoDecoder.IsStrict = chunk.Strict;
             evoDecoder.Parse(chunk.EvoChunk + " END", decodedTaf);
 

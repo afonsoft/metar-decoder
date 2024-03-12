@@ -15,7 +15,7 @@
     <RootNamespace>Metar.Decoder.Tests</RootNamespace>
 	<AssemblyName>Metar.Decoder.Tests</AssemblyName>
     <Authors>Afonso Dutra Nogueira Filho</Authors>
-	<Copyright>AFONSOFT© 2023</Copyright>
+	<Copyright>AFONSOFT© 2024</Copyright>
 	<Company>Afonsoft</Company>
 	<WarningLevel>0</WarningLevel>
   </PropertyGroup>

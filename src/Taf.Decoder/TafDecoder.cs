@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using Taf.Decoder.chunkdecoder;
@@ -6,13 +7,19 @@ using Taf.Decoder.entity;
 
 namespace Taf.Decoder
 {
-    public static class TafDecoder
+    public sealed class TafDecoder
     {
         public const string ResultKey = "Result";
         public const string RemainingTafKey = "RemainingTaf";
         public const string ExceptionKey = "Exception";
 
-        private static ReadOnlyCollection<TafChunkDecoder> _decoderChain = new ReadOnlyCollection<TafChunkDecoder>(new List<TafChunkDecoder>()
+        public TafDecoder()
+        {
+            //csharpsquid:S6444
+            AppDomain.CurrentDomain.SetData("REGEX_DEFAULT_MATCH_TIMEOUT", TimeSpan.FromMilliseconds(500)); // process-wide setting
+        }
+
+        private static readonly ReadOnlyCollection<TafChunkDecoder> _decoderChain = new ReadOnlyCollection<TafChunkDecoder>(new List<TafChunkDecoder>()
         {
             new ReportTypeChunkDecoder(),
             new IcaoChunkDecoder(),
@@ -25,13 +32,13 @@ namespace Taf.Decoder
             new TemperatureChunkDecoder(),
         });
 
-        private static bool _globalStrictParsing = false;
+        private bool _globalStrictParsing = false;
 
         /// <summary>
         /// Set global parsing mode (strict/not strict) for the whole object.
         /// </summary>
         /// <param name="isStrict"></param>
-        public static void SetStrictParsing(bool isStrict)
+        public void SetStrictParsing(bool isStrict)
         {
             _globalStrictParsing = isStrict;
         }
@@ -41,7 +48,7 @@ namespace Taf.Decoder
         /// while using global strict option.
         /// </summary>
         /// <param name="rawTaf"></param>
-        public static DecodedTaf Parse(string rawTaf)
+        public DecodedTaf Parse(string rawTaf)
         {
             return ParseWithMode(rawTaf, _globalStrictParsing);
         }
@@ -53,7 +60,7 @@ namespace Taf.Decoder
         /// </summary>
         /// <param name="rawTaf"></param>
         /// <returns></returns>
-        public static DecodedTaf ParseStrict(string rawTaf)
+        public DecodedTaf ParseStrict(string rawTaf)
         {
             return ParseWithMode(rawTaf, true);
         }
@@ -65,7 +72,7 @@ namespace Taf.Decoder
         /// </summary>
         /// <param name="rawTaf"></param>
         /// <returns></returns>
-        public static DecodedTaf ParseNotStrict(string rawTaf)
+        public DecodedTaf ParseNotStrict(string rawTaf)
         {
             return ParseWithMode(rawTaf, false);
         }

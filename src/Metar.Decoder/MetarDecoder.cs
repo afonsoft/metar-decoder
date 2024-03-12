@@ -1,5 +1,6 @@
 ﻿using Metar.Decoder.Chunkdecoder;
 using Metar.Decoder.Entity;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
@@ -14,6 +15,11 @@ namespace Metar.Decoder
         public const string ResultKey = "Result";
         public const string RemainingMetarKey = "RemainingMetar";
         public const string ExceptionKey = "Exception";
+
+        public MetarDecoder() {
+            //csharpsquid:S6444
+            AppDomain.CurrentDomain.SetData("REGEX_DEFAULT_MATCH_TIMEOUT", TimeSpan.FromMilliseconds(500)); // process-wide setting
+        }
 
         private static readonly ReadOnlyCollection<MetarChunkDecoder> _decoderChain = new(new List<MetarChunkDecoder>()
         {
