@@ -41,18 +41,18 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.2.0
+      uses: NuGet/setup-nuget@v2.0.0
     # Initializes the CodeQL tools for scanning.
     - name: Update to Nuget
       run: nuget update -self
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: | 
           6.0.x
           8.0.x
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
         # If you wish to specify custom queries, you can do so here or in a config file.
@@ -77,4 +77,4 @@ jobs:
     #   make release
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3
