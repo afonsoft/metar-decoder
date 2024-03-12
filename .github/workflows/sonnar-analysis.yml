@@ -17,7 +17,7 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1.2.0
+        uses: NuGet/setup-nuget@v2.0.0
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
