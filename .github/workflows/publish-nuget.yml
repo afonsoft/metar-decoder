@@ -30,8 +30,8 @@ jobs:
       - name: Clear NuGet cache
         run: dotnet nuget locals all --clear
       - name: Build
-        run: dotnet build --configuration $BUILD_CONFIG --verbosity normal
+        run: dotnet build MetarDecoder.sln --configuration $BUILD_CONFIG --verbosity normal
       - name: Pack
-        run: dotnet pack --configuration $BUILD_CONFIG /p:ContinuousIntegrationBuild=true
+        run: dotnet pack MetarDecoder.sln --configuration $BUILD_CONFIG /p:ContinuousIntegrationBuild=true
       - name: Publish Nuget
         run: dotnet nuget push **\*.nupkg --source 'https://api.nuget.org/v3/index.json' --api-key ${{secrets.NUGET_TOKEN}} --skip-duplicate

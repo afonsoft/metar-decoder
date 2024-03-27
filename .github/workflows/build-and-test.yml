@@ -25,6 +25,6 @@ jobs:
     - name: Clear NuGet cache
       run: dotnet nuget locals all --clear
     - name: Build Debug 
-      run: dotnet build --configuration Debug
+      run: dotnet build MetarDecoder.sln --configuration Debug
     - name: Test
-      run: dotnet test --no-build --verbosity normal --configuration Debug
+      run: dotnet test MetarDecoder.sln --no-build --verbosity normal --configuration Debug

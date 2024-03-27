@@ -25,5 +25,5 @@ jobs:
     - name: Clear NuGet cache
       run: dotnet nuget locals all --clear
     - name: Build Release 
-      run: dotnet build  --configuration Release --verbosity normal
+      run: dotnet build MetarDecoder.sln --configuration Release --verbosity normal
 
