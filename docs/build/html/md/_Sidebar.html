@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; Metar-Decoder 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Metar-Decoder
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul class="simple">
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Metar-Decoder</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/md/_Sidebar.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <ul>
+<li><p>[Namespaces](R_Project_MetarDecoder.md)
+- [Taf.Decoder Namespace](N_Taf_Decoder.md)</p>
+<blockquote>
+<div><ul>
+<li><p>[TafChunkDecoderException Class](T_Taf_Decoder_TafChunkDecoderException.md)
+- [TafChunkDecoderException Constructor](Overload_Taf_Decoder_TafChunkDecoderException__ctor.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[TafChunkDecoderException Constructor](M_Taf_Decoder_TafChunkDecoderException__ctor.md)</p></li>
+<li><p>[TafChunkDecoderException(String) Constructor](M_Taf_Decoder_TafChunkDecoderException__ctor_1.md)</p></li>
+<li><p>[TafChunkDecoderException(String, String, String, TafChunkDecoder) Constructor](M_Taf_Decoder_TafChunkDecoderException__ctor_2.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[TafChunkDecoderException Properties](Properties_T_Taf_Decoder_TafChunkDecoderException.md)
+- [ChunkDecoder Property](P_Taf_Decoder_TafChunkDecoderException_ChunkDecoder.md)
+- [NewRemainingTaf Property](P_Taf_Decoder_TafChunkDecoderException_NewRemainingTaf.md)
+- [RemainingTaf Property](P_Taf_Decoder_TafChunkDecoderException_RemainingTaf.md)</p></li>
+<li><p>[TafChunkDecoderException Methods](Methods_T_Taf_Decoder_TafChunkDecoderException.md)
+- [GetObjectData Method](M_Taf_Decoder_TafChunkDecoderException_GetObjectData.md)</p></li>
+</ul>
+</li>
+<li><p>[TafChunkDecoderException.Messages Class](T_Taf_Decoder_TafChunkDecoderException_Messages.md)
+- [Messages Fields](Fields_T_Taf_Decoder_TafChunkDecoderException_Messages.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[AtmosphericPressureNotFound Field](F_Taf_Decoder_TafChunkDecoderException_Messages_AtmosphericPressureNotFound.md)</p></li>
+<li><p>[BadDayHourMinuteInformation Field](F_Taf_Decoder_TafChunkDecoderException_Messages_BadDayHourMinuteInformation.md)</p></li>
+<li><p>[CloudsInformationBadFormat Field](F_Taf_Decoder_TafChunkDecoderException_Messages_CloudsInformationBadFormat.md)</p></li>
+<li><p>[EvolutionInformationBadFormat Field](F_Taf_Decoder_TafChunkDecoderException_Messages_EvolutionInformationBadFormat.md)</p></li>
+<li><p>[ForVisibilityInformationBadFormat Field](F_Taf_Decoder_TafChunkDecoderException_Messages_ForVisibilityInformationBadFormat.md)</p></li>
+<li><p>[ICAONotFound Field](F_Taf_Decoder_TafChunkDecoderException_Messages_ICAONotFound.md)</p></li>
+<li><p>[InconsistentValuesForTemperatureInformation Field](F_Taf_Decoder_TafChunkDecoderException_Messages_InconsistentValuesForTemperatureInformation.md)</p></li>
+<li><p>[InvalidDayHourMinuteRanges Field](F_Taf_Decoder_TafChunkDecoderException_Messages_InvalidDayHourMinuteRanges.md)</p></li>
+<li><p>[InvalidForecastPeriodInformation Field](F_Taf_Decoder_TafChunkDecoderException_Messages_InvalidForecastPeriodInformation.md)</p></li>
+<li><p>[InvalidReportStatus Field](F_Taf_Decoder_TafChunkDecoderException_Messages_InvalidReportStatus.md)</p></li>
+<li><p>[InvalidRunwayQFURunwaVisualRangeInformation Field](F_Taf_Decoder_TafChunkDecoderException_Messages_InvalidRunwayQFURunwaVisualRangeInformation.md)</p></li>
+<li><p>[InvalidRunwayQFURunwayVisualRangeInformation Field](F_Taf_Decoder_TafChunkDecoderException_Messages_InvalidRunwayQFURunwayVisualRangeInformation.md)</p></li>
+<li><p>[InvalidValuesForTheForecastPeriod Field](F_Taf_Decoder_TafChunkDecoderException_Messages_InvalidValuesForTheForecastPeriod.md)</p></li>
+<li><p>[InvalidWindDirectionInterval Field](F_Taf_Decoder_TafChunkDecoderException_Messages_InvalidWindDirectionInterval.md)</p></li>
+<li><p>[InvalidWindDirectionVariationsInterval Field](F_Taf_Decoder_TafChunkDecoderException_Messages_InvalidWindDirectionVariationsInterval.md)</p></li>
+<li><p>[NoInformationExpectedAfterNILStatus Field](F_Taf_Decoder_TafChunkDecoderException_Messages_NoInformationExpectedAfterNILStatus.md)</p></li>
+<li><p>[NoSurfaceWindInformationMeasured Field](F_Taf_Decoder_TafChunkDecoderException_Messages_NoSurfaceWindInformationMeasured.md)</p></li>
+<li><p>[SurfaceWindInformationBadFormat Field](F_Taf_Decoder_TafChunkDecoderException_Messages_SurfaceWindInformationBadFormat.md)</p></li>
+<li><p>[UnknownEntity Field](F_Taf_Decoder_TafChunkDecoderException_Messages_UnknownEntity.md)</p></li>
+<li><p>[WeatherEvolutionBadFormat Field](F_Taf_Decoder_TafChunkDecoderException_Messages_WeatherEvolutionBadFormat.md)</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>[TafDecoder Class](T_Taf_Decoder_TafDecoder.md)
+- [TafDecoder Constructor](M_Taf_Decoder_TafDecoder__ctor.md)
+- [TafDecoder Methods](Methods_T_Taf_Decoder_TafDecoder.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[Parse Method](M_Taf_Decoder_TafDecoder_Parse.md)</p></li>
+<li><p>[ParseNotStrict Method](M_Taf_Decoder_TafDecoder_ParseNotStrict.md)</p></li>
+<li><p>[ParseStrict Method](M_Taf_Decoder_TafDecoder_ParseStrict.md)</p></li>
+<li><p>[ParseWithMode Method](M_Taf_Decoder_TafDecoder_ParseWithMode.md)</p></li>
+<li><p>[SetStrictParsing Method](M_Taf_Decoder_TafDecoder_SetStrictParsing.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[TafDecoder Fields](Fields_T_Taf_Decoder_TafDecoder.md)
+- [ExceptionKey Field](F_Taf_Decoder_TafDecoder_ExceptionKey.md)
+- [RemainingTafKey Field](F_Taf_Decoder_TafDecoder_RemainingTafKey.md)
+- [ResultKey Field](F_Taf_Decoder_TafDecoder_ResultKey.md)</p></li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>[Taf.Decoder.chunkdecoder Namespace](N_Taf_Decoder_chunkdecoder.md)
+- [CloudChunkDecoder Class](T_Taf_Decoder_chunkdecoder_CloudChunkDecoder.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[CloudChunkDecoder Constructor](M_Taf_Decoder_chunkdecoder_CloudChunkDecoder__ctor.md)</p></li>
+<li><p>[CloudChunkDecoder Methods](Methods_T_Taf_Decoder_chunkdecoder_CloudChunkDecoder.md)
+- [GetRegex Method](M_Taf_Decoder_chunkdecoder_CloudChunkDecoder_GetRegex.md)
+- [Parse Method](M_Taf_Decoder_chunkdecoder_CloudChunkDecoder_Parse.md)</p></li>
+<li><p>[CloudChunkDecoder Fields](Fields_T_Taf_Decoder_chunkdecoder_CloudChunkDecoder.md)
+- [CloudsParameterName Field](F_Taf_Decoder_chunkdecoder_CloudChunkDecoder_CloudsParameterName.md)</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>[DatetimeChunkDecoder Class](T_Taf_Decoder_chunkdecoder_DatetimeChunkDecoder.md)
+- [DatetimeChunkDecoder Constructor](M_Taf_Decoder_chunkdecoder_DatetimeChunkDecoder__ctor.md)
+- [DatetimeChunkDecoder Methods](Methods_T_Taf_Decoder_chunkdecoder_DatetimeChunkDecoder.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[GetRegex Method](M_Taf_Decoder_chunkdecoder_DatetimeChunkDecoder_GetRegex.md)</p></li>
+<li><p>[Parse Method](M_Taf_Decoder_chunkdecoder_DatetimeChunkDecoder_Parse.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[DatetimeChunkDecoder Fields](Fields_T_Taf_Decoder_chunkdecoder_DatetimeChunkDecoder.md)
+- [DayParameterName Field](F_Taf_Decoder_chunkdecoder_DatetimeChunkDecoder_DayParameterName.md)
+- [TimeParameterName Field](F_Taf_Decoder_chunkdecoder_DatetimeChunkDecoder_TimeParameterName.md)</p></li>
+</ul>
+</li>
+<li><p>[EvolutionChunkDecoder Class](T_Taf_Decoder_chunkdecoder_EvolutionChunkDecoder.md)
+- [EvolutionChunkDecoder Constructor](M_Taf_Decoder_chunkdecoder_EvolutionChunkDecoder__ctor.md)
+- [EvolutionChunkDecoder Properties](Properties_T_Taf_Decoder_chunkdecoder_EvolutionChunkDecoder.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[IsStrict Property](P_Taf_Decoder_chunkdecoder_EvolutionChunkDecoder_IsStrict.md)</p></li>
+<li><p>[Remaining Property](P_Taf_Decoder_chunkdecoder_EvolutionChunkDecoder_Remaining.md)</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>[EvolutionChunkDecoder Methods](Methods_T_Taf_Decoder_chunkdecoder_EvolutionChunkDecoder.md)
+- [GetRegex Method](M_Taf_Decoder_chunkdecoder_EvolutionChunkDecoder_GetRegex.md)
+- [Parse Method](Overload_Taf_Decoder_chunkdecoder_EvolutionChunkDecoder_Parse.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[Parse(String, Boolean) Method](M_Taf_Decoder_chunkdecoder_EvolutionChunkDecoder_Parse.md)</p></li>
+<li><p>[Parse(String, DecodedTaf) Method](M_Taf_Decoder_chunkdecoder_EvolutionChunkDecoder_Parse_1.md)</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>[EvolutionChunkDecoder Fields](Fields_T_Taf_Decoder_chunkdecoder_EvolutionChunkDecoder.md)
+- [Probability Field](F_Taf_Decoder_chunkdecoder_EvolutionChunkDecoder_Probability.md)</p></li>
+</ul>
+</li>
+<li><p>[ForecastPeriodChunkDecoder Class](T_Taf_Decoder_chunkdecoder_ForecastPeriodChunkDecoder.md)
+- [ForecastPeriodChunkDecoder Constructor](M_Taf_Decoder_chunkdecoder_ForecastPeriodChunkDecoder__ctor.md)
+- [ForecastPeriodChunkDecoder Methods](Methods_T_Taf_Decoder_chunkdecoder_ForecastPeriodChunkDecoder.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[GetRegex Method](M_Taf_Decoder_chunkdecoder_ForecastPeriodChunkDecoder_GetRegex.md)</p></li>
+<li><p>[Parse Method](M_Taf_Decoder_chunkdecoder_ForecastPeriodChunkDecoder_Parse.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[ForecastPeriodChunkDecoder Fields](Fields_T_Taf_Decoder_chunkdecoder_ForecastPeriodChunkDecoder.md)
+- [ForecastPeriodParameterName Field](F_Taf_Decoder_chunkdecoder_ForecastPeriodChunkDecoder_ForecastPeriodParameterName.md)</p></li>
+</ul>
+</li>
+<li><p>[IcaoChunkDecoder Class](T_Taf_Decoder_chunkdecoder_IcaoChunkDecoder.md)
+- [IcaoChunkDecoder Constructor](M_Taf_Decoder_chunkdecoder_IcaoChunkDecoder__ctor.md)
+- [IcaoChunkDecoder Methods](Methods_T_Taf_Decoder_chunkdecoder_IcaoChunkDecoder.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[GetRegex Method](M_Taf_Decoder_chunkdecoder_IcaoChunkDecoder_GetRegex.md)</p></li>
+<li><p>[Parse Method](M_Taf_Decoder_chunkdecoder_IcaoChunkDecoder_Parse.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[IcaoChunkDecoder Fields](Fields_T_Taf_Decoder_chunkdecoder_IcaoChunkDecoder.md)
+- [ICAOParameterName Field](F_Taf_Decoder_chunkdecoder_IcaoChunkDecoder_ICAOParameterName.md)</p></li>
+</ul>
+</li>
+<li><p>[ITafChunkDecoder Interface](T_Taf_Decoder_chunkdecoder_ITafChunkDecoder.md)
+- [ITafChunkDecoder Methods](Methods_T_Taf_Decoder_chunkdecoder_ITafChunkDecoder.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[GetRegex Method](M_Taf_Decoder_chunkdecoder_ITafChunkDecoder_GetRegex.md)</p></li>
+<li><p>[Parse Method](M_Taf_Decoder_chunkdecoder_ITafChunkDecoder_Parse.md)</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>[ReportTypeChunkDecoder Class](T_Taf_Decoder_chunkdecoder_ReportTypeChunkDecoder.md)
+- [ReportTypeChunkDecoder Constructor](M_Taf_Decoder_chunkdecoder_ReportTypeChunkDecoder__ctor.md)
+- [ReportTypeChunkDecoder Methods](Methods_T_Taf_Decoder_chunkdecoder_ReportTypeChunkDecoder.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[GetRegex Method](M_Taf_Decoder_chunkdecoder_ReportTypeChunkDecoder_GetRegex.md)</p></li>
+<li><p>[Parse Method](M_Taf_Decoder_chunkdecoder_ReportTypeChunkDecoder_Parse.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[ReportTypeChunkDecoder Fields](Fields_T_Taf_Decoder_chunkdecoder_ReportTypeChunkDecoder.md)
+- [TypeParameterName Field](F_Taf_Decoder_chunkdecoder_ReportTypeChunkDecoder_TypeParameterName.md)</p></li>
+</ul>
+</li>
+<li><p>[SurfaceWindChunkDecoder Class](T_Taf_Decoder_chunkdecoder_SurfaceWindChunkDecoder.md)
+- [SurfaceWindChunkDecoder Constructor](M_Taf_Decoder_chunkdecoder_SurfaceWindChunkDecoder__ctor.md)
+- [SurfaceWindChunkDecoder Methods](Methods_T_Taf_Decoder_chunkdecoder_SurfaceWindChunkDecoder.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[GetRegex Method](M_Taf_Decoder_chunkdecoder_SurfaceWindChunkDecoder_GetRegex.md)</p></li>
+<li><p>[Parse Method](M_Taf_Decoder_chunkdecoder_SurfaceWindChunkDecoder_Parse.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[SurfaceWindChunkDecoder Fields](Fields_T_Taf_Decoder_chunkdecoder_SurfaceWindChunkDecoder.md)
+- [SurfaceWindParameterName Field](F_Taf_Decoder_chunkdecoder_SurfaceWindChunkDecoder_SurfaceWindParameterName.md)</p></li>
+</ul>
+</li>
+<li><p>[TafChunkDecoder Class](T_Taf_Decoder_chunkdecoder_TafChunkDecoder.md)
+- [TafChunkDecoder Constructor](M_Taf_Decoder_chunkdecoder_TafChunkDecoder__ctor.md)
+- [TafChunkDecoder Methods](Methods_T_Taf_Decoder_chunkdecoder_TafChunkDecoder.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[Consume Method](M_Taf_Decoder_chunkdecoder_TafChunkDecoder_Consume.md)</p></li>
+<li><p>[ConsumeOneChunk Method](M_Taf_Decoder_chunkdecoder_TafChunkDecoder_ConsumeOneChunk.md)</p></li>
+<li><p>[GetRegex Method](M_Taf_Decoder_chunkdecoder_TafChunkDecoder_GetRegex.md)</p></li>
+<li><p>[GetResults Method](M_Taf_Decoder_chunkdecoder_TafChunkDecoder_GetResults.md)</p></li>
+<li><p>[Parse Method](M_Taf_Decoder_chunkdecoder_TafChunkDecoder_Parse.md)</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>[TemperatureChunkDecoder Class](T_Taf_Decoder_chunkdecoder_TemperatureChunkDecoder.md)
+- [TemperatureChunkDecoder Constructor](M_Taf_Decoder_chunkdecoder_TemperatureChunkDecoder__ctor.md)
+- [TemperatureChunkDecoder Methods](Methods_T_Taf_Decoder_chunkdecoder_TemperatureChunkDecoder.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[GetRegex Method](M_Taf_Decoder_chunkdecoder_TemperatureChunkDecoder_GetRegex.md)</p></li>
+<li><p>[Parse Method](M_Taf_Decoder_chunkdecoder_TemperatureChunkDecoder_Parse.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[TemperatureChunkDecoder Fields](Fields_T_Taf_Decoder_chunkdecoder_TemperatureChunkDecoder.md)
+- [MaximumTemperatureParameterName Field](F_Taf_Decoder_chunkdecoder_TemperatureChunkDecoder_MaximumTemperatureParameterName.md)
+- [MinimumTemperatureParameterName Field](F_Taf_Decoder_chunkdecoder_TemperatureChunkDecoder_MinimumTemperatureParameterName.md)</p></li>
+</ul>
+</li>
+<li><p>[VisibilityChunkDecoder Class](T_Taf_Decoder_chunkdecoder_VisibilityChunkDecoder.md)
+- [VisibilityChunkDecoder Constructor](M_Taf_Decoder_chunkdecoder_VisibilityChunkDecoder__ctor.md)
+- [VisibilityChunkDecoder Methods](Methods_T_Taf_Decoder_chunkdecoder_VisibilityChunkDecoder.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[GetRegex Method](M_Taf_Decoder_chunkdecoder_VisibilityChunkDecoder_GetRegex.md)</p></li>
+<li><p>[Parse Method](M_Taf_Decoder_chunkdecoder_VisibilityChunkDecoder_Parse.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[VisibilityChunkDecoder Fields](Fields_T_Taf_Decoder_chunkdecoder_VisibilityChunkDecoder.md)
+- [CavokParameterName Field](F_Taf_Decoder_chunkdecoder_VisibilityChunkDecoder_CavokParameterName.md)
+- [VisibilityParameterName Field](F_Taf_Decoder_chunkdecoder_VisibilityChunkDecoder_VisibilityParameterName.md)</p></li>
+</ul>
+</li>
+<li><p>[WeatherChunkDecoder Class](T_Taf_Decoder_chunkdecoder_WeatherChunkDecoder.md)
+- [WeatherChunkDecoder Constructor](M_Taf_Decoder_chunkdecoder_WeatherChunkDecoder__ctor.md)
+- [WeatherChunkDecoder Methods](Methods_T_Taf_Decoder_chunkdecoder_WeatherChunkDecoder.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[GetRegex Method](M_Taf_Decoder_chunkdecoder_WeatherChunkDecoder_GetRegex.md)</p></li>
+<li><p>[Parse Method](M_Taf_Decoder_chunkdecoder_WeatherChunkDecoder_Parse.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[WeatherChunkDecoder Fields](Fields_T_Taf_Decoder_chunkdecoder_WeatherChunkDecoder.md)
+- [PwRegexPattern Field](F_Taf_Decoder_chunkdecoder_WeatherChunkDecoder_PwRegexPattern.md)
+- [WeatherPhenomenonParameterName Field](F_Taf_Decoder_chunkdecoder_WeatherChunkDecoder_WeatherPhenomenonParameterName.md)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>[Taf.Decoder.entity Namespace](N_Taf_Decoder_entity.md)
+- [AbstractEntity Class](T_Taf_Decoder_entity_AbstractEntity.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[AbstractEntity Constructor](M_Taf_Decoder_entity_AbstractEntity__ctor.md)</p></li>
+<li><p>[AbstractEntity Properties](Properties_T_Taf_Decoder_entity_AbstractEntity.md)
+- [Evolutions Property](P_Taf_Decoder_entity_AbstractEntity_Evolutions.md)</p></li>
+<li><p>[AbstractEntity Methods](Methods_T_Taf_Decoder_entity_AbstractEntity.md)</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p>[CloudLayer Class](T_Taf_Decoder_entity_CloudLayer.md)
+- [CloudLayer Constructor](M_Taf_Decoder_entity_CloudLayer__ctor.md)
+- [CloudLayer Properties](Properties_T_Taf_Decoder_entity_CloudLayer.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[Amount Property](P_Taf_Decoder_entity_CloudLayer_Amount.md)</p></li>
+<li><p>[BaseHeight Property](P_Taf_Decoder_entity_CloudLayer_BaseHeight.md)</p></li>
+<li><p>[Type Property](P_Taf_Decoder_entity_CloudLayer_Type.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[CloudLayer Methods](Methods_T_Taf_Decoder_entity_CloudLayer.md)</p></li>
+</ul>
+</li>
+<li><p>[CloudLayer.CloudAmount Enumeration](T_Taf_Decoder_entity_CloudLayer_CloudAmount.md)</p></li>
+<li><p>[CloudLayer.CloudType Enumeration](T_Taf_Decoder_entity_CloudLayer_CloudType.md)</p></li>
+<li><p>[DecodedTaf Class](T_Taf_Decoder_entity_DecodedTaf.md)
+- [DecodedTaf Properties](Properties_T_Taf_Decoder_entity_DecodedTaf.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[Cavok Property](P_Taf_Decoder_entity_DecodedTaf_Cavok.md)</p></li>
+<li><p>[Clouds Property](P_Taf_Decoder_entity_DecodedTaf_Clouds.md)</p></li>
+<li><p>[Day Property](P_Taf_Decoder_entity_DecodedTaf_Day.md)</p></li>
+<li><p>[DecodingExceptions Property](P_Taf_Decoder_entity_DecodedTaf_DecodingExceptions.md)</p></li>
+<li><p>[ForecastPeriod Property](P_Taf_Decoder_entity_DecodedTaf_ForecastPeriod.md)</p></li>
+<li><p>[Icao Property](P_Taf_Decoder_entity_DecodedTaf_Icao.md)</p></li>
+<li><p>[IsValid Property](P_Taf_Decoder_entity_DecodedTaf_IsValid.md)</p></li>
+<li><p>[MaximumTemperature Property](P_Taf_Decoder_entity_DecodedTaf_MaximumTemperature.md)</p></li>
+<li><p>[MinimumTemperature Property](P_Taf_Decoder_entity_DecodedTaf_MinimumTemperature.md)</p></li>
+<li><p>[RawTaf Property](P_Taf_Decoder_entity_DecodedTaf_RawTaf.md)</p></li>
+<li><p>[Status Property](P_Taf_Decoder_entity_DecodedTaf_Status.md)</p></li>
+<li><p>[SurfaceWind Property](P_Taf_Decoder_entity_DecodedTaf_SurfaceWind.md)</p></li>
+<li><p>[Time Property](P_Taf_Decoder_entity_DecodedTaf_Time.md)</p></li>
+<li><p>[Type Property](P_Taf_Decoder_entity_DecodedTaf_Type.md)</p></li>
+<li><p>[Visibility Property](P_Taf_Decoder_entity_DecodedTaf_Visibility.md)</p></li>
+<li><p>[WeatherPhenomenons Property](P_Taf_Decoder_entity_DecodedTaf_WeatherPhenomenons.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[DecodedTaf Methods](Methods_T_Taf_Decoder_entity_DecodedTaf.md)
+- [AddDecodingException Method](M_Taf_Decoder_entity_DecodedTaf_AddDecodingException.md)
+- [ResetDecodingExceptions Method](M_Taf_Decoder_entity_DecodedTaf_ResetDecodingExceptions.md)</p></li>
+</ul>
+</li>
+<li><p>[DecodedTaf.TafType Enumeration](T_Taf_Decoder_entity_DecodedTaf_TafType.md)</p></li>
+<li><p>[Evolution Class](T_Taf_Decoder_entity_Evolution.md)
+- [Evolution Constructor](M_Taf_Decoder_entity_Evolution__ctor.md)
+- [Evolution Properties](Properties_T_Taf_Decoder_entity_Evolution.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[Cavok Property](P_Taf_Decoder_entity_Evolution_Cavok.md)</p></li>
+<li><p>[Entity Property](P_Taf_Decoder_entity_Evolution_Entity.md)</p></li>
+<li><p>[FromDay Property](P_Taf_Decoder_entity_Evolution_FromDay.md)</p></li>
+<li><p>[FromTime Property](P_Taf_Decoder_entity_Evolution_FromTime.md)</p></li>
+<li><p>[Probability Property](P_Taf_Decoder_entity_Evolution_Probability.md)</p></li>
+<li><p>[ToDay Property](P_Taf_Decoder_entity_Evolution_ToDay.md)</p></li>
+<li><p>[ToTime Property](P_Taf_Decoder_entity_Evolution_ToTime.md)</p></li>
+<li><p>[Type Property](P_Taf_Decoder_entity_Evolution_Type.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[Evolution Methods](Methods_T_Taf_Decoder_entity_Evolution.md)
+- [Clone Method](M_Taf_Decoder_entity_Evolution_Clone.md)</p></li>
+</ul>
+</li>
+<li><p>[ForecastPeriod Class](T_Taf_Decoder_entity_ForecastPeriod.md)
+- [ForecastPeriod Constructor](M_Taf_Decoder_entity_ForecastPeriod__ctor.md)
+- [ForecastPeriod Properties](Properties_T_Taf_Decoder_entity_ForecastPeriod.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[FromDay Property](P_Taf_Decoder_entity_ForecastPeriod_FromDay.md)</p></li>
+<li><p>[FromHour Property](P_Taf_Decoder_entity_ForecastPeriod_FromHour.md)</p></li>
+<li><p>[IsValid Property](P_Taf_Decoder_entity_ForecastPeriod_IsValid.md)</p></li>
+<li><p>[ToDay Property](P_Taf_Decoder_entity_ForecastPeriod_ToDay.md)</p></li>
+<li><p>[ToHour Property](P_Taf_Decoder_entity_ForecastPeriod_ToHour.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[ForecastPeriod Methods](Methods_T_Taf_Decoder_entity_ForecastPeriod.md)</p></li>
+</ul>
+</li>
+<li><p>[SurfaceWind Class](T_Taf_Decoder_entity_SurfaceWind.md)
+- [SurfaceWind Constructor](M_Taf_Decoder_entity_SurfaceWind__ctor.md)
+- [SurfaceWind Properties](Properties_T_Taf_Decoder_entity_SurfaceWind.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[DirectionVariations Property](P_Taf_Decoder_entity_SurfaceWind_DirectionVariations.md)</p></li>
+<li><p>[MeanDirection Property](P_Taf_Decoder_entity_SurfaceWind_MeanDirection.md)</p></li>
+<li><p>[MeanSpeed Property](P_Taf_Decoder_entity_SurfaceWind_MeanSpeed.md)</p></li>
+<li><p>[SpeedVariations Property](P_Taf_Decoder_entity_SurfaceWind_SpeedVariations.md)</p></li>
+<li><p>[VariableDirection Property](P_Taf_Decoder_entity_SurfaceWind_VariableDirection.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[SurfaceWind Methods](Methods_T_Taf_Decoder_entity_SurfaceWind.md)
+- [SetDirectionVariations Method](M_Taf_Decoder_entity_SurfaceWind_SetDirectionVariations.md)</p></li>
+</ul>
+</li>
+<li><p>[Temperature Class](T_Taf_Decoder_entity_Temperature.md)
+- [Temperature Constructor](M_Taf_Decoder_entity_Temperature__ctor.md)
+- [Temperature Properties](Properties_T_Taf_Decoder_entity_Temperature.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[Day Property](P_Taf_Decoder_entity_Temperature_Day.md)</p></li>
+<li><p>[Hour Property](P_Taf_Decoder_entity_Temperature_Hour.md)</p></li>
+<li><p>[TemperatureValue Property](P_Taf_Decoder_entity_Temperature_TemperatureValue.md)</p></li>
+<li><p>[Type Property](P_Taf_Decoder_entity_Temperature_Type.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[Temperature Methods](Methods_T_Taf_Decoder_entity_Temperature.md)</p></li>
+</ul>
+</li>
+<li><p>[Value Class](T_Taf_Decoder_entity_Value.md)
+- [Value Constructor](M_Taf_Decoder_entity_Value__ctor.md)
+- [Value Properties](Properties_T_Taf_Decoder_entity_Value.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[ActualUnit Property](P_Taf_Decoder_entity_Value_ActualUnit.md)</p></li>
+<li><p>[ActualValue Property](P_Taf_Decoder_entity_Value_ActualValue.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[Value Methods](Methods_T_Taf_Decoder_entity_Value.md)
+- [GetConvertedValue Method](M_Taf_Decoder_entity_Value_GetConvertedValue.md)
+- [ToInt Method](M_Taf_Decoder_entity_Value_ToInt.md)
+- [ToString Method](M_Taf_Decoder_entity_Value_ToString.md)</p></li>
+</ul>
+</li>
+<li><p>[Value.Unit Enumeration](T_Taf_Decoder_entity_Value_Unit.md)</p></li>
+<li><p>[Visibility Class](T_Taf_Decoder_entity_Visibility.md)
+- [Visibility Constructor](M_Taf_Decoder_entity_Visibility__ctor.md)
+- [Visibility Properties](Properties_T_Taf_Decoder_entity_Visibility.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[ActualVisibility Property](P_Taf_Decoder_entity_Visibility_ActualVisibility.md)</p></li>
+<li><p>[Greater Property](P_Taf_Decoder_entity_Visibility_Greater.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[Visibility Methods](Methods_T_Taf_Decoder_entity_Visibility.md)</p></li>
+</ul>
+</li>
+<li><p>[WeatherPhenomenon Class](T_Taf_Decoder_entity_WeatherPhenomenon.md)
+- [WeatherPhenomenon Constructor](M_Taf_Decoder_entity_WeatherPhenomenon__ctor.md)
+- [WeatherPhenomenon Properties](Properties_T_Taf_Decoder_entity_WeatherPhenomenon.md)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>[Descriptor Property](P_Taf_Decoder_entity_WeatherPhenomenon_Descriptor.md)</p></li>
+<li><p>[IntensityProximity Property](P_Taf_Decoder_entity_WeatherPhenomenon_IntensityProximity.md)</p></li>
+<li><p>[Phenomena Property](P_Taf_Decoder_entity_WeatherPhenomenon_Phenomena.md)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>[WeatherPhenomenon Methods](Methods_T_Taf_Decoder_entity_WeatherPhenomenon.md)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, AFONSOFT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

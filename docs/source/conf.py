@@ -3,6 +3,7 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
@@ -18,8 +19,7 @@ templates_path = ['_templates']
 exclude_patterns = ['build/*']
 extensions = ['sphinx_csharp.csharp', 'sphinx_markdown_builder']
 
-from recommonmark.parser import CommonMarkParser
-source_parsers = {'.md': CommonMarkParser}
+source_parsers = {'.md': 'recommonmark.parser.CommonMarkParser'}
 source_suffix = ['.rst', '.md']
 
 # -- Options for HTML output -------------------------------------------------

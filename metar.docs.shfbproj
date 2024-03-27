@@ -18,7 +18,7 @@
 		<Name>MetarDecoder.Docs</Name>
 		<!-- SHFB properties -->
 		<FrameworkVersion>.NET Core/.NET Standard/.NET 5.0+</FrameworkVersion>
-		<OutputPath>.\Docs\md</OutputPath>
+		<OutputPath>.\Docs\source\md</OutputPath>
 		<HtmlHelpName>MetarDecoder</HtmlHelpName>
 		<Language>en-US</Language>
 		<HelpFileFormat>Markdown</HelpFileFormat>
