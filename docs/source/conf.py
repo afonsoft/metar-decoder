@@ -15,8 +15,8 @@ release = '1.0.0'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 templates_path = ['_templates']
-exclude_patterns = []
-extensions = ['sphinx_csharp.csharp']
+exclude_patterns = ['build/*']
+extensions = ['sphinx_csharp.csharp', 'sphinx_markdown_builder']
 
 from recommonmark.parser import CommonMarkParser
 source_parsers = {'.md': CommonMarkParser}
