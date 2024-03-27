@@ -1,0 +1,382 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Taf.Decoder</name>
+    </assembly>
+    <members>
+        <member name="M:Taf.Decoder.chunkdecoder.ITafChunkDecoder.GetRegex">
+            <summary>
+            Get the regular expression that will be used by chunk decoder
+            Each chunk decoder must declare its own.
+            </summary>
+        </member>
+        <member name="M:Taf.Decoder.chunkdecoder.ITafChunkDecoder.Parse(System.String,System.Boolean)">
+            <summary>
+            Decode the chunk targeted by the chunk decoder and returns the
+            decoded information and the remaining taf without this chunk.
+            </summary>
+            <param name="remainingTaf"></param>
+            <param name="withCavok"></param>
+        </member>
+        <member name="M:Taf.Decoder.chunkdecoder.TafChunkDecoder.Consume(System.String,System.String@)">
+            <summary>
+            Extract the corresponding chunk from the remaining taf.
+            </summary>
+            <param name="remainingTaf">matches array if any match (null if no match), + updated remaining taf</param>
+            <param name="newRemainingTaf">new Remaining Taf</param>
+            <returns></returns>
+        </member>
+        <member name="M:Taf.Decoder.chunkdecoder.TafChunkDecoder.ConsumeOneChunk(System.String)">
+            <summary>
+            Consume one chunk blindly, without looking for the specific pattern (only whitespace).
+            </summary>
+            <param name="remainingTaf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Taf.Decoder.chunkdecoder.DatetimeChunkDecoder.checkValidity(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Check the validity of the decoded information for date time.
+            </summary>
+            <param name="day"></param>
+            <param name="hour"></param>
+            <param name="minute"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Taf.Decoder.chunkdecoder.EvolutionChunkDecoder.Parse(System.String,System.Boolean)">
+            <summary>
+            Not implemented because EvolutionChunkDecoder is not part of the decoder chain
+            </summary>
+            <param name="remainingTaf"></param>
+            <param name="withCavok"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Taf.Decoder.chunkdecoder.EvolutionChunkDecoder.ParseEntitiesChunk(Taf.Decoder.entity.Evolution,System.String,Taf.Decoder.entity.DecodedTaf)">
+            <summary>
+            Extract the weather elements (surface winds, visibility, etc) between 2 evolution tags (BECMG, TEMPO or FM)
+            </summary>
+            <param name="evolution"></param>
+            <param name="chunk"></param>
+            <param name="decodedTaf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Taf.Decoder.chunkdecoder.EvolutionChunkDecoder.ProbabilityChunkDecoder(Taf.Decoder.entity.Evolution,System.String,Taf.Decoder.entity.DecodedTaf)">
+            <summary>
+            Look recursively for probability (PROBnn) attributes and embed a new evolution object one level deeper for each
+            </summary>
+            <param name="evolution"></param>
+            <param name="chunk"></param>
+            <param name="decodedTaf"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Taf.Decoder.entity.AbstractEntity.Evolutions">
+            <summary>
+            An evolution can contain embedded evolutions with different probabilities
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.CloudLayer.Amount">
+            <summary>
+            Annotation corresponding to amount of clouds (FEW/SCT/BKN/OVC)
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.CloudLayer.BaseHeight">
+            <summary>
+            Height of cloud base
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.CloudLayer.Type">
+            <summary>
+            Cloud type cumulonimbus, towering cumulonimbus (CB/TCU)
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.RawTaf">
+            <summary>
+            Raw TAF
+            </summary>
+        </member>
+        <member name="F:Taf.Decoder.entity.DecodedTaf._decodingExceptions">
+            <summary>
+            Decoding exceptions, if any
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.DecodingExceptions">
+            <summary>
+            If the decoded taf is invalid, get all the exceptions that occurred during decoding
+            Note that in strict mode, only the first encountered exception will be reported as parsing stops on error
+            Else return null;.
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.Type">
+            <summary>
+            Report type
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.Icao">
+            <summary>
+            ICAO code of the airport where the forecast has been made
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.Day">
+            <summary>
+            Day of origin
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.Time">
+            <summary>
+            Time of origin, as string
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.ForecastPeriod">
+            <summary>
+            Forecast period
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.Status">
+            <summary>
+            Report status (AUTO or NIL)
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.SurfaceWind">
+            <summary>
+            Surface wind information
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.Visibility">
+            <summary>
+            Visibility information
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.WeatherPhenomenons">
+            <summary>
+            Weather phenomenon
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.Clouds">
+            <summary>
+            Cloud layers information
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.MinimumTemperature">
+            <summary>
+            Temperature information
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.MaximumTemperature">
+            <summary>
+            Temperature information
+            </summary>
+        </member>
+        <member name="M:Taf.Decoder.entity.DecodedTaf.ResetDecodingExceptions">
+            <summary>
+            Reset the whole list of Decoding Exceptions
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.DecodedTaf.IsValid">
+            <summary>
+            Check if the decoded taf is valid, i.e. if there was no error during decoding.
+            </summary>
+        </member>
+        <member name="M:Taf.Decoder.entity.DecodedTaf.AddDecodingException(Taf.Decoder.TafChunkDecoderException)">
+            <summary>
+            Add an exception that occured during taf decoding.
+            </summary>
+            <param name="ex"></param>
+        </member>
+        <member name="P:Taf.Decoder.entity.Evolution.Type">
+            <summary>
+            annotation corresponding to the type of evolution (FM, BECMG or TEMPO)
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.Evolution.FromDay">
+            <summary>
+            day when the evolution occurs (FM) or starts (BECMG/TEMPO)
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.Evolution.FromTime">
+            <summary>
+            hour and minute UTC (as string) when the evolution occurs (FM)
+            or hour UTC (as string) when the evolution starts (BECMG/TEMPO)
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.Evolution.ToDay">
+            <summary>
+            day when the evolution ends (BECMG/tEMPO)
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.Evolution.ToTime">
+            <summary>
+            hour UTC (as string) when the evolution ends (BECMG/TEMPO)
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.Evolution.Cavok">
+            <summary>
+            weather entity (i.e. SurfaceWind, Temperature, Visibility, etc.)
+            public Entity entity { get; set; }
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.Evolution.Probability">
+            <summary>
+            optional annotation corresponding to the probability (PROBnn)
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.ForecastPeriod.FromDay">
+            <summary>
+            Starting day of forecast period
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.ForecastPeriod.FromHour">
+            <summary>
+            Starting hour of forecast period
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.ForecastPeriod.ToDay">
+            <summary>
+            Ending day of forecast period
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.ForecastPeriod.ToHour">
+            <summary>
+            Ending hour of forecast period
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.SurfaceWind.MeanDirection">
+            <summary>
+            Wind direction
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.SurfaceWind.VariableDirection">
+            <summary>
+            Wind variability (if true, direction is null)
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.SurfaceWind.MeanSpeed">
+            <summary>
+            Wind speed
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.SurfaceWind.SpeedVariations">
+            <summary>
+            Wind speed variation (gusts)
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.SurfaceWind.DirectionVariations">
+            <summary>
+            Boundaries for wind direction variation
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.Temperature.Type">
+            <summary>
+            Annotation defining whether it's the minimum or maximum forecast temperature
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.Temperature.TemperatureValue">
+            <summary>
+            Temperature value
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.Temperature.Day">
+            <summary>
+            Day of occurrence
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.Temperature.Hour">
+            <summary>
+            Hur of occurrence
+            </summary>
+        </member>
+        <member name="F:Taf.Decoder.entity.Value.ConversionMaps">
+            <summary>
+            Conversions maps, internal usage only
+            </summary>
+        </member>
+        <member name="M:Taf.Decoder.entity.Value.GetConvertedValue(Taf.Decoder.entity.Value.Unit)">
+            <summary>
+            Returns converted value of unit.
+            </summary>
+            <param name="unitTo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Taf.Decoder.entity.Value.GetConversionRate(Taf.Decoder.entity.Value.Unit)">
+            <summary>
+            Returns conversion rate between original TAF unit and requested unit.
+            </summary>
+            <param name="unit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Taf.Decoder.entity.Value.GetConversionMap">
+            <summary>
+            Returns conversion map based on original TAF unit.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Taf.Decoder.entity.Value.ToInt(System.String)">
+            <summary>
+            Convert a string value into an int, and takes into account some non-numeric char
+            P = +, M = -, / = null
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.Visibility.ActualVisibility">
+            <summary>
+            Prevailing visibility
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.Visibility.Greater">
+            <summary>
+            Visibility is greater than the given value
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.WeatherPhenomenon.IntensityProximity">
+            <summary>
+            Intensity/proximity of the phenomenon + / - / VC (=vicinity)
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.WeatherPhenomenon.Descriptor">
+            <summary>
+            Characteristics of the phenomenon
+            </summary>
+        </member>
+        <member name="P:Taf.Decoder.entity.WeatherPhenomenon.Phenomena">
+            <summary>
+            Types of phenomena
+            </summary>
+        </member>
+        <member name="M:Taf.Decoder.TafDecoder.SetStrictParsing(System.Boolean)">
+            <summary>
+            Set global parsing mode (strict/not strict) for the whole object.
+            </summary>
+            <param name="isStrict"></param>
+        </member>
+        <member name="M:Taf.Decoder.TafDecoder.Parse(System.String)">
+            <summary>
+            Decode a full taf string into a complete taf object
+            while using global strict option.
+            </summary>
+            <param name="rawTaf"></param>
+        </member>
+        <member name="M:Taf.Decoder.TafDecoder.ParseStrict(System.String)">
+            <summary>
+            Decode a full taf string into a complete taf object
+            with strict option, meaning decoding will stop as soon as
+            a non-compliance is detected.
+            </summary>
+            <param name="rawTaf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Taf.Decoder.TafDecoder.ParseNotStrict(System.String)">
+            <summary>
+            Decode a full taf string into a complete taf object
+            with strict option disabled, meaning that decoding will
+            continue even if taf is not compliant.
+            </summary>
+            <param name="rawTaf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Taf.Decoder.TafDecoder.ParseWithMode(System.String,System.Boolean)">
+            <summary>
+            Decode a full taf string into a complete taf object.
+            </summary>
+            <param name="rawTaf">raw Taf</param>
+            <param name="isStrict"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -26,7 +26,8 @@
     <PresentationStyle>Markdown</PresentationStyle>
     <DocumentationSources>
       <DocumentationSource sourceFile="src\Taf.Decoder\Taf.Decoder.csproj" />
-<DocumentationSource sourceFile="src\Metar.Decoder\Metar.Decoder.csproj" /></DocumentationSources>
+      <DocumentationSource sourceFile="src\Metar.Decoder\Metar.Decoder.csproj" />
+    </DocumentationSources>
     <CleanIntermediates>True</CleanIntermediates>
     <KeepLogFile>False</KeepLogFile>
     <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
@@ -67,6 +68,10 @@
     <MaximumGroupParts>2</MaximumGroupParts>
     <Preliminary>False</Preliminary>
     <SdkLinkTarget>Blank</SdkLinkTarget>
+    <ProjectSummary>A .NET library to decode METAR / TAF strings, this library package is netstandard 2.0. Working with Net Core and NET.</ProjectSummary>
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="Metar.Decoder" isDocumented="True" xmlns="" />
+    </NamespaceSummaries>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

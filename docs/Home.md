@@ -1,6 +1,8 @@
 # Namespaces
 
 
+A .NET library to decode METAR / TAF strings, this library package is netstandard 2.0. Working with Net Core and NET.
+
 
 
 ## Namespaces
