@@ -1,0 +1,35 @@
+# GetResults Method
+
+
+GetResults
+
+
+
+## Definition
+**Namespace:** <a href="N_Metar_Decoder_Chunkdecoder.md">Metar.Decoder.Chunkdecoder</a>  
+**Assembly:** Metar.Decoder (in Metar.Decoder.dll) Version: 1.0.5+ad2a158933a1e4d81e31e9a7f1a0faf24fc95eed  
+**XMLNS for XAML:** Not mapped to an xmlns.
+
+**C#**
+``` C#
+protected Dictionary<string, Object> GetResults(
+	string newRemainingMetar,
+	Dictionary<string, Object> result
+)
+```
+
+
+
+#### Parameters
+<dl><dt>  <a href="https://learn.microsoft.com/dotnet/api/system.string" target="_blank" rel="noopener noreferrer">String</a></dt><dd>\[Missing &lt;param name="newRemainingMetar"/&gt; documentation for "M:Metar.Decoder.Chunkdecoder.MetarChunkDecoder.GetResults(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})"\]</dd><dt>  <a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2" target="_blank" rel="noopener noreferrer">Dictionary</a>(<a href="https://learn.microsoft.com/dotnet/api/system.string" target="_blank" rel="noopener noreferrer">String</a>, <a href="https://learn.microsoft.com/dotnet/api/system.object" target="_blank" rel="noopener noreferrer">Object</a>)</dt><dd>\[Missing &lt;param name="result"/&gt; documentation for "M:Metar.Decoder.Chunkdecoder.MetarChunkDecoder.GetResults(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})"\]</dd></dl>
+
+#### Return Value
+<a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2" target="_blank" rel="noopener noreferrer">Dictionary</a>(<a href="https://learn.microsoft.com/dotnet/api/system.string" target="_blank" rel="noopener noreferrer">String</a>, <a href="https://learn.microsoft.com/dotnet/api/system.object" target="_blank" rel="noopener noreferrer">Object</a>)  
+\[Missing &lt;returns&gt; documentation for "M:Metar.Decoder.Chunkdecoder.MetarChunkDecoder.GetResults(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})"\]
+
+## See Also
+
+
+#### Reference
+<a href="T_Metar_Decoder_Chunkdecoder_MetarChunkDecoder.md">MetarChunkDecoder Class</a>  
+<a href="N_Metar_Decoder_Chunkdecoder.md">Metar.Decoder.Chunkdecoder Namespace</a>  
