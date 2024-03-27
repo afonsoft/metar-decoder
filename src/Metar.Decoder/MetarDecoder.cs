@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 namespace Metar.Decoder
 {
     /// <summary>
-    /// MetarDecoder
+    /// Metar Decoder
     /// </summary>
     public sealed class MetarDecoder
     {
@@ -16,7 +16,11 @@ namespace Metar.Decoder
         public const string RemainingMetarKey = "RemainingMetar";
         public const string ExceptionKey = "Exception";
 
-        public MetarDecoder() {
+        /// <summary>
+        /// Metar Decoder
+        /// </summary>
+        public MetarDecoder()
+        {
             //csharpsquid:S6444
             AppDomain.CurrentDomain.SetData("REGEX_DEFAULT_MATCH_TIMEOUT", TimeSpan.FromMilliseconds(500)); // process-wide setting
         }

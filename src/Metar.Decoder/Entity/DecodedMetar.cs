@@ -17,6 +17,9 @@ namespace Metar.Decoder.Entity
             SPECI_COR,
         }
 
+        /// <summary>
+        /// Metar Status
+        /// </summary>
         public enum MetarStatus
         {
             NULL,

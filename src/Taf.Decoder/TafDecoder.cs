@@ -7,12 +7,18 @@ using Taf.Decoder.entity;
 
 namespace Taf.Decoder
 {
+    /// <summary>
+    /// Taf Decoder
+    /// </summary>
     public sealed class TafDecoder
     {
         public const string ResultKey = "Result";
         public const string RemainingTafKey = "RemainingTaf";
         public const string ExceptionKey = "Exception";
 
+        /// <summary>
+        /// Taf Decoder
+        /// </summary>
         public TafDecoder()
         {
             //csharpsquid:S6444
