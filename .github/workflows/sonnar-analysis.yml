@@ -40,7 +40,7 @@ jobs:
       - name: Prepare analysis on SonarQube
         run: dotnet sonarscanner begin /o:"afonsoft" /k:"afonsoft_metar-decoder" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{secrets.SONAR_TOKEN}} /d:sonar.scm.provider=git /d:sonar.coverage.exclusions=**Test*.cs /d:sonar.cs.vstest.reportsPaths=resultTest/*.trx /d:sonar.cs.opencover.reportsPaths=/coverage.opencover.xml
       - name: Build
-        run: dotnet build --configuration $BUILD_CONFIG
+        run: dotnet build MetarDecoder.sln --configuration $BUILD_CONFIG
       - name: Run Metar Test
         run: dotnet test tests/Metar.Decoder.Tests/Metar.Decoder.Tests.csproj --collect:"Code Coverage" --logger "trx;LogFileName=Metar.Decoder.Tests.trx" --results-directory resultTest/ --no-build --no-restore --configuration $BUILD_CONFIG -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
       - name: Run Taf Test
