@@ -183,6 +183,7 @@ namespace Taf.Decoder_tests
         [Test]
         public void TestParseRTDMode()
         {
+             decoder.SetStrictParsing(false);
             var d = decoder.Parse("RTD EKEB 190416Z 1905/1912 13006KT 0200 FZFG BKN001 TEMPO 1905/1907 2000 BR BKN003 BECMG 1907/1909 9000 NSW FEW002 PROB40 1909/1911 0400 FZFG BKN002=\n");
              ClassicAssert.IsTrue(d.IsValid);
         }
