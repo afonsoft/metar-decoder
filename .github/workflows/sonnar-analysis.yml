@@ -29,8 +29,6 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu' # Alternative distribution options are available.
-      - name: Update to Nuget
-        run: nuget update -self
       - name: Clear NuGet cache
         run: dotnet nuget locals all --clear
       - name: Install SonarQube Tools

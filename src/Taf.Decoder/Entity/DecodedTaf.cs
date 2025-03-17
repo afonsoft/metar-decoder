@@ -11,6 +11,7 @@ namespace Taf.Decoder.entity
             TAF,
             TAFAMD,
             TAFCOR,
+            RTD,
         }
 
         private string _rawTaf;
