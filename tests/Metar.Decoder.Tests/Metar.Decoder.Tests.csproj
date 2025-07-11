@@ -11,11 +11,11 @@
 	<GenerateAssemblyProductAttribute>true</GenerateAssemblyProductAttribute>
 	<GenerateAssemblyCopyrightAttribute>true</GenerateAssemblyCopyrightAttribute>
     <IsPackable>false</IsPackable>
-  	<LangVersion>9.0</LangVersion>
+  	<LangVersion>11.0</LangVersion>
     <RootNamespace>Metar.Decoder.Tests</RootNamespace>
 	<AssemblyName>Metar.Decoder.Tests</AssemblyName>
     <Authors>Afonso Dutra Nogueira Filho</Authors>
-	<Copyright>AFONSOFT© 2024</Copyright>
+	<Copyright>AFONSOFT© 2025</Copyright>
 	<Company>Afonsoft</Company>
 	<WarningLevel>0</WarningLevel>
   </PropertyGroup>
