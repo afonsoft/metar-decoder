@@ -41,7 +41,7 @@ jobs:
         run: dotnet restore MetarDecoder.sln --ignore-failed-sources
         
       - name: Build Solution (Debug)
-        run: dotnet MetarDecoder.sln --configuration Debug
+        run: dotnet build MetarDecoder.sln --configuration Debug
 
       - name: Run Tests
         run: dotnet test MetarDecoder.sln --no-build --verbosity normal --configuration Debug
