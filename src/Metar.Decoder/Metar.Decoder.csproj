@@ -8,7 +8,7 @@
 		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/afonsoft/metar-decoder</RepositoryUrl>
 		<Authors>Afonso Dutra Nogueira Filho</Authors>
-		<Copyright>AFONSOFT© 2024</Copyright>
+		<Copyright>AFONSOFT© 2025</Copyright>
 		<Company>Afonsoft</Company>
 		<LangVersion>10.0</LangVersion>
 		<OutputType>Library</OutputType>
