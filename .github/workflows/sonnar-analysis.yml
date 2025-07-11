@@ -30,6 +30,8 @@ jobs:
         run: dotnet tool install --global --ignore-failed-sources dotnet-sonarscanner
       - name: Install Coverlet Tools
         run: dotnet tool install --global --ignore-failed-sources coverlet.console
+      - name: Install ReportGenerator Tools
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool
       - name: Fix Permission
         run: chmod 777 sonar/ -R
       - name: Prepare analysis on SonarQube
