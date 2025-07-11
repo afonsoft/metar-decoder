@@ -25,4 +25,4 @@ jobs:
     - name: Build Debug 
       run: dotnet build MetarDecoder.sln --configuration Debug
     - name: Test
-      run: dotnet test MetarDecoder.sln --no-build --verbosity normal --configuration Debug
+      run: dotnet test MetarDecoder.sln --no-build --verbosity normal --configuration Debug /p:TargetFramework=net8.0

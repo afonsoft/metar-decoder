@@ -44,7 +44,7 @@ jobs:
         run: dotnet build MetarDecoder.sln --configuration Debug
 
       - name: Run Tests
-        run: dotnet test MetarDecoder.sln --no-build --verbosity normal --configuration Debug
+        run: dotnet test MetarDecoder.sln --no-build --verbosity normal --configuration Debug /p:TargetFramework=net8.0
 
       - name: Get commit details
         id: vars
