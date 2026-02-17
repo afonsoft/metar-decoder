@@ -31,6 +31,12 @@ Este projeto é amplamente baseado nas implementações de [SafranCassiopee/csha
 
 🚀 **Ativo e em Desenvolvimento** - Com pipelines modernos de CI/CD
 
+### ✨ Novidades Recentes
+
+- **🆕 RTD Support** - Suporte completo para TAF reports com "Report Delayed"
+- **🔧 .NET 10.0** - Compatibilidade com a versão mais recente do .NET
+- **🚀 Workflows Modernos** - CI/CD automatizado com GitHub Actions
+
 ## 🔄 CI/CD e Workflows
 
 Este projeto utiliza pipelines modernos de GitHub Actions para garantir qualidade e automação:
@@ -74,14 +80,19 @@ Este projeto utiliza pipelines modernos de GitHub Actions para garantir qualidad
 
 Os pacotes NuGet oficiais estão disponíveis para fácil integração em seus projetos:
 
-| Pacote | NuGet |
-| ------ | ------ |
-| [Metar.Decoder](https://www.nuget.org/packages/Metar.Decoder/) | [![NuGet version](https://badge.fury.io/nu/Metar.Decoder.svg)](https://badge.fury.io/nu/Metar.Decoder) |
-| [Taf.Decoder](https://www.nuget.org/packages/Taf.Decoder/) | [![NuGet version](https://badge.fury.io/nu/Taf.Decoder.svg)](https://badge.fury.io/nu/Taf.Decoder) |
+| Pacote | Versão | NuGet |
+| ------ | ------ | ------ |
+| [Metar.Decoder](https://www.nuget.org/packages/Metar.Decoder/) | 1.0.8 | [![NuGet version](https://badge.fury.io/nu/Metar.Decoder.svg)](https://badge.fury.io/nu/Metar.Decoder) |
+| [Taf.Decoder](https://www.nuget.org/packages/Taf.Decoder/) | 1.0.6 | [![NuGet version](https://badge.fury.io/nu/Taf.Decoder.svg)](https://badge.fury.io/nu/Taf.Decoder) |
 
 ## Pré-requisitos
 
-Esta biblioteca é compatível com .NET Standard 2.0 e .NET 8.0.
+Esta biblioteca é compatível com múltiplas versões do .NET:
+
+- **.NET Standard 2.0** - Compatibilidade máxima
+- **.NET 8.0** - LTS recomendado
+- **.NET 10.0** - Versão mais recente
+- **.NET Framework 4.8** - Suporte legado
 
 ## Como Instalar
 
@@ -187,13 +198,30 @@ Instancie o decodificador e execute-o em uma string TAF. O objeto retornado é u
 
 Consulte a classe [`DecodedTaf`](src/Taf.Decoder/Entity/DecodedTaf.cs) para a estrutura do objeto resultante.
 
+#### 🆕 Suporte a RTD (Report Delayed)
+
+O decodificador agora suporta relatórios TAF marcados como "RTD" (Report Delayed), que indicam relatórios atrasados:
+
+```csharp
+// Exemplo de TAF RTD (Report Delayed)
+string rtdTaf = "RTD EKEB 190416Z 1905/1912 13006KT 0200 FZFG BKN001 TEMPO 1905/1907 2000 BR BKN003 BECMG 1907/1909 9000 NSW FEW002 PROB40 1909/1911 0400 FZFG BKN002=";
+var decoder = new TafDecoder();
+var result = decoder.Parse(rtdTaf);
+
+Console.WriteLine($"Tipo: {result.Type}"); // Saída: RTD
+Console.WriteLine($"ICAO: {result.Icao}"); // Saída: EKEB
+Console.WriteLine($"Válido: {result.IsValid}"); // Saída: True
+```
+
+#### Exemplo Completo de Uso
+
 ```csharp
 var d = TafDecoder.ParseWithMode("TAF LEMD 080500Z 0806/0912 23010KT 9999 SCT025 TX12/0816Z TN04/0807Z");
 
 // Informações de contexto
 Console.WriteLine($"Válido: {d.IsValid}");
 Console.WriteLine($"TAF Bruto: {d.RawTaf}");
-Console.WriteLine($"Tipo: {d.Type}");
+Console.WriteLine($"Tipo: {d.Type}"); // Pode ser: TAF, TAFAMD, TAFCOR, RTD
 Console.WriteLine($"ICAO: {d.Icao}");
 Console.WriteLine($"Dia: {d.Day}");
 Console.WriteLine($"Hora: {d.Time}");
@@ -212,7 +240,7 @@ Console.WriteLine($"TAF Vento - Velocidade Média: {swTaf.MeanSpeed.ActualValue}
 
 // Visibilidade
 var vTaf = d.Visibility;
-Console.WriteLine($"TAF Visibilidade Prevalecente: {vTaf.PrevailingVisibility.ActualValue} {vTaf.PrevailingVisibility.ActualUnit}");
+Console.WriteLine($"TAF Visibilidade Prevalecente: {vTaf.ActualVisibility.ActualValue} {vTaf.ActualVisibility.ActualUnit}");
 Console.WriteLine($"TAF CAVOK: {d.Cavok}");
 
 // Nuvens
@@ -249,6 +277,15 @@ foreach (var evolution in d.Evolutions)
     // Acessar propriedades específicas da evolução, como vento, visibilidade, nuvens, etc.
 }
 ```
+
+#### Tipos de Relatório TAF Suportados
+
+| Tipo | Descrição | Exemplo |
+|------|-----------|---------|
+| `TAF` | Relatório TAF padrão | `TAF LEMD 080500Z...` |
+| `TAFAMD` | Relatório TAF amendado | `TAF AMD LEMD 080500Z...` |
+| `TAFCOR` | Relatório TAF corrigido | `TAF COR LEMD 080500Z...` |
+| `RTD` | Relatório TAF atrasado | `RTD EKEB 190416Z...` |
 
 ### Sobre Objetos de Valor (`Value`)
 
