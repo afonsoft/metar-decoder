@@ -126,22 +126,12 @@ jobs:
       - name: Run .NET Framework Tests
         run: |
           echo "Running tests for .NET Framework 4.8"
-          dotnet test tests/Metar.Decoder.Tests/ \
-            --configuration Release \
-            --logger "trx;LogFileName=test-results-net48.trx" \
-            --results-directory TestResults \
-            --framework net48 \
-            --verbosity normal
+          dotnet test tests/Metar.Decoder.Tests/ --configuration Release --logger "trx;LogFileName=test-results-net48.trx" --results-directory TestResults --framework net48 --verbosity normal
 
       - name: Run TAF .NET Framework Tests
         run: |
           echo "Running TAF tests for .NET Framework 4.8"
-          dotnet test tests/Taf.Decoder.Tests/ \
-            --configuration Release \
-            --logger "trx;LogFileName=test-results-taf-net48.trx" \
-            --results-directory TestResults \
-            --framework net48 \
-            --verbosity normal
+          dotnet test tests/Taf.Decoder.Tests/ --configuration Release --logger "trx;LogFileName=test-results-taf-net48.trx" --results-directory TestResults --framework net48 --verbosity normal
 
       - name: Upload Windows Test Results
         uses: actions/upload-artifact@v4
