@@ -28,6 +28,7 @@ namespace Taf.Decoder_tests.ChunkDecoder
             new Tuple<string, Taf.Decoder.entity.DecodedTaf.TafType, string>("TA LFPG",      Taf.Decoder.entity.DecodedTaf.TafType.NULL,      "TA LFPG"),
             new Tuple<string, Taf.Decoder.entity.DecodedTaf.TafType, string>("123 LFPO",     Taf.Decoder.entity.DecodedTaf.TafType.NULL,      "123 LFPO"),
             new Tuple<string, Taf.Decoder.entity.DecodedTaf.TafType, string>("TAF COR LFPO", Taf.Decoder.entity.DecodedTaf.TafType.TAFCOR,    "LFPO"),
+            new Tuple<string, Taf.Decoder.entity.DecodedTaf.TafType, string>("RTD EKEB",     Taf.Decoder.entity.DecodedTaf.TafType.RTD,       "EKEB"),
         };
     }
 }

@@ -9,7 +9,7 @@ namespace Taf.Decoder.chunkdecoder
 
         public override string GetRegex()
         {
-            return "^((TAF)( TAF)*( AMD| COR){0,1}) ";
+            return "^((TAF|RTD)( TAF)*( AMD| COR){0,1}) ";
         }
 
         public override Dictionary<string, object> Parse(string remainingTaf, bool withCavok = false)
