@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net8.0;net48</TargetFrameworks>
+	<TargetFrameworks>net8.0;net10.0;net48</TargetFrameworks>
 	<NoWarn>$(NoWarn);CS1591;SYSLIB0001;SYSLIB0002;SYSLIB0003</NoWarn>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
 	<GenerateAssemblyTitleAttribute>true</GenerateAssemblyTitleAttribute>
