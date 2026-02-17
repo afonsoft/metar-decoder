@@ -29,7 +29,46 @@ Este projeto é amplamente baseado nas implementações de [SafranCassiopee/csha
 
 ## Status do Projeto
 
-Concluída
+🚀 **Ativo e em Desenvolvimento** - Com pipelines modernos de CI/CD
+
+## 🔄 CI/CD e Workflows
+
+Este projeto utiliza pipelines modernos de GitHub Actions para garantir qualidade e automação:
+
+### 📋 Workflows Disponíveis
+
+- **🚀 CI Build & Test** (`ci-build-test.yml`) - Pipeline completo de integração contínua
+  - Build automatizado para .NET 8.0
+  - Testes unitários com coverage
+  - Security scans e performance tests
+  - Criação automática de PRs
+
+- **📊 Code Quality** (`code-quality.yml`) - Análise de qualidade de código
+  - Qodana analysis
+  - SonarQube integration
+  - Snyk security scanning
+  - Métricas de qualidade
+
+- **🔒 Security Scan** (`security-scan.yml`) - Scans de segurança
+  - CodeQL analysis
+  - Vulnerability scanning
+  - Scans semanais automáticos
+
+- **🚀 Publish NuGet** (`publish-all.yml`) - Publicação automatizada
+  - Publicação para GitHub Packages
+  - Publicação para NuGet.org
+  - Criação automática de releases
+
+- **🔄 Auto Dependency Update** (`auto-pr-from-main.yml`) - Atualização automática
+  - Verificação de dependências desatualizadas
+  - Updates de segurança automáticos
+  - PRs automáticos para updates
+
+### 🏆 Badges de Qualidade
+
+[![CI/CD Pipeline](https://github.com/afonsoft/metar-decoder/actions/workflows/ci-build-test.yml/badge.svg)](https://github.com/afonsoft/metar-decoder/actions/workflows/ci-build-test.yml)
+[![Code Quality](https://github.com/afonsoft/metar-decoder/actions/workflows/code-quality.yml/badge.svg)](https://github.com/afonsoft/metar-decoder/actions/workflows/code-quality.yml)
+[![Security Scan](https://github.com/afonsoft/metar-decoder/actions/workflows/security-scan.yml/badge.svg)](https://github.com/afonsoft/metar-decoder/actions/workflows/security-scan.yml)
 
 ## Pacotes NuGet
 
@@ -297,7 +336,27 @@ Por exemplo, se você tiver o "chunk" `AAA 12003KPH ...` fornecido ao decodifica
 
 Tudo isso não se aplica ao modo estrito, pois a análise é interrompida no primeiro erro de análise neste caso.
 
-## Estrutura do Repositório
+## 🤝 Como Contribuir
+
+### Processo de Desenvolvimento
+
+1. **Crie uma branch** a partir da `main`:
+   ```bash
+   git checkout -b feature/sua-feature
+   ```
+
+2. **Faça suas alterações** seguindo as boas práticas
+
+3. **Os workflows automáticos** serão executados:
+   - 🚀 **CI Build & Test** - Valida seu código
+   - 📊 **Code Quality** - Analisa qualidade
+   - 🔒 **Security Scan** - Verifica segurança
+
+4. **Pull Request Automático**: Se estiver em branches `feature/*`, `bug/*` ou `hotfix/*`, um PR será criado automaticamente para `main`
+
+5. **Review e Merge**: Após aprovação, seu código será mergeado
+
+### 🏗️ Estrutura do Repositório
 
 ```
 .
@@ -307,6 +366,16 @@ Tudo isso não se aplica ao modo estrito, pois a análise é interrompida no pri
 ├── LICENSE                     # Arquivo de licença do projeto.
 ├── MetarDecoder.sln            # Solução principal do Visual Studio para o projeto.
 ├── README.md                   # Este arquivo de documentação do projeto.
+├── .github/                    # Configurações do GitHub e workflows.
+│   ├── ISSUE_TEMPLATE.md       # Template para issues.
+│   ├── PULL_REQUEST_TEMPLATE.md # Template para pull requests.
+│   └── workflows/              # GitHub Actions workflows.
+│       ├── ci-build-test.yml   # Pipeline completo de CI/CD.
+│       ├── code-quality.yml    # Análise de qualidade de código.
+│       ├── security-scan.yml   # Scans de segurança automatizados.
+│       ├── publish-all.yml     # Publicação de pacotes NuGet.
+│       ├── auto-pr-from-main.yml # Atualização automática de dependências.
+│       └── ...                  # Outros workflows de suporte.
 ├── appveyor.yml                # Configuração para integração contínua com AppVeyor.
 ├── docs/                       # Documentação gerada, incluindo arquivos de ajuda e XML.
 │   ├── Working/                # Documentação em andamento ou arquivos temporários de documentação.
