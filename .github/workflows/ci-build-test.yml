@@ -155,7 +155,7 @@ jobs:
       - name: 🔍 Security Scan (Metar Decoder)
         run: |
           echo "🔒 Running security scan on metar-decoder"
-          dotnet list package MetarDecoder.sln --vulnerable --include-prerelease
+          dotnet list package --vulnerable
 
       - name: 📊 Code Quality Analysis
         run: |
