@@ -27,11 +27,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{800103
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{A513FE32-7915-4773-BBC0-AFF59D002919}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\auto-pr-from-main.yml = .github\workflows\auto-pr-from-main.yml
 		.github\workflows\build-and-pack.yml = .github\workflows\build-and-pack.yml
 		.github\workflows\build-and-test.yml = .github\workflows\build-and-test.yml
+		.github\workflows\ci-build-test.yml = .github\workflows\ci-build-test.yml
+		.github\workflows\code-quality.yml = .github\workflows\code-quality.yml
 		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
 		.github\workflows\openhands-resolver.yml = .github\workflows\openhands-resolver.yml
+		.github\workflows\publish-all.yml = .github\workflows\publish-all.yml
 		.github\workflows\publish-nuget.yml = .github\workflows\publish-nuget.yml
+		.github\workflows\security-scan.yml = .github\workflows\security-scan.yml
 		.github\workflows\sonnar-analysis.yml = .github\workflows\sonnar-analysis.yml
 	EndProjectSection
 EndProject
