@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Metar.Decoder.Entity
@@ -78,9 +79,14 @@ namespace Metar.Decoder.Entity
         public int? Day { get; set; }
 
         /// <summary>
-        /// Time of the observation, as a string
+        /// Time of observation, as a string
         /// </summary>
         public string Time { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Date and time of observation
+        /// </summary>
+        public DateTime? ObservationDateTime { get; set; }
 
         /// <summary>
         /// Report status (AUTO or NIL)
