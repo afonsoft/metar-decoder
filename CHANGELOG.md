@@ -1,3 +1,39 @@
+# [RTD Support & .NET 10.0](https://github.com/afonsoft/metar-decoder/compare/1.0.5.2...feature/update-actions)
+> 17/02/2026 16:45:00 UTC
+##### ``1.0.8 & 1.0.6``
+🚀 **Suporte RTD e .NET 10.0 com Workflows Modernos**
+
+### 🆕 Novas Funcionalidades:
+- **RTD Support** - Suporte completo para TAF reports com "Report Delayed"
+  - Parsing de relatórios TAF marcados como RTD
+  - Reconhecimento automático do tipo `TafType.RTD`
+  - Integração completa com todos os elementos do TAF
+  - Exemplo: `RTD EKEB 190416Z 1905/1912 13006KT...`
+
+### 🔧 Melhorias Técnicas:
+- **.NET 10.0 Support** - Compatibilidade com a versão mais recente
+  - Target frameworks: `netstandard2.0;net8.0;net10.0;net48`
+  - Build e testes para todas as versões
+  - Pacotes NuGet compatíveis
+
+### 🚀 CI/CD Modernizado:
+- **GitHub Actions Workflows** - Pipeline completo de automação
+  - CI Build & Test com security scans
+  - Code Quality analysis (Qodana, SonarQube, Snyk)
+  - Publicação automatizada para NuGet.org
+  - Atualização automática de dependências
+
+### 📦 Versões:
+- **Metar.Decoder**: 1.0.8
+- **Taf.Decoder**: 1.0.6
+
+### ✅ Validação:
+- 252/252 testes passing (100% sucesso)
+- RTD parsing funcional e testado
+- Compatibilidade mantida com versões anteriores
+
+---
+
 # [Feature Update - GitHub Actions Workflows](https://github.com/afonsoft/metar-decoder/compare/1.0.5.2...feature/update-actions)
 > 17/02/2026 16:45:00 UTC
 ##### ``Feature Update``
