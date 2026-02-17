@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net8.0;net48</TargetFrameworks>
-		<Version>1.0.6</Version>
+		<TargetFrameworks>netstandard2.0;net8.0;net10.0;net48</TargetFrameworks>
+		<Version>1.0.8</Version>
 		<NoWarn>$(NoWarn);CS1591;SYSLIB0001;SYSLIB0002;SYSLIB0003</NoWarn>
 		<PackageProjectUrl>https://github.com/afonsoft/metar-decoder</PackageProjectUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/afonsoft/metar-decoder</RepositoryUrl>
 		<Authors>Afonso Dutra Nogueira Filho</Authors>
 		<Copyright>AFONSOFT© 2025</Copyright>
