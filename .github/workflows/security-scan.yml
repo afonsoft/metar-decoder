@@ -75,7 +75,7 @@ jobs:
   sonarqube:
     name: 📊 SonarQube Analysis
     runs-on: ubuntu-latest
-    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.event.repository.owner.name != github.actor
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
 
     steps:
       - name: 📥 Checkout
@@ -83,25 +83,62 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 📦 Setup NuGet
+        uses: NuGet/setup-nuget@v2.0.1
+
       - name: 🗄️ Setup .NET
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: "8.0.x"
 
-      - name: 📦 Setup NuGet
-        uses: NuGet/setup-nuget@v2.0.1
+      - name: ☕ Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          java-version: 17
+          distribution: "zulu"
 
-      - name: 🔧 Restore Dependencies
-        run: dotnet restore MetarDecoder.sln --ignore-failed-sources
+      - name: 🔧 Clear NuGet cache
+        run: dotnet nuget locals all --clear
 
-      - name: 🏗️ Build Solution
-        run: dotnet build MetarDecoder.sln --configuration Release --no-restore
+      - name: 📦 Install SonarQube Tools
+        run: dotnet tool install --global --ignore-failed-sources dotnet-sonarscanner
 
-      - name: 📊 SonarQube Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: 📦 Install Coverlet Tools
+        run: dotnet tool install --global --ignore-failed-sources coverlet.console
+
+      - name: 🔧 Fix Permission
+        run: chmod 777 sonar/ -R || true
+
+      - name: 🔍 Prepare analysis on SonarQube
+        run: |
+          echo "🔍 Checking SonarQube configuration..."
+          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
+            echo "❌ SONAR_TOKEN is not set or empty"
+            echo "⚠️ Skipping SonarQube analysis"
+            exit 0
+          fi
+
+          echo "✅ SONAR_TOKEN is configured"
+          dotnet sonarscanner begin \
+            /o:"afonsoft" \
+            /k:"afonsoft_metar-decoder" \
+            /d:sonar.host.url="https://sonarcloud.io" \
+            /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.scm.provider=git \
+            /d:sonar.coverage.exclusions="**Test*.cs"
+
+      - name: 🏗️ Build
+        run: dotnet build MetarDecoder.sln --configuration release
+
+      - name: 🔍 Run Code Analysis
+        run: |
+          echo "🔍 Finalizing SonarQube analysis..."
+          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
+            echo "⚠️ SONAR_TOKEN not configured, skipping analysis"
+            exit 0
+          fi
+
+          dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
   # Security Summary
   security-summary:
