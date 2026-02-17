@@ -40,7 +40,7 @@ jobs:
           git checkout -b $BRANCH_NAME
 
           # List outdated packages
-          dotnet list package --outdated 
+          dotnet list MetarDecoder.sln package --outdated 
 
           # Update packages (this is a simplified approach)
           echo "📦 Updating NuGet packages..."
@@ -154,10 +154,10 @@ jobs:
           echo "🔒 Checking for security-related package updates..."
 
           # Check for vulnerable packages
-          dotnet list package --vulnerable
+          dotnet list MetarDecoder.sln package --vulnerable
 
           # Create update branch if vulnerabilities found
-          if dotnet list package --vulnerable | grep -q "vulnerable"; then
+          if dotnet list MetarDecoder.sln package --vulnerable | grep -q "vulnerable"; then
             echo "🚨 Security vulnerabilities detected, creating update PR..."
             
             BRANCH_NAME="security-update-$(date +%Y%m%d-%H%M%S)"
