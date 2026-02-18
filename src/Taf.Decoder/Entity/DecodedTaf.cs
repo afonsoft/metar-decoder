@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Taf.Decoder.entity
@@ -68,6 +69,11 @@ namespace Taf.Decoder.entity
         /// Time of origin, as string
         /// </summary>
         public string Time { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Date and time of origin
+        /// </summary>
+        public DateTime? OriginDateTime { get; set; }
 
         /// <summary>
         /// Forecast period
