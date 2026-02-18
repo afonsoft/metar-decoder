@@ -112,7 +112,7 @@ jobs:
             --base main \
             --head $BRANCH_NAME \
             --label "dependencies,auto-update" \
-            --assignee ${{ github.event.head_commit.author.username }} || echo "PR already exists or creation failed"
+            --assignee afonsoft || echo "PR already exists or creation failed"
 
           echo "✅ Dependency update PR created successfully"
 

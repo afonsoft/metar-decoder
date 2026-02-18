@@ -271,7 +271,7 @@ jobs:
       - name: 🔄 Create PR to main
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
           commit-message: "🚀 Auto-merge: ${{ github.event.head_commit.message }}"
           title: "🚀 Auto-PR: ${{ github.ref_name }} → main"
           body: |
