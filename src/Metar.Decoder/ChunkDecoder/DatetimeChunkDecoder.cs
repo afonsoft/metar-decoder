@@ -7,6 +7,7 @@ namespace Metar.Decoder.Chunkdecoder
     {
         public const string DayParameterName = "Day";
         public const string TimeParameterName = "Time";
+        public const string ObservationDateTimeParameterName = "ObservationDateTime";
 
         public override string GetRegex()
         {
@@ -38,6 +39,27 @@ namespace Metar.Decoder.Chunkdecoder
 
             result.Add(DayParameterName, day);
             result.Add(TimeParameterName, $"{hour:00}:{minute:00} UTC");
+
+            // Create DateTime from parsed components
+            var currentYear = DateTime.Now.Year;
+            var month = DateTime.Now.Month;
+            
+            // Handle day/year rollover - if day > current day, assume previous month
+            if (day > DateTime.Now.Day)
+            {
+                if (month == 1)
+                {
+                    month = 12;
+                    currentYear--;
+                }
+                else
+                {
+                    month--;
+                }
+            }
+            
+            var observationDateTime = new DateTime(currentYear, month, day, hour, minute, 0, DateTimeKind.Utc);
+            result.Add(ObservationDateTimeParameterName, observationDateTime);
 
             return GetResults(newRemainingMetar, result);
         }
