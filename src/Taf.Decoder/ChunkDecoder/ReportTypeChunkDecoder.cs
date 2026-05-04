@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Taf.Decoder.Entity;
 
-namespace Taf.Decoder.chunkdecoder
+namespace Taf.Decoder.ChunkDecoder
 {
     public sealed class ReportTypeChunkDecoder : TafChunkDecoder
     {
@@ -21,13 +22,13 @@ namespace Taf.Decoder.chunkdecoder
             // handle the case where nothing has been found
             if (found.Count <= 1)
             {
-                result.Add(TypeParameterName, entity.DecodedTaf.TafType.NULL);
+                result.Add(TypeParameterName, DecodedTaf.TafType.NULL);
             }
             else
             {
                 // retrieve found params
                 // 'TAF' sometimes happens to be duplicated
-                result.Add(TypeParameterName, (entity.DecodedTaf.TafType)Enum.Parse(typeof(entity.DecodedTaf.TafType), found[1].Value.Replace("TAF TAF", "TAF").Replace(" ", string.Empty)));
+                result.Add(TypeParameterName, (DecodedTaf.TafType)Enum.Parse(typeof(DecodedTaf.TafType), found[1].Value.Replace("TAF TAF", "TAF").Replace(" ", string.Empty)));
             }
 
             return GetResults(newRemainingTaf, result);

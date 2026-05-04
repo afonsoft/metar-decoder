@@ -2,10 +2,10 @@
 using NUnit.Framework.Legacy;
 using System.Collections.Generic;
 using Taf.Decoder;
-using Taf.Decoder.chunkdecoder;
-using Taf.Decoder.entity;
+using Taf.Decoder.ChunkDecoder;
+using Taf.Decoder.Entity;
 
-namespace Taf.Decoder_tests.ChunkDecoder
+namespace Taf.Decoder.Tests.ChunkDecoder
 {
     [TestFixture, Category("EvolutionChunkDecoder")]
     public class EvolutionChunkDecoderTest

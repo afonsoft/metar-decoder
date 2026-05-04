@@ -1,5 +1,5 @@
 ﻿using Metar.Decoder;
-using Metar.Decoder.Chunkdecoder;
+using Metar.Decoder.ChunkDecoder;
 using Metar.Decoder.Entity;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Metar.Decoder_tests
+namespace Metar.Decoder.Tests
 {
     /// <summary>
     /// BasicTest

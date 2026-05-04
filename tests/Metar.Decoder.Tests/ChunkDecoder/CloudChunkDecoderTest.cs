@@ -1,12 +1,12 @@
 ﻿using Metar.Decoder;
-using Metar.Decoder.Chunkdecoder;
+using Metar.Decoder.ChunkDecoder;
 using Metar.Decoder.Entity;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using System.Collections.Generic;
 using static Metar.Decoder.Entity.CloudLayer;
 
-namespace Metar.Decoder_tests.chunkdecoder
+namespace Metar.Decoder.Tests.ChunkDecoder
 {
     /// <summary>
     /// CloudChunkDecoderTest

@@ -1,4 +1,4 @@
-﻿using Metar.Decoder.Chunkdecoder;
+﻿using Metar.Decoder.ChunkDecoder;
 using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;

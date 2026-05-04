@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.Json;
 using System.Xml.Serialization;
 
-namespace Metar.Decoder_tests
+namespace Metar.Decoder.Tests
 {
     /// <summary>
     /// MetarChunkDecoderExceptionTest

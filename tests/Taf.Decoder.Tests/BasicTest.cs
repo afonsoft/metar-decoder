@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Taf.Decoder;
-using Taf.Decoder.entity;
+using Taf.Decoder.Entity;
 
-namespace Taf.Decoder_tests
+namespace Taf.Decoder.Tests
 {
     [TestFixture]
     public class BasicTest

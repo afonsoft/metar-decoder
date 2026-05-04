@@ -8,7 +8,7 @@ using System.Linq;
 using static Metar.Decoder.Entity.CloudLayer;
 using static Metar.Decoder.Entity.DecodedMetar;
 
-namespace Metar.Decoder_tests
+namespace Metar.Decoder.Tests
 {
     /// <summary>
     /// Integration

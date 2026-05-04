@@ -4,7 +4,7 @@ using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 
-namespace Metar.Decoder_tests
+namespace Metar.Decoder.Tests
 {
     /// <summary>
     /// ValueTest

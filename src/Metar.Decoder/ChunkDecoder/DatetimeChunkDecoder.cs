@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Metar.Decoder.Chunkdecoder
+namespace Metar.Decoder.ChunkDecoder
 {
     public sealed class DatetimeChunkDecoder : MetarChunkDecoder
     {

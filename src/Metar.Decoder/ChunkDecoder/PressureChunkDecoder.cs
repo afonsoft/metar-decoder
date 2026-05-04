@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using static Metar.Decoder.Entity.Value;
 
-namespace Metar.Decoder.Chunkdecoder
+namespace Metar.Decoder.ChunkDecoder
 {
     /// <summary>
     /// Chunk decoder for atmospheric pressure section.

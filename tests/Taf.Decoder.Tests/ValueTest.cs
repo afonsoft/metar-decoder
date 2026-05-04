@@ -2,9 +2,9 @@
 using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
-using Taf.Decoder.entity;
+using Taf.Decoder.Entity;
 
-namespace Taf.Decoder_tests
+namespace Taf.Decoder.Tests
 {
     [TestFixture, Category("Entity")]
     public class ValueTest

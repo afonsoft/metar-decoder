@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Taf.Decoder.entity
+namespace Taf.Decoder.Entity
 {
     public sealed class WeatherPhenomenon : AbstractEntity
     {

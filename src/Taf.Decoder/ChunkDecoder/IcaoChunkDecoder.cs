@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Taf.Decoder.chunkdecoder
+namespace Taf.Decoder.ChunkDecoder
 {
     public sealed class IcaoChunkDecoder : TafChunkDecoder
     {

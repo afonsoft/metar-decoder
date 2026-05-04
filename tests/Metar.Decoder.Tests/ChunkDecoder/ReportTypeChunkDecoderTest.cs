@@ -1,12 +1,12 @@
 ﻿using Metar.Decoder;
-using Metar.Decoder.Chunkdecoder;
+using Metar.Decoder.ChunkDecoder;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using static Metar.Decoder.Entity.DecodedMetar;
 
-namespace Metar.Decoder_tests.chunkdecoder
+namespace Metar.Decoder.Tests.ChunkDecoder
 {
     [TestFixture, Category("ReportTypeChunkDecoder")]
     public class ReportTypeChunkDecoderTest

@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using Taf.Decoder;
+using Taf.Decoder.Entity;
 
 namespace Taf.Decoder.Tests
 {
@@ -18,7 +19,7 @@ namespace Taf.Decoder.Tests
             var result = decoder.Parse(rtdTaf);
             
             // Assert - Most important: RTD type is recognized
-            ClassicAssert.AreEqual(entity.DecodedTaf.TafType.RTD, result.Type);
+            ClassicAssert.AreEqual(DecodedTaf.TafType.RTD, result.Type);
             ClassicAssert.AreEqual("EKEB", result.Icao);
             ClassicAssert.AreEqual(19, result.Day);
             ClassicAssert.AreEqual(rtdTaf, result.RawTaf);
@@ -41,7 +42,7 @@ namespace Taf.Decoder.Tests
             
             // Assert
             ClassicAssert.IsTrue(result.IsValid);
-            ClassicAssert.AreEqual(entity.DecodedTaf.TafType.RTD, result.Type);
+            ClassicAssert.AreEqual(DecodedTaf.TafType.RTD, result.Type);
             ClassicAssert.AreEqual("EKEB", result.Icao);
         }
     }

@@ -3,11 +3,11 @@ using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using Taf.Decoder;
-using Taf.Decoder.chunkdecoder;
-using Taf.Decoder.entity;
-using static Taf.Decoder.entity.Value;
+using Taf.Decoder.ChunkDecoder;
+using Taf.Decoder.Entity;
+using static Taf.Decoder.Entity.Value;
 
-namespace Taf.Decoder_tests.ChunkDecoder
+namespace Taf.Decoder.Tests.ChunkDecoder
 {
     [TestFixture, Category("SurfaceWindChunkDecoder")]
     public class SurfaceWindChunkDecoderTest

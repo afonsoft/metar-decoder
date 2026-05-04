@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Taf.Decoder.entity;
+using Taf.Decoder.Entity;
 
-namespace Taf.Decoder.chunkdecoder
+namespace Taf.Decoder.ChunkDecoder
 {
     public sealed class VisibilityChunkDecoder : TafChunkDecoder
     {
