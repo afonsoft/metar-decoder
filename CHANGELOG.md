@@ -1,3 +1,30 @@
+# [Test Coverage ~98% & Bug Fix](https://github.com/afonsoft/metar-decoder)
+> 04/05/2026 17:45:00 UTC
+##### ``1.0.9``
+🧪 **Cobertura de Testes ~98% e Correção de Bug**
+
+### 🐛 Correções:
+- **DatetimeChunkDecoder** - Correção de bug de rollover de dia/mês
+  - Quando o dia do METAR/TAF excedia os dias do mês anterior (ex: dia 31 em mês com 30 dias)
+  - `ArgumentOutOfRangeException` ao criar DateTime com dia inválido
+  - Uso de `DateTime.UtcNow` em vez de `DateTime.Now` para consistência
+
+### 🧪 Novos Testes (421 testes, +67):
+- **PresentWeatherTest** - Cobertura de 0% → 100% para entidade PresentWeather
+- **MetarExceptionExtendedTest** - Cobertura de 53.5% → 82.1% para exceções METAR
+- **TafExceptionExtendedTest** - Cobertura de 32.1% → 82.1% para exceções TAF
+- **ValueExtendedTest** (Metar/Taf) - Cobertura de 98.4% → 100% para Value
+- **ForecastPeriodTest** - Cobertura de 90.9% → 100% para ForecastPeriod
+- **DecodedMetarExtendedTest** - Testes para propriedades e estados do DecodedMetar
+- **TafChunkDecoderBaseTest** - Cobertura de 90.4% → 100% para TafChunkDecoder
+
+### 📊 Cobertura:
+- **Line coverage**: 94.8% → 97.8%
+- **Branch coverage**: 92.3% → 94.7%
+- **Method coverage**: 93.8% → 98.6%
+
+---
+
 # [RTD Support & .NET 10.0](https://github.com/afonsoft/metar-decoder/compare/1.0.5.2...feature/update-actions)
 > 17/02/2026 16:45:00 UTC
 ##### ``1.0.8 & 1.0.6``
