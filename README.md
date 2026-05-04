@@ -33,6 +33,8 @@ Este projeto é amplamente baseado nas implementações de [SafranCassiopee/csha
 
 ### ✨ Novidades Recentes
 
+- **🧪 Cobertura de Testes ~98%** - 421 testes unitários com cobertura abrangente
+- **🐛 Fix DatetimeChunkDecoder** - Correção de bug de rollover de dia/mês inválido
 - **🆕 RTD Support** - Suporte completo para TAF reports com "Report Delayed"
 - **🔧 .NET 10.0** - Compatibilidade com a versão mais recente do .NET
 - **🚀 Workflows Modernos** - CI/CD automatizado com GitHub Actions
@@ -517,6 +519,11 @@ Tudo isso não se aplica ao modo estrito, pois a análise é interrompida no pri
     ├── Metar.Decoder.Tests/    # Testes para o decodificador METAR.
     │   ├── BasicTest.cs
     │   ├── ChunkDecoder/       # Testes para os decodificadores de "chunks" do METAR.
+    │   ├── Entity/             # Testes para as entidades do METAR.
+    │   │   ├── DecodedMetarExtendedTest.cs
+    │   │   ├── MetarExceptionExtendedTest.cs
+    │   │   ├── PresentWeatherTest.cs
+    │   │   └── ValueExtendedTest.cs
     │   ├── Integration.cs
     │   ├── MetarChunkDecoderExceptionTest.cs
     │   ├── MetarDecoderTest.cs
@@ -524,6 +531,11 @@ Tudo isso não se aplica ao modo estrito, pois a análise é interrompida no pri
     └── Taf.Decoder.Tests/      # Testes para o decodificador TAF.
         ├── BasicTest.cs
         ├── ChunkDecoder/       # Testes para os decodificadores de "chunks" do TAF.
+        │   └── TafChunkDecoderBaseTest.cs
+        ├── Entity/             # Testes para as entidades do TAF.
+        │   ├── ForecastPeriodTest.cs
+        │   ├── TafExceptionExtendedTest.cs
+        │   └── ValueExtendedTest.cs
         ├── Taf.Decoder.Tests.csproj
         ├── TafDecoderTest.cs
         ├── ValueTest.cs
