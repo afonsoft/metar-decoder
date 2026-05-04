@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using static Metar.Decoder.Entity.DecodedMetar;
 
-namespace Metar.Decoder.Chunkdecoder
+namespace Metar.Decoder.ChunkDecoder
 {
     public sealed class ReportTypeChunkDecoder : MetarChunkDecoder
     {

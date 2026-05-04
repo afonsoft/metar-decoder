@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Taf.Decoder.entity
+namespace Taf.Decoder.Entity
 {
     public sealed class DecodedTaf : AbstractEntity
     {
@@ -117,7 +117,7 @@ namespace Taf.Decoder.entity
         /// </summary>
         public Temperature MaximumTemperature { get; set; }
 
-        internal DecodedTaf(string rawTaf = "")
+        public DecodedTaf(string rawTaf = "")
         {
             RawTaf = rawTaf;
         }

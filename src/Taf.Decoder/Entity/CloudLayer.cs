@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Taf.Decoder.entity
+namespace Taf.Decoder.Entity
 {
     public sealed class CloudLayer : AbstractEntity
     {

@@ -1,4 +1,4 @@
-﻿using Metar.Decoder.Chunkdecoder;
+﻿using Metar.Decoder.ChunkDecoder;
 using Metar.Decoder.Entity;
 using System;
 using System.Collections.Generic;
@@ -40,6 +40,8 @@ namespace Metar.Decoder
             new PressureChunkDecoder(),
             new RecentWeatherChunkDecoder(),
             new WindShearChunkDecoder(),
+            new TrendChunkDecoder(),
+            new RemarkChunkDecoder(),
         });
 
         private bool _globalStrictParsing = false;

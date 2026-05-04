@@ -3,9 +3,9 @@ using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using Taf.Decoder;
-using Taf.Decoder.chunkdecoder;
+using Taf.Decoder.ChunkDecoder;
 
-namespace Taf.Decoder_tests.ChunkDecoder
+namespace Taf.Decoder.Tests.ChunkDecoder
 {
     [TestFixture, Category("IcaoChunkDecoder")]
     public class IcaoChunkDecoderTest

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using static Metar.Decoder.Entity.RunwayVisualRange;
 
-namespace Metar.Decoder.Chunkdecoder
+namespace Metar.Decoder.ChunkDecoder
 {
     public sealed class RunwayVisualRangeChunkDecoder : MetarChunkDecoder
     {

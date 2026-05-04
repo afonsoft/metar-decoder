@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Taf.Decoder.chunkdecoder
+namespace Taf.Decoder.ChunkDecoder
 {
     public sealed class DatetimeChunkDecoder : TafChunkDecoder
     {
@@ -31,7 +31,7 @@ namespace Taf.Decoder.chunkdecoder
             var hour = Convert.ToInt32(found[2].Value);
             var minute = Convert.ToInt32(found[3].Value);
 
-            if (!checkValidity(day, hour, minute))
+            if (!CheckValidity(day, hour, minute))
             {
                 throw new TafChunkDecoderException(remainingTaf, newRemainingTaf, TafChunkDecoderException.Messages.InvalidDayHourMinuteRanges, this);
             }
@@ -70,7 +70,7 @@ namespace Taf.Decoder.chunkdecoder
         /// <param name="hour"></param>
         /// <param name="minute"></param>
         /// <returns></returns>
-        private bool checkValidity(int day, int hour, int minute)
+        private bool CheckValidity(int day, int hour, int minute)
         {
             // check value range
             if (day < 1 || day > 31)

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace Taf.Decoder.entity
+namespace Taf.Decoder.Entity
 {
     [DebuggerDisplay("{ActualValue} {ActualUnit}")]
     public sealed class Value

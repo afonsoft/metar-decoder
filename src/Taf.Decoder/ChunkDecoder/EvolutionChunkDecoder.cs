@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Taf.Decoder.entity;
+using Taf.Decoder.Entity;
 
-namespace Taf.Decoder.chunkdecoder
+namespace Taf.Decoder.ChunkDecoder
 {
     public sealed class EvolutionChunkDecoder : TafChunkDecoder
     {

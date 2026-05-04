@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Taf.Decoder.entity
+namespace Taf.Decoder.Entity
 {
     public class Evolution : AbstractEntity, ICloneable
     {

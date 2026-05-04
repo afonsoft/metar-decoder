@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
-using Taf.Decoder.chunkdecoder;
+using Taf.Decoder.ChunkDecoder;
 
 namespace Taf.Decoder
 {

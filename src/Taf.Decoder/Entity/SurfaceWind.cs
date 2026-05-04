@@ -1,4 +1,4 @@
-﻿namespace Taf.Decoder.entity
+﻿namespace Taf.Decoder.Entity
 {
     public sealed class SurfaceWind : AbstractEntity
     {

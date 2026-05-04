@@ -1,4 +1,4 @@
-﻿namespace Taf.Decoder.entity
+﻿namespace Taf.Decoder.Entity
 {
     public class Temperature : AbstractEntity
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Metar.Decoder.Chunkdecoder
+namespace Metar.Decoder.ChunkDecoder
 {
     public sealed class ReportStatusChunkDecoder : MetarChunkDecoder
     {

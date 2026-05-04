@@ -10,7 +10,7 @@ using static Metar.Decoder.Entity.DecodedMetar;
 using static Metar.Decoder.Entity.RunwayVisualRange;
 using static Metar.Decoder.Entity.Value;
 
-namespace Metar.Decoder_tests
+namespace Metar.Decoder.Tests
 {
     /// <summary>
     /// MetarDecoderTest

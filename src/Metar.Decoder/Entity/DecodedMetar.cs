@@ -150,7 +150,27 @@ namespace Metar.Decoder.Entity
         /// </summary>
         public List<string> WindshearRunways { get; set; }
 
-        internal DecodedMetar(string rawMetar = "")
+        /// <summary>
+        /// Trend forecast type (NOSIG, BECMG, TEMPO)
+        /// </summary>
+        public string TrendType { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Trend forecast raw content
+        /// </summary>
+        public string TrendForecast { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Remarks section raw content (after RMK)
+        /// </summary>
+        public string Remark { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Sea-level pressure extracted from remarks (SLPnnn)
+        /// </summary>
+        public Value SeaLevelPressure { get; set; }
+
+        public DecodedMetar(string rawMetar = "")
         {
             RawMetar = rawMetar;
         }
