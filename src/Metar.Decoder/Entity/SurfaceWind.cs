@@ -1,7 +1,8 @@
 ﻿namespace Metar.Decoder.Entity
 {
     /// <summary>
-    /// SurfaceWind
+    /// Represents surface wind information decoded from a METAR report,
+    /// including mean direction, speed, gusts, and variable direction range.
     /// </summary>
     public sealed class SurfaceWind
     {
@@ -11,7 +12,7 @@
         public Value MeanDirection { get; set; }
 
         /// <summary>
-        /// Wind variability (if true, direction is null)
+        /// Indicates whether the wind direction is variable (VRB). When true, <see cref="MeanDirection"/> is null.
         /// </summary>
         public bool VariableDirection { get; set; }
 
@@ -31,10 +32,10 @@
         public Value[] DirectionVariations { get; private set; } = null;
 
         /// <summary>
-        /// SetDirectionVariations
+        /// Sets the variable wind direction boundaries (e.g., 180V240 means wind varies between 180 and 240 degrees).
         /// </summary>
-        /// <param name="directionMax">directionMax</param>
-        /// <param name="directionMin">directionMin</param>
+        /// <param name="directionMax">Maximum wind direction in degrees.</param>
+        /// <param name="directionMin">Minimum wind direction in degrees.</param>
         public void SetDirectionVariations(Value directionMax, Value directionMin)
         {
             DirectionVariations = new Value[] { directionMax, directionMin };

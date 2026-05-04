@@ -95,6 +95,9 @@ namespace Taf.Decoder.Entity
         /// </summary>
         public Visibility Visibility { get; set; }
 
+        /// <summary>
+        /// Ceiling And Visibility OK. When true, visibility is 10km or more, no cloud below 5000ft, and no significant weather.
+        /// </summary>
         public bool Cavok { get; set; } = false;
 
         /// <summary>

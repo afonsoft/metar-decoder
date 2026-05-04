@@ -1,7 +1,8 @@
 ﻿namespace Metar.Decoder.Entity
 {
     /// <summary>
-    /// Visibility
+    /// Represents visibility information decoded from a METAR report,
+    /// including prevailing visibility, minimum directional visibility, and NDV indicator.
     /// </summary>
     public sealed class Visibility
     {
@@ -21,7 +22,7 @@
         public string MinimumVisibilityDirection { get; set; }
 
         /// <summary>
-        /// No Direction Visibility
+        /// No Directional Variation. When true, visibility is the same in all directions.
         /// </summary>
         public bool NDV { get; set; } = false;
     }

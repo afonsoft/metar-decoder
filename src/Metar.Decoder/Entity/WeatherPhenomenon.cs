@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 namespace Metar.Decoder.Entity
 {
     /// <summary>
-    /// WeatherPhenomenon
+    /// Represents a weather phenomenon decoded from a METAR or TAF report,
+    /// including intensity/proximity, descriptor characteristics (e.g., FZ, TS, SH),
+    /// and precipitation/obscuration types (e.g., RA, SN, FG, BR).
     /// </summary>
     public sealed class WeatherPhenomenon
     {
@@ -32,9 +34,9 @@ namespace Metar.Decoder.Entity
         }
 
         /// <summary>
-        /// AddType
+        /// Adds a weather type code (e.g., RA, SN, FG) to this phenomenon.
         /// </summary>
-        /// <param name="type">type</param>
+        /// <param name="type">The METAR/TAF weather type code to add.</param>
         public void AddType(string type)
         {
             _types.Add(type);
