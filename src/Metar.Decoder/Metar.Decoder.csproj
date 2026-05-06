@@ -34,7 +34,7 @@
 		<PackageId>Metar.Decoder</PackageId>
 		<PackageTags>Metar.Decoder;Metar;Decoder;netstandard2;NET8;NET6;FW48</PackageTags>
 		<Description>A .NET library to decode METAR strings, this library package is netstandard 2.0. Working with Net Core and NET.</Description>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReadmeFile>nuget-readme.md</PackageReadmeFile>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)' == 'Release' ">
@@ -61,10 +61,9 @@
 	</ItemGroup>
 			
 	<ItemGroup>
-	  <None Include="..\..\README.md">
+	  <None Include="Assets\nuget-readme.md">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
-		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
 	<ItemGroup>

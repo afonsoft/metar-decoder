@@ -7,23 +7,24 @@ using System.Text.RegularExpressions;
 namespace Metar.Decoder.Entity
 {
     /// <summary>
-    /// Value
+    /// Represents a numeric meteorological value with its associated unit of measurement.
+    /// Supports unit conversions for speed, distance, and pressure.
     /// </summary>
     [DebuggerDisplay("{ActualValue} {ActualUnit}")]
     public sealed class Value
     {
         /// <summary>
-        /// ActualValue
+        /// The numeric value in the original unit of measurement.
         /// </summary>
         public double ActualValue { get; private set; }
 
         /// <summary>
-        /// ActualUnit
+        /// The unit of measurement for this value.
         /// </summary>
         public Unit ActualUnit { get; private set; }
 
         /// <summary>
-        /// Unit
+        /// Enumeration of all supported units of measurement for meteorological values.
         /// </summary>
         public enum Unit
         {

@@ -18,7 +18,7 @@
         public int Day { get; set; }
 
         /// <summary>
-        /// Hur of occurrence
+        /// Hour of occurrence (UTC)
         /// </summary>
         public int Hour { get; set; }
     }

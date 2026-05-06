@@ -1,5 +1,4 @@
-﻿
-# Decodificador METAR e TAF em C#
+# METAR and TAF Decoder for C#
 
 [![GitHub license](https://img.shields.io/github/license/afonsoft/metar-decoder)](https://github.com/afonsoft/metar-decoder/blob/main/LICENSE)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=code_smells)](https://sonarcloud.io/dashboard?id=afonsoft_metar-decoder)
@@ -11,103 +10,126 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=coverage)](https://sonarcloud.io/summary/new_code?id=afonsoft_metar-decoder)
 [![GitHub all releases](https://img.shields.io/github/downloads/afonsoft/metar-decoder/total)](https://github.com/afonsoft/metar-decoder/releases)
 
-## Descrição do Projeto
+> **[Leia em Portugues (pt-BR)](README.pt-br.md)**
 
-Este repositório contém uma biblioteca .NET para decodificar strings METAR (Meteorological Aerodrome Report) e TAF (Terminal Aerodrome Forecast). Ambas as bibliotecas são compatíveis com .NET Standard 2.0, .NET 6.0 e .NET 8.0, permitindo sua utilização em projetos .NET Core e .NET Framework.
+## Documentation / Documentacao
 
-### Decodificador METAR
+- **[Usage Guide (English)](docs/en-US/usage-guide.md)** - Complete guide with examples
+- **[API Reference (English)](docs/en-US/api-reference.md)** - All classes, properties and methods
+- **[Guia de Uso (Portugues)](docs/pt-BR/guia-de-uso.md)** - Guia completo com exemplos
+- **[Referencia da API (Portugues)](docs/pt-BR/referencia-api.md)** - Todas as classes, propriedades e metodos
 
-O decodificador METAR é uma ferramenta robusta para analisar e interpretar relatórios meteorológicos METAR brutos. METAR é um formato padronizado pela Organização da Aviação Civil Internacional (ICAO) para relatar informações meteorológicas, amplamente utilizado por pilotos e meteorologistas para previsão do tempo. A biblioteca processa a string METAR e a transforma em um objeto `DecodedMetar` estruturado, que contém todas as propriedades meteorológicas decodificadas, como vento de superfície, visibilidade, alcance visual da pista, tempo presente, camadas de nuvens, temperatura do ar, temperatura do ponto de orvalho e pressão.
+## Project Description
 
-### Decodificador TAF
+This repository contains a .NET library for decoding METAR (Meteorological Aerodrome Report) and TAF (Terminal Aerodrome Forecast) strings. Both libraries are compatible with .NET Standard 2.0, .NET 8.0, .NET 10.0, and .NET Framework 4.8, allowing use in .NET Core and .NET Framework projects.
 
-O decodificador TAF é uma biblioteca .NET para decodificar mensagens TAF (Terminal Aerodrome Forecast), que são previsões meteorológicas para aeródromos. Assim como o METAR, o formato TAF é altamente padronizado pela ICAO e é crucial para o planejamento de voos. A biblioteca analisa a string TAF e a converte em um objeto `DecodedTaf`, que inclui informações como tipo de relatório, código ICAO, data e hora de origem, período de previsão, vento de superfície, visibilidade, fenômenos meteorológicos, camadas de nuvens e temperaturas mínima e máxima. O decodificador TAF também é capaz de interpretar "evoluções" (mudanças na previsão ao longo do tempo), como `BECMG` (tornando-se) e `TEMPO` (temporário).
+### METAR Decoder
 
-Ambos os decodificadores oferecem modos de análise "estrito" e "não estrito". No modo não estrito, a análise continua mesmo que sejam encontrados erros de formato, e as exceções são registradas na propriedade `DecodingExceptions` do objeto decodificado. Valores numéricos com unidades (como velocidade, distância e pressão) são encapsulados em objetos `Value`, permitindo conversões de unidade flexíveis.
+The METAR decoder is a robust tool for parsing and interpreting raw METAR weather reports. METAR is a standardized format by the International Civil Aviation Organization (ICAO) for reporting weather information, widely used by pilots and meteorologists. The library processes METAR strings and transforms them into a structured `DecodedMetar` object containing all decoded meteorological properties such as surface wind, visibility, runway visual range, present weather, cloud layers, air temperature, dew point temperature, and pressure.
 
-Este projeto é amplamente baseado nas implementações de [SafranCassiopee/csharp-metar-decoder](https://github.com/SafranCassiopee/csharp-metar-decoder) e [SafranCassiopee/csharp-taf-decoder](https://github.com/SafranCassiopee/csharp-taf-decoder).
+### TAF Decoder
 
-## Status do Projeto
+The TAF decoder is a .NET library for decoding TAF (Terminal Aerodrome Forecast) messages, which are weather forecasts for aerodromes. Like METAR, the TAF format is highly standardized by ICAO and is crucial for flight planning. The library parses TAF strings and converts them into a `DecodedTaf` object, which includes information such as report type, ICAO code, origin date and time, forecast period, surface wind, visibility, weather phenomena, cloud layers, and minimum/maximum temperatures. The TAF decoder can also interpret "evolutions" (forecast changes over time), such as `BECMG` (becoming) and `TEMPO` (temporary).
 
-🚀 **Ativo e em Desenvolvimento** - Com pipelines modernos de CI/CD
+Both decoders offer "strict" and "non-strict" parsing modes. In non-strict mode, parsing continues even when format errors are encountered, and exceptions are logged in the `DecodingExceptions` property. Numeric values with units (such as speed, distance, and pressure) are encapsulated in `Value` objects, allowing flexible unit conversions.
 
-### ✨ Novidades Recentes
+This project is largely based on the implementations of [SafranCassiopee/csharp-metar-decoder](https://github.com/SafranCassiopee/csharp-metar-decoder) and [SafranCassiopee/csharp-taf-decoder](https://github.com/SafranCassiopee/csharp-taf-decoder).
 
-- **🧪 Cobertura de Testes ~98%** - 421 testes unitários com cobertura abrangente
-- **🐛 Fix DatetimeChunkDecoder** - Correção de bug de rollover de dia/mês inválido
-- **🆕 RTD Support** - Suporte completo para TAF reports com "Report Delayed"
-- **🔧 .NET 10.0** - Compatibilidade com a versão mais recente do .NET
-- **🚀 Workflows Modernos** - CI/CD automatizado com GitHub Actions
+## Project Status
 
-## 🔄 CI/CD e Workflows
+**Active and Under Development** - With modern CI/CD pipelines
 
-Este projeto utiliza pipelines modernos de GitHub Actions para garantir qualidade e automação:
+### Recent Changes
 
-### 📋 Workflows Disponíveis
+- **Test Coverage ~98%** - 421 unit tests with comprehensive coverage
+- **DatetimeChunkDecoder Fix** - Day/month rollover bug fix
+- **RTD Support** - Full support for TAF reports with "Report Delayed"
+- **.NET 10.0** - Compatibility with the latest .NET version
+- **Modern Workflows** - Automated CI/CD with GitHub Actions
 
-- **🚀 CI Build & Test** (`ci-build-test.yml`) - Pipeline completo de integração contínua
-  - Build automatizado para .NET 8.0
-  - Testes unitários com coverage
-  - Security scans e performance tests
-  - Criação automática de PRs
+## CI/CD and Workflows
 
-- **📊 Code Quality** (`code-quality.yml`) - Análise de qualidade de código
+This project uses modern GitHub Actions pipelines to ensure quality and automation:
+
+### Available Workflows
+
+- **CI Build & Test** (`ci-build-test.yml`) - Complete continuous integration pipeline
+  - Automated build for .NET 8.0
+  - Unit tests with coverage
+  - Security scans and performance tests
+  - Automatic PR creation
+
+- **Code Quality** (`code-quality.yml`) - Code quality analysis
   - Qodana analysis
   - SonarQube integration
   - Snyk security scanning
-  - Métricas de qualidade
+  - Quality metrics
 
-- **🔒 Security Scan** (`security-scan.yml`) - Scans de segurança
+- **Security Scan** (`security-scan.yml`) - Security scans
   - CodeQL analysis
   - Vulnerability scanning
-  - Scans semanais automáticos
+  - Automatic weekly scans
 
-- **🚀 Publish NuGet** (`publish-all.yml`) - Publicação automatizada
-  - Publicação para GitHub Packages
-  - Publicação para NuGet.org
-  - Criação automática de releases
+- **Publish NuGet** (`publish-all.yml`) - Automated publishing
+  - Publishing to GitHub Packages
+  - Publishing to NuGet.org
+  - Automatic release creation
 
-- **🔄 Auto Dependency Update** (`auto-pr-from-main.yml`) - Atualização automática
-  - Verificação de dependências desatualizadas
-  - Updates de segurança automáticos
-  - PRs automáticos para updates
+- **Auto Dependency Update** (`auto-pr-from-main.yml`) - Automatic updates
+  - Check for outdated dependencies
+  - Automatic security updates
+  - Automatic PRs for updates
 
-### 🏆 Badges de Qualidade
+### Quality Badges
 
 [![CI/CD Pipeline](https://github.com/afonsoft/metar-decoder/actions/workflows/ci-build-test.yml/badge.svg)](https://github.com/afonsoft/metar-decoder/actions/workflows/ci-build-test.yml)
 [![Code Quality](https://github.com/afonsoft/metar-decoder/actions/workflows/code-quality.yml/badge.svg)](https://github.com/afonsoft/metar-decoder/actions/workflows/code-quality.yml)
 [![Security Scan](https://github.com/afonsoft/metar-decoder/actions/workflows/security-scan.yml/badge.svg)](https://github.com/afonsoft/metar-decoder/actions/workflows/security-scan.yml)
 
-## Pacotes NuGet
+## NuGet Packages
 
-Os pacotes NuGet oficiais estão disponíveis para fácil integração em seus projetos:
+Official NuGet packages are available for easy integration into your projects:
 
-| Pacote | Versão | NuGet |
-| ------ | ------ | ------ |
-| [Metar.Decoder](https://www.nuget.org/packages/Metar.Decoder/) | 1.0.8 | [![NuGet version](https://badge.fury.io/nu/Metar.Decoder.svg)](https://badge.fury.io/nu/Metar.Decoder) |
-| [Taf.Decoder](https://www.nuget.org/packages/Taf.Decoder/) | 1.0.6 | [![NuGet version](https://badge.fury.io/nu/Taf.Decoder.svg)](https://badge.fury.io/nu/Taf.Decoder) |
+| Package | Version | NuGet |
+| ------- | ------- | ----- |
+| [Metar.Decoder](https://www.nuget.org/packages/Metar.Decoder/) | 1.0.9 | [![NuGet version](https://badge.fury.io/nu/Metar.Decoder.svg)](https://badge.fury.io/nu/Metar.Decoder) |
+| [Taf.Decoder](https://www.nuget.org/packages/Taf.Decoder/) | 1.0.7 | [![NuGet version](https://badge.fury.io/nu/Taf.Decoder.svg)](https://badge.fury.io/nu/Taf.Decoder) |
 
-## Pré-requisitos
+## Prerequisites
 
-Esta biblioteca é compatível com múltiplas versões do .NET:
+This library is compatible with multiple .NET versions:
 
-- **.NET Standard 2.0** - Compatibilidade máxima
-- **.NET 8.0** - LTS recomendado
-- **.NET 10.0** - Versão mais recente
-- **.NET Framework 4.8** - Suporte legado
+- **.NET Standard 2.0** - Maximum compatibility
+- **.NET 8.0** - Recommended LTS
+- **.NET 10.0** - Latest version
+- **.NET Framework 4.8** - Legacy support
 
-## Como Instalar
+## Installation
 
-### Com nuget.exe (recomendado)
+### NuGet Package Manager (recommended)
 
-No Console do Gerenciador de Pacotes no Visual Studio:
+In the Package Manager Console in Visual Studio:
 
 ```shell
-nuget install Metar.Decoder
-nuget install Taf.Decoder
+Install-Package Metar.Decoder
+Install-Package Taf.Decoder
 ```
 
-Adicione uma referência à biblioteca e, em seguida, adicione as seguintes diretivas `using`:
+### .NET CLI
+
+```shell
+dotnet add package Metar.Decoder
+dotnet add package Taf.Decoder
+```
+
+### PackageReference
+
+```xml
+<PackageReference Include="Metar.Decoder" Version="1.0.9" />
+<PackageReference Include="Taf.Decoder" Version="1.0.7" />
+```
+
+Add a reference to the library and then add the following `using` directives:
 
 ```csharp
 using Metar.Decoder;
@@ -119,425 +141,330 @@ using Taf.Decoder;
 using Taf.Decoder.Entity;
 ```
 
-### Manualmente
+### Manual Installation
 
-Baixe a versão mais recente em [GitHub Releases](https://github.com/afonsoft/metar-decoder/releases).
+Download the latest version from [GitHub Releases](https://github.com/afonsoft/metar-decoder/releases).
 
-Extraia o conteúdo onde desejar em seu projeto. A biblioteca em si está no diretório `Metar.Decoder/` e `Taf.Decoder/`; os outros diretórios não são obrigatórios para o funcionamento da biblioteca.
+Extract the contents wherever you want in your project. The library itself is in the `Metar.Decoder/` and `Taf.Decoder/` directories; the other directories are not required for the library to function.
 
-Adicione os projetos `Metar.Decoder` e `Taf.Decoder` à sua solução e, em seguida, adicione uma referência a eles em seu próprio projeto. Finalmente, adicione as mesmas diretivas `using` mencionadas acima.
+## Quick Start
 
-## Como Usar
+### METAR Decoder
 
-### Decodificador METAR
+Instantiate the decoder and run it on a METAR string. The returned object is a `DecodedMetar` object from which you can retrieve all decoded meteorological properties.
 
-Instancie o decodificador e execute-o em uma string METAR. O objeto retornado é um objeto `DecodedMetar` do qual você pode recuperar todas as propriedades meteorológicas decodificadas.
+All values that have a unit are based on the `Value` object, which provides the `ActualValue` and `ActualUnit` properties.
 
-Todos os valores que possuem uma unidade são baseados no objeto `Value`, que fornece as propriedades `ActualValue` e `ActualUnit`.
-
-Consulte a classe [`DecodedMetar`](src/Metar.Decoder/Entity/DecodedMetar.cs) para a estrutura do objeto resultante.
+See the [`DecodedMetar`](src/Metar.Decoder/Entity/DecodedMetar.cs) class for the resulting object structure.
 
 ```csharp
 var d = MetarDecoder.ParseWithMode("METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN //FEW015 17/10 Q1009 REFZRA WS R03");
 
-// Informações de contexto
-Console.WriteLine($"Válido: {d.IsValid}"); // true
-Console.WriteLine($"METAR Bruto: {d.RawMetar}"); // "METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN //FEW015 17/10 Q1009 REFZRA WS R03"
-Console.WriteLine($"Tipo: {d.Type}"); // MetarType.METAR
+// Context information
+Console.WriteLine($"Valid: {d.IsValid}"); // true
+Console.WriteLine($"Raw METAR: {d.RawMetar}");
+Console.WriteLine($"Type: {d.Type}"); // MetarType.METAR
 Console.WriteLine($"ICAO: {d.ICAO}"); // "LFPO"
-Console.WriteLine($"Dia: {d.Day}"); // 23
-Console.WriteLine($"Hora: {d.Time}"); // "10:27 UTC"
+Console.WriteLine($"Day: {d.Day}"); // 23
+Console.WriteLine($"Time: {d.Time}"); // "10:27 UTC"
 Console.WriteLine($"Status: {d.Status}"); // "AUTO"
 
-// Vento de superfície
-var sw = d.SurfaceWind; // Objeto SurfaceWind
-Console.WriteLine($"Vento - Direção Média: {sw.MeanDirection.ActualValue}"); // 240
-Console.WriteLine($"Vento - Velocidade Média: {sw.MeanSpeed.ActualValue} {sw.MeanSpeed.ActualUnit}"); // 4 MeterPerSecond
-Console.WriteLine($"Vento - Variações de Velocidade: {sw.SpeedVariations.ActualValue}"); // 9
+// Surface Wind
+var sw = d.SurfaceWind;
+Console.WriteLine($"Wind - Mean Direction: {sw.MeanDirection.ActualValue}"); // 240
+Console.WriteLine($"Wind - Mean Speed: {sw.MeanSpeed.ActualValue} {sw.MeanSpeed.ActualUnit}"); // 4 MeterPerSecond
+Console.WriteLine($"Wind - Speed Variations: {sw.SpeedVariations.ActualValue}"); // 9
 
-// Visibilidade
-var v = d.Visibility; // Objeto Visibility
-Console.WriteLine($"Visibilidade Prevalecente: {v.PrevailingVisibility.ActualValue} {v.PrevailingVisibility.ActualUnit}"); // 2500 Meter
-Console.WriteLine($"Visibilidade Mínima: {v.MinimumVisibility.ActualValue}"); // 1000
-Console.WriteLine($"Direção da Visibilidade Mínima: {v.MinimumVisibilityDirection}"); // "NW"
-Console.WriteLine($"NDV: {v.NDV}"); // false
+// Visibility
+var v = d.Visibility;
+Console.WriteLine($"Prevailing Visibility: {v.PrevailingVisibility.ActualValue} {v.PrevailingVisibility.ActualUnit}"); // 2500 Meter
+Console.WriteLine($"Minimum Visibility: {v.MinimumVisibility.ActualValue}"); // 1000
+Console.WriteLine($"Minimum Visibility Direction: {v.MinimumVisibilityDirection}"); // "NW"
 
-// Alcance Visual da Pista (RVR)
-var rvr = d.RunwaysVisualRange; // Array de RunwayVisualRange
-Console.WriteLine($"RVR Pista 32: {rvr[0].VisualRange.ActualValue}"); // 400
-Console.WriteLine($"RVR Pista 08C: {rvr[1].VisualRange.ActualValue}"); // 4
+// Runway Visual Range (RVR)
+var rvr = d.RunwaysVisualRange;
+Console.WriteLine($"RVR Runway 32: {rvr[0].VisualRange.ActualValue}"); // 400
+Console.WriteLine($"RVR Runway 08C: {rvr[1].VisualRange.ActualValue}"); // 4
 
-// Tempo Presente
-var pw = d.PresentWeather; // Array de WeatherPhenomenon
-Console.WriteLine($"Tempo Presente 1: {pw[0].IntensityProximity}{string.Join("", pw[0].Characteristics)}{string.Join("", pw[0].Types)}"); // "+FZRA"
-Console.WriteLine($"Tempo Presente 2: {pw[1].IntensityProximity}{string.Join("", pw[1].Types)}"); // "VCSN"
+// Present Weather
+var pw = d.PresentWeather;
+Console.WriteLine($"Present Weather 1: {pw[0].IntensityProximity}{string.Join("", pw[0].Characteristics)}{string.Join("", pw[0].Types)}"); // "+FZRA"
 
-// Nuvens
-var cld = d.Clouds; // Array de CloudLayer
-Console.WriteLine($"Nuvens - Quantidade: {cld[0].Amount}"); // FEW
-Console.WriteLine($"Nuvens - Altura da Base: {cld[0].BaseHeight.ActualValue} {cld[0].BaseHeight.ActualUnit}"); // 1500 Feet
+// Clouds
+var cld = d.Clouds;
+Console.WriteLine($"Clouds - Amount: {cld[0].Amount}"); // FEW
+Console.WriteLine($"Clouds - Base Height: {cld[0].BaseHeight.ActualValue} {cld[0].BaseHeight.ActualUnit}"); // 1500 Feet
 
-// Temperatura
-Console.WriteLine($"Temperatura do Ar: {d.AirTemperature.ActualValue} {d.AirTemperature.ActualUnit}"); // 17 DegreeCelsius
-Console.WriteLine($"Temperatura do Ponto de Orvalho: {d.DewPointTemperature.ActualValue}"); // 10
+// Temperature
+Console.WriteLine($"Air Temperature: {d.AirTemperature.ActualValue} {d.AirTemperature.ActualUnit}"); // 17 DegreeCelsius
+Console.WriteLine($"Dew Point Temperature: {d.DewPointTemperature.ActualValue}"); // 10
 
-// Pressão
-Console.WriteLine($"Pressão: {d.Pressure.ActualValue} {d.Pressure.ActualUnit}"); // 1009 HectoPascal
+// Pressure
+Console.WriteLine($"Pressure: {d.Pressure.ActualValue} {d.Pressure.ActualUnit}"); // 1009 HectoPascal
 
-// Tempo Recente
+// Recent Weather
 var rw = d.RecentWeather;
-Console.WriteLine($"Tempo Recente - Características: {rw.Characteristics}"); // "FZ"
-Console.WriteLine($"Tempo Recente - Tipos: {string.Join(", ", rw.Types)}"); // "RA"
+Console.WriteLine($"Recent Weather - Characteristics: {rw.Characteristics}"); // "FZ"
+Console.WriteLine($"Recent Weather - Types: {string.Join(", ", rw.Types)}"); // "RA"
 
-// Tesouras de Vento (Windshear)
-Console.WriteLine($"Windshear em Todas as Pistas: {d.WindshearAllRunways}"); // null (ou true/false se presente)
-Console.WriteLine($"Windshear em Pistas Específicas: {string.Join(", ", d.WindshearRunways)}"); // "03"
+// Windshear
+Console.WriteLine($"Windshear All Runways: {d.WindshearAllRunways}");
+Console.WriteLine($"Windshear Runways: {string.Join(", ", d.WindshearRunways)}"); // "03"
 ```
 
-### Decodificador TAF
+### TAF Decoder
 
-Instancie o decodificador e execute-o em uma string TAF. O objeto retornado é um objeto `DecodedTaf` do qual você pode recuperar todas as propriedades de previsão decodificadas.
+Instantiate the decoder and run it on a TAF string. The returned object is a `DecodedTaf` object from which you can retrieve all decoded forecast properties.
 
-Consulte a classe [`DecodedTaf`](src/Taf.Decoder/Entity/DecodedTaf.cs) para a estrutura do objeto resultante.
+See the [`DecodedTaf`](src/Taf.Decoder/Entity/DecodedTaf.cs) class for the resulting object structure.
 
-#### 🆕 Suporte a RTD (Report Delayed)
+#### RTD Support (Report Delayed)
 
-O decodificador agora suporta relatórios TAF marcados como "RTD" (Report Delayed), que indicam relatórios atrasados:
+The decoder now supports TAF reports marked as "RTD" (Report Delayed), which indicate delayed reports:
 
 ```csharp
-// Exemplo de TAF RTD (Report Delayed)
 string rtdTaf = "RTD EKEB 190416Z 1905/1912 13006KT 0200 FZFG BKN001 TEMPO 1905/1907 2000 BR BKN003 BECMG 1907/1909 9000 NSW FEW002 PROB40 1909/1911 0400 FZFG BKN002=";
 var decoder = new TafDecoder();
 var result = decoder.Parse(rtdTaf);
 
-Console.WriteLine($"Tipo: {result.Type}"); // Saída: RTD
-Console.WriteLine($"ICAO: {result.Icao}"); // Saída: EKEB
-Console.WriteLine($"Válido: {result.IsValid}"); // Saída: True
+Console.WriteLine($"Type: {result.Type}"); // Output: RTD
+Console.WriteLine($"ICAO: {result.Icao}"); // Output: EKEB
+Console.WriteLine($"Valid: {result.IsValid}"); // Output: True
 ```
 
-#### Exemplo Completo de Uso
+#### Full TAF Usage Example
 
 ```csharp
 var d = TafDecoder.ParseWithMode("TAF LEMD 080500Z 0806/0912 23010KT 9999 SCT025 TX12/0816Z TN04/0807Z");
 
-// Informações de contexto
-Console.WriteLine($"Válido: {d.IsValid}");
-Console.WriteLine($"TAF Bruto: {d.RawTaf}");
-Console.WriteLine($"Tipo: {d.Type}"); // Pode ser: TAF, TAFAMD, TAFCOR, RTD
+// Context information
+Console.WriteLine($"Valid: {d.IsValid}");
+Console.WriteLine($"Raw TAF: {d.RawTaf}");
+Console.WriteLine($"Type: {d.Type}"); // Can be: TAF, TAFAMD, TAFCOR, RTD
 Console.WriteLine($"ICAO: {d.Icao}");
-Console.WriteLine($"Dia: {d.Day}");
-Console.WriteLine($"Hora: {d.Time}");
+Console.WriteLine($"Day: {d.Day}");
+Console.WriteLine($"Time: {d.Time}");
 
-// Período de Previsão
+// Forecast Period
 var fp = d.ForecastPeriod;
-Console.WriteLine($"Período de Previsão - Do Dia: {fp.FromDay}");
-Console.WriteLine($"Período de Previsão - Da Hora: {fp.FromHour}");
-Console.WriteLine($"Período de Previsão - Ao Dia: {fp.ToDay}");
-Console.WriteLine($"Período de Previsão - À Hora: {fp.ToHour}");
+Console.WriteLine($"Forecast Period - From Day: {fp.FromDay}");
+Console.WriteLine($"Forecast Period - From Hour: {fp.FromHour}");
+Console.WriteLine($"Forecast Period - To Day: {fp.ToDay}");
+Console.WriteLine($"Forecast Period - To Hour: {fp.ToHour}");
 
-// Vento de superfície
+// Surface Wind
 var swTaf = d.SurfaceWind;
-Console.WriteLine($"TAF Vento - Direção Média: {swTaf.MeanDirection.ActualValue}");
-Console.WriteLine($"TAF Vento - Velocidade Média: {swTaf.MeanSpeed.ActualValue} {swTaf.MeanSpeed.ActualUnit}");
+Console.WriteLine($"TAF Wind - Mean Direction: {swTaf.MeanDirection.ActualValue}");
+Console.WriteLine($"TAF Wind - Mean Speed: {swTaf.MeanSpeed.ActualValue} {swTaf.MeanSpeed.ActualUnit}");
 
-// Visibilidade
+// Visibility
 var vTaf = d.Visibility;
-Console.WriteLine($"TAF Visibilidade Prevalecente: {vTaf.ActualVisibility.ActualValue} {vTaf.ActualVisibility.ActualUnit}");
+Console.WriteLine($"TAF Prevailing Visibility: {vTaf.ActualVisibility.ActualValue} {vTaf.ActualVisibility.ActualUnit}");
 Console.WriteLine($"TAF CAVOK: {d.Cavok}");
 
-// Nuvens
+// Clouds
 var cldTaf = d.Clouds;
 if (cldTaf.Count > 0)
 {
-    Console.WriteLine($"TAF Nuvens - Quantidade: {cldTaf[0].Amount}");
-    Console.WriteLine($"TAF Nuvens - Altura da Base: {cldTaf[0].BaseHeight.ActualValue} {cldTaf[0].BaseHeight.ActualUnit}");
+    Console.WriteLine($"TAF Clouds - Amount: {cldTaf[0].Amount}");
+    Console.WriteLine($"TAF Clouds - Base Height: {cldTaf[0].BaseHeight.ActualValue} {cldTaf[0].BaseHeight.ActualUnit}");
 }
 
-// Temperaturas (Mínima e Máxima)
+// Temperatures (Minimum and Maximum)
 var minTemp = d.MinimumTemperature;
 if (minTemp != null)
 {
-    Console.WriteLine($"Temperatura Mínima: {minTemp.TemperatureValue.ActualValue} {minTemp.TemperatureValue.ActualUnit} no dia {minTemp.Day} às {minTemp.Hour}Z");
+    Console.WriteLine($"Minimum Temperature: {minTemp.TemperatureValue.ActualValue} {minTemp.TemperatureValue.ActualUnit} on day {minTemp.Day} at {minTemp.Hour}Z");
 }
 var maxTemp = d.MaximumTemperature;
 if (maxTemp != null)
 {
-    Console.WriteLine($"Temperatura Máxima: {maxTemp.TemperatureValue.ActualValue} {maxTemp.TemperatureValue.ActualUnit} no dia {maxTemp.Day} às {maxTemp.Hour}Z");
+    Console.WriteLine($"Maximum Temperature: {maxTemp.TemperatureValue.ActualValue} {maxTemp.TemperatureValue.ActualUnit} on day {maxTemp.Day} at {maxTemp.Hour}Z");
 }
 
-// Fenômenos Meteorológicos
+// Weather Phenomena
 var wpTaf = d.WeatherPhenomenons;
 if (wpTaf.Count > 0)
 {
-    Console.WriteLine($"TAF Fenômeno Meteorológico: {wpTaf[0].IntensityProximity}{string.Join("", wpTaf[0].Characteristics)}{string.Join("", wpTaf[0].Types)}");
+    Console.WriteLine($"TAF Weather Phenomenon: {wpTaf[0].IntensityProximity}{string.Join("", wpTaf[0].Characteristics)}{string.Join("", wpTaf[0].Types)}");
 }
 
-// Evoluções (BECMG, TEMPO, etc.)
+// Evolutions (BECMG, TEMPO, etc.)
 foreach (var evolution in d.Evolutions)
 {
-    Console.WriteLine($"Evolução: {evolution.Type} de {evolution.FromDay}{evolution.FromHour}Z a {evolution.ToDay}{evolution.ToHour}Z");
-    // Acessar propriedades específicas da evolução, como vento, visibilidade, nuvens, etc.
+    Console.WriteLine($"Evolution: {evolution.Type} from {evolution.FromDay}{evolution.FromHour}Z to {evolution.ToDay}{evolution.ToHour}Z");
 }
 ```
 
-#### Tipos de Relatório TAF Suportados
+#### Supported TAF Report Types
 
-| Tipo | Descrição | Exemplo |
-|------|-----------|---------|
-| `TAF` | Relatório TAF padrão | `TAF LEMD 080500Z...` |
-| `TAFAMD` | Relatório TAF amendado | `TAF AMD LEMD 080500Z...` |
-| `TAFCOR` | Relatório TAF corrigido | `TAF COR LEMD 080500Z...` |
-| `RTD` | Relatório TAF atrasado | `RTD EKEB 190416Z...` |
+| Type | Description | Example |
+|------|-------------|---------|
+| `TAF` | Standard TAF report | `TAF LEMD 080500Z...` |
+| `TAFAMD` | Amended TAF report | `TAF AMD LEMD 080500Z...` |
+| `TAFCOR` | Corrected TAF report | `TAF COR LEMD 080500Z...` |
+| `RTD` | Delayed TAF report | `RTD EKEB 190416Z...` |
 
-### Sobre Objetos de Valor (`Value`)
+### About Value Objects
 
-No exemplo acima, assume-se que todos os parâmetros solicitados estão disponíveis. No mundo real, alguns campos não são obrigatórios, portanto, é importante verificar se o objeto `Value` (contendo tanto o valor quanto sua unidade) não é nulo antes de usá-lo. O que você faz caso seja nulo fica a seu critério.
+In the example above, it is assumed that all requested parameters are available. In the real world, some fields are not mandatory, so it is important to check if the `Value` object (containing both the value and its unit) is not null before using it.
 
-Aqui está um exemplo:
+Here is an example:
 
 ```csharp
-// verifica se o ponto de orvalho não é nulo e atribui um valor padrão se for
 var dew_point = d.DewPointTemperature;
 if (dew_point == null)
 {
     dew_point = new Value(999, Value.Unit.DegreeCelsius);
 }
 
-// o objeto dew_point agora pode ser acessado com segurança
 Console.WriteLine(dew_point.ActualValue);
 Console.WriteLine(dew_point.ActualUnit);
 ```
 
-Os objetos `Value` também contêm sua unidade, que pode ser acessada com a propriedade `ActualUnit`. Ao acessar a propriedade `ActualValue`, você obterá o valor nesta unidade.
+`Value` objects also contain their unit, which can be accessed with the `ActualUnit` property. When accessing the `ActualValue` property, you get the value in this unit.
 
-Se você deseja obter o valor diretamente em outra unidade, pode chamar `GetConvertedValue(unit)`. Os valores suportados são velocidade, distância e pressão.
+If you want to get the value directly in another unit, you can call `GetConvertedValue(unit)`. Supported values are speed, distance, and pressure.
 
-Aqui estão todas as unidades disponíveis para conversão:
+Here are all available units for conversion:
 
 ```csharp
-// unidades de velocidade:
+// Speed units:
 // Value.Unit.MeterPerSecond
 // Value.Unit.KilometerPerHour
 // Value.Unit.Knot
 
-// unidades de distância:
+// Distance units:
 // Value.Unit.Meter
 // Value.Unit.Feet
 // Value.Unit.StatuteMile
 
-// unidades de pressão:
+// Pressure units:
 // Value.Unit.HectoPascal
 // Value.Unit.MercuryInch
 
-// usar conversão em tempo real
+// Using real-time conversion
 var distance_in_sm = visibility.GetConvertedValue(Value.Unit.StatuteMile);
 var speed_kph = speed.GetConvertedValue(Value.Unit.KilometerPerHour);
 ```
 
-### Sobre Erros de Análise
+### About Parsing Errors
 
-Quando um formato inesperado é encontrado para uma parte do METAR/TAF, o erro de análise é registrado no próprio objeto `DecodedMetar` ou `DecodedTaf`.
+When an unexpected format is found for a part of the METAR/TAF, the parsing error is logged in the `DecodedMetar` or `DecodedTaf` object itself.
 
-Todos os erros de análise para um METAR/TAF podem ser acessados através da propriedade `DecodingExceptions`.
+All parsing errors for a METAR/TAF can be accessed through the `DecodingExceptions` property.
 
-Por padrão, a análise continuará quando um formato incorreto for encontrado. No entanto, o analisador também oferece um modo "estrito" onde a análise para assim que uma não conformidade é detectada. O modo pode ser definido globalmente para um objeto `MetarDecoder`/`TafDecoder`, ou apenas uma vez, como você pode ver neste exemplo:
+By default, parsing will continue when an incorrect format is found. However, the parser also offers a "strict" mode where parsing stops as soon as a non-compliance is detected. The mode can be set globally for a `MetarDecoder`/`TafDecoder` object, or just once, as shown in this example:
 
 ```csharp
 var decoder = new MetarDecoder();
+
+// Change global parsing mode to "strict"
 decoder.SetStrictParsing(true);
 
-// altera o modo de análise global para "estrito"
-decoder.SetStrictParsing(true);
-
-// esta análise será feita no modo estrito
+// This parse will be done in strict mode
 decoder.Parse("...");
 
-// mas esta ignorará o modo global e será feita no modo não estrito
+// But this will ignore the global mode and parse in non-strict mode
 decoder.ParseNotStrict("...");
 
-// altera o modo de análise global para "não estrito"
+// Change global parsing mode to "non-strict"
 decoder.SetStrictParsing(false);
 
-// esta análise será feita no modo não estrito
+// This parse will be done in non-strict mode
 decoder.Parse("...");
 
-// mas esta ignorará o modo global e será feita no modo estrito
+// But this will ignore the global mode and parse in strict mode
 decoder.ParseStrict("...");
 ```
 
-### Sobre Erros de Análise (Novamente)
+### About Parsing Errors (Advanced)
 
-No modo não estrito, é possível obter um erro de análise para um determinado decodificador de "chunk", enquanto ainda obtém as informações decodificadas para este "chunk" no final. Como isso é possível?
+In non-strict mode, it is possible to get a parsing error for a given chunk decoder while still getting the decoded information for that chunk. How is this possible?
 
-Isso ocorre porque o modo não estrito não apenas continua a decodificação onde há um erro, mas também tenta a análise novamente no "próximo chunk" (com base no separador de espaço em branco). No entanto, todos os erros na primeira tentativa permanecerão registrados, mesmo que a segunda tentativa tenha sido bem-sucedida.
+This happens because non-strict mode not only continues decoding where there is an error but also retries parsing on the "next chunk" (based on the whitespace separator). However, all errors from the first attempt will remain logged, even if the second attempt was successful.
 
-Por exemplo, se você tiver o "chunk" `AAA 12003KPH ...` fornecido ao decodificador de "chunk" `SurfaceWind`. Este decodificador falhará em `AAA`, tentará decodificar `12003KPH` e terá sucesso. A primeira exceção para o decodificador de vento de superfície será mantida, mas o objeto `SurfaceWind` será preenchido com algumas informações.
+For example, if you have the chunk `AAA 12003KPH ...` fed to the `SurfaceWind` chunk decoder, it will fail on `AAA`, then try to decode `12003KPH` and succeed. The first exception for the surface wind decoder will be kept, but the `SurfaceWind` object will be populated with some information.
 
-Tudo isso não se aplica ao modo estrito, pois a análise é interrompida no primeiro erro de análise neste caso.
+This does not apply to strict mode, as parsing is stopped at the first parsing error in that case.
 
-## 🤝 Como Contribuir
+## Contributing
 
-### Processo de Desenvolvimento
+### Development Process
 
-1. **Crie uma branch** a partir da `main`:
+1. **Create a branch** from `main`:
    ```bash
-   git checkout -b feature/sua-feature
+   git checkout -b feature/your-feature
    ```
 
-2. **Faça suas alterações** seguindo as boas práticas
+2. **Make your changes** following best practices
 
-3. **Os workflows automáticos** serão executados:
-   - 🚀 **CI Build & Test** - Valida seu código
-   - 📊 **Code Quality** - Analisa qualidade
-   - 🔒 **Security Scan** - Verifica segurança
+3. **Automated workflows** will run:
+   - **CI Build & Test** - Validates your code
+   - **Code Quality** - Analyzes quality
+   - **Security Scan** - Checks security
 
-4. **Pull Request Automático**: Se estiver em branches `feature/*`, `bug/*` ou `hotfix/*`, um PR será criado automaticamente para `main`
+4. **Automatic Pull Request**: If on `feature/*`, `bug/*`, or `hotfix/*` branches, a PR will be created automatically to `main`
 
-5. **Review e Merge**: Após aprovação, seu código será mergeado
+5. **Review and Merge**: After approval, your code will be merged
 
-### 🏗️ Estrutura do Repositório
+## Repository Structure
 
 ```
 .
-├── CHANGELOG.md                # Histórico de todas as mudanças notáveis no projeto.
-├── EAF.ico                     # Ícone do projeto.
-├── EAF.png                     # Imagem do projeto.
-├── LICENSE                     # Arquivo de licença do projeto.
-├── MetarDecoder.sln            # Solução principal do Visual Studio para o projeto.
-├── README.md                   # Este arquivo de documentação do projeto.
-├── .github/                    # Configurações do GitHub e workflows.
-│   ├── ISSUE_TEMPLATE.md       # Template para issues.
-│   ├── PULL_REQUEST_TEMPLATE.md # Template para pull requests.
-│   └── workflows/              # GitHub Actions workflows.
-│       ├── ci-build-test.yml   # Pipeline completo de CI/CD.
-│       ├── code-quality.yml    # Análise de qualidade de código.
-│       ├── security-scan.yml   # Scans de segurança automatizados.
-│       ├── publish-all.yml     # Publicação de pacotes NuGet.
-│       ├── auto-pr-from-main.yml # Atualização automática de dependências.
-│       └── ...                  # Outros workflows de suporte.
-├── appveyor.yml                # Configuração para integração contínua com AppVeyor.
-├── docs/                       # Documentação gerada, incluindo arquivos de ajuda e XML.
-│   ├── Working/                # Documentação em andamento ou arquivos temporários de documentação.
-│   │   └── Taf.Decoder.xml     # Arquivo XML de documentação para o decodificador TAF.
-│   └── media/                  # Imagens e outros recursos de mídia para a documentação.
-│       ├── AlertCaution.png
-│       ├── AlertLanguage.png
-│       ├── AlertNote.png
-│       ├── AlertSecurity.png
-│       ├── AlertToDo.png
-│   └── ... (outros arquivos .md gerados para documentação)
-├── metar.docs.shfbproj         # Projeto Sandcastle Help File Builder para gerar a documentação.
-├── metar.docs.sln              # Solução do Visual Studio para o projeto de documentação.
-├── nuget.config                # Configurações do NuGet para o projeto.
-├── sonar/                      # Arquivos relacionados à análise de código com SonarQube/SonarCloud.
-│   ├── Google.Protobuf.dll
-│   ├── Newtonsoft.Json.dll
-│   ├── SonarQube.Analysis.xml
-│   ├── SonarScanner.MSBuild.Common.dll
-│   ├── SonarScanner.MSBuild.PostProcessor.dll
-│   ├── SonarScanner.MSBuild.PreProcessor.dll
-│   ├── SonarScanner.MSBuild.Shim.dll
-│   ├── SonarScanner.MSBuild.Tasks.dll
-│   ├── SonarScanner.MSBuild.dll
-│   ├── SonarScanner.MSBuild.runtimeconfig.json
-│   └── Targets/                # Arquivos de destino para integração do SonarQube com MSBuild.
-│       ├── SonarQube.Integration.ImportBefore.targets
-│       └── SonarQube.Integration.targets
-│   └── sonar-scanner-4.8.0.2856/ # Diretório do SonarScanner.
-│       ├── bin/                # Binários do SonarScanner.
-│       ├── conf/               # Arquivos de configuração do SonarScanner.
-│       └── lib/                # Bibliotecas do SonarScanner.
-├── sonarcloud.bat              # Script em lote para execução da análise do SonarCloud.
-├── src/                        # Código-fonte principal do projeto.
-│   ├── Metar.Decoder/          # Projeto da biblioteca para decodificação de METAR.
-│   │   ├── ChunkDecoder/       # Decodificadores de "chunks" individuais do METAR.
-│   │   │   ├── Abstract/       # Classes abstratas e interfaces para decodificadores de "chunks".
-│   │   │   │   ├── IMetarChunkDecoder.cs
-│   │   │   │   └── MetarChunkDecoder.cs
-│   │   │   ├── CloudChunkDecoder.cs        # Decodificador para informações de nuvens.
-│   │   │   ├── DatetimeChunkDecoder.cs     # Decodificador para data e hora da observação.
-│   │   │   ├── IcaoChunkDecoder.cs         # Decodificador para o código ICAO do aeroporto.
-│   │   │   ├── PresentWeatherChunkDecoder.cs # Decodificador para fenômenos meteorológicos presentes.
-│   │   │   ├── PressureChunkDecoder.cs     # Decodificador para informações de pressão.
-│   │   │   ├── RecentWeatherChunkDecoder.cs # Decodificador para tempo recente.
-│   │   │   ├── ReportStatusChunkDecoder.cs # Decodificador para o status do relatório (e.g., AUTO, NIL).
-│   │   │   ├── ReportTypeChunkDecoder.cs   # Decodificador para o tipo de relatório (e.g., METAR, SPECI).
-│   │   │   ├── RunwayVisualRangeChunkDecoder.cs # Decodificador para alcance visual da pista.
-│   │   │   ├── SurfaceWindChunkDecoder.cs  # Decodificador para informações de vento de superfície.
-│   │   │   ├── TemperatureChunkDecoder.cs  # Decodificador para informações de temperatura.
-│   │   │   ├── VisibilityChunkDecoder.cs   # Decodificador para informações de visibilidade.
-│   │   │   └── WindShearChunkDecoder.cs    # Decodificador para informações de tesoura de vento.
-│   │   ├── EAF.ico
-│   │   ├── EAF.png
-│   │   ├── Entity/             # Classes de entidade que representam os dados decodificados do METAR.
-│   │   │   ├── CloudLayer.cs           # Representa uma camada de nuvens.
-│   │   │   ├── DecodedMetar.cs         # Objeto principal que contém o METAR decodificado.
-│   │   │   ├── PresentWeather.cs       # Representa fenômenos meteorológicos presentes.
-│   │   │   ├── RunwayVisualRange.cs    # Representa o alcance visual da pista.
-│   │   │   ├── SurfaceWind.cs          # Representa o vento de superfície.
-│   │   │   ├── Value.cs                # Classe genérica para valores com unidades.
-│   │   │   ├── Visibility.cs           # Representa informações de visibilidade.
-│   │   │   └── WeatherPhenomenon.cs    # Representa um fenômeno meteorológico.
-│   │   ├── Exception/          # Classes de exceção específicas do decodificador METAR.
-│   │   │   └── MetarChunkDecoderException.cs
-│   │   ├── Metar.Decoder.csproj    # Arquivo de projeto C# para a biblioteca Metar.Decoder.
-│   │   └── MetarDecoder.cs         # Lógica principal do decodificador METAR.
-│   └── Taf.Decoder/            # Projeto da biblioteca para decodificação de TAF.
-│       ├── ChunkDecoder/       # Decodificadores de "chunks" individuais do TAF.
-│       │   ├── Abstract/       # Classes abstratas e interfaces para decodificadores de "chunks" TAF.
-│       │   │   ├── ITafChunkDecoder.cs
-│       │   │   └── TafChunkDecoder.cs
-│       │   ├── CloudChunkDecoder.cs
-│       │   ├── DatetimeChunkDecoder.cs
-│       │   ├── EvolutionChunkDecoder.cs    # Decodificador para evoluções (BECMG, TEMPO).
-│       │   ├── ForecastPeriodChunkDecoder.cs # Decodificador para o período de previsão.
-│       │   ├── IcaoChunkDecoder.cs
-│       │   ├── ReportTypeChunkDecoder.cs
-│       │   ├── SurfaceWindChunkDecoder.cs
-│       │   ├── TemperatureChunkDecoder.cs
-│       │   ├── VisibilityChunkDecoder.cs
-│       │   └── WeatherChunkDecoder.cs
-│       ├── EAF.ico
-│       ├── EAF.png
-│       ├── Entity/             # Classes de entidade que representam os dados decodificados do TAF.
-│       │   ├── BaseEntity.cs
-│       │   ├── CloudLayer.cs
-│       │   ├── DecodedTaf.cs           # Objeto principal que contém o TAF decodificado.
-│       │   ├── Evolution.cs            # Representa uma evolução na previsão.
-│       │   ├── ForecastPeriod.cs       # Representa o período de previsão.
-│       │   ├── SurfaceWind.cs
-│       │   ├── Temperature.cs
-│       │   ├── Value.cs
-│       │   ├── Visibility.cs
-│       │   └── WeatherPhenomenon.cs
-│       ├── Exception/          # Classes de exceção específicas do decodificador TAF.
-│       │   └── TafChunkDecoderException.cs
-│       ├── README.md           # README específico para o decodificador TAF (será consolidado no README principal).
-│       ├── Taf.Decoder.csproj      # Arquivo de projeto C# para a biblioteca Taf.Decoder.
-│       └── TafDecoder.cs           # Lógica principal do decodificador TAF.
-└── tests/                      # Projetos de teste para as bibliotecas.
-    ├── Metar.Decoder.Tests/    # Testes para o decodificador METAR.
-    │   ├── BasicTest.cs
-    │   ├── ChunkDecoder/       # Testes para os decodificadores de "chunks" do METAR.
-    │   ├── Entity/             # Testes para as entidades do METAR.
-    │   │   ├── DecodedMetarExtendedTest.cs
-    │   │   ├── MetarExceptionExtendedTest.cs
-    │   │   ├── PresentWeatherTest.cs
-    │   │   └── ValueExtendedTest.cs
-    │   ├── Integration.cs
-    │   ├── MetarChunkDecoderExceptionTest.cs
-    │   ├── MetarDecoderTest.cs
-    │   └── ValueTest.cs
-    └── Taf.Decoder.Tests/      # Testes para o decodificador TAF.
-        ├── BasicTest.cs
-        ├── ChunkDecoder/       # Testes para os decodificadores de "chunks" do TAF.
-        │   └── TafChunkDecoderBaseTest.cs
-        ├── Entity/             # Testes para as entidades do TAF.
-        │   ├── ForecastPeriodTest.cs
-        │   ├── TafExceptionExtendedTest.cs
-        │   └── ValueExtendedTest.cs
-        ├── Taf.Decoder.Tests.csproj
-        ├── TafDecoderTest.cs
-        ├── ValueTest.cs
-        └── packages.config
+├── CHANGELOG.md                # History of all notable changes in the project.
+├── EAF.ico                     # Project icon.
+├── EAF.png                     # Project image.
+├── LICENSE                     # Project license file.
+├── MetarDecoder.sln            # Main Visual Studio solution for the project.
+├── README.md                   # This project documentation file (en-US).
+├── README.pt-br.md             # Project documentation in Portuguese (pt-BR).
+├── docs/                       # Documentation with guides and API reference.
+│   ├── en-US/                  # English documentation.
+│   │   ├── usage-guide.md      # Complete usage guide with examples.
+│   │   └── api-reference.md    # API reference for all classes and methods.
+│   └── pt-BR/                  # Portuguese documentation.
+│       ├── guia-de-uso.md      # Guia completo de uso com exemplos.
+│       └── referencia-api.md   # Referencia da API para todas as classes e metodos.
+├── src/                        # Main source code of the project.
+│   ├── Metar.Decoder/          # Library project for METAR decoding.
+│   │   ├── ChunkDecoder/       # Individual METAR "chunk" decoders.
+│   │   │   ├── Abstract/       # Abstract classes and interfaces.
+│   │   │   ├── CloudChunkDecoder.cs
+│   │   │   ├── DatetimeChunkDecoder.cs
+│   │   │   ├── IcaoChunkDecoder.cs
+│   │   │   ├── PresentWeatherChunkDecoder.cs
+│   │   │   ├── PressureChunkDecoder.cs
+│   │   │   ├── RecentWeatherChunkDecoder.cs
+│   │   │   ├── ReportStatusChunkDecoder.cs
+│   │   │   ├── ReportTypeChunkDecoder.cs
+│   │   │   ├── RunwayVisualRangeChunkDecoder.cs
+│   │   │   ├── SurfaceWindChunkDecoder.cs
+│   │   │   ├── TemperatureChunkDecoder.cs
+│   │   │   ├── TrendChunkDecoder.cs
+│   │   │   ├── VisibilityChunkDecoder.cs
+│   │   │   └── WindShearChunkDecoder.cs
+│   │   ├── Entity/             # Entity classes representing decoded METAR data.
+│   │   │   ├── CloudLayer.cs
+│   │   │   ├── DecodedMetar.cs
+│   │   │   ├── PresentWeather.cs
+│   │   │   ├── RunwayVisualRange.cs
+│   │   │   ├── SurfaceWind.cs
+│   │   │   ├── Value.cs
+│   │   │   ├── Visibility.cs
+│   │   │   └── WeatherPhenomenon.cs
+│   │   └── Exception/          # Custom exception classes.
+│   │       └── MetarChunkDecoderException.cs
+│   └── Taf.Decoder/            # Library project for TAF decoding.
+│       ├── ChunkDecoder/       # Individual TAF "chunk" decoders.
+│       ├── Entity/             # Entity classes representing decoded TAF data.
+│       └── Exception/          # Custom exception classes.
+├── tests/                      # Unit tests.
+│   ├── Metar.Decoder.Tests/    # Tests for METAR decoder.
+│   └── Taf.Decoder.Tests/      # Tests for TAF decoder.
+└── .github/workflows/          # GitHub Actions workflows.
+```
 
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
