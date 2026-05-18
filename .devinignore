@@ -1,0 +1,64 @@
+# Build outputs
+bin/
+obj/
+out/
+dist/
+build/
+
+# Dependencies
+packages/
+
+# Version control
+.git/
+
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+
+# IDE
+.vs/
+.idea/
+.vscode/
+
+# Test artifacts
+TestResults/
+coverage/
+*.coverage
+
+# Logs
+*.log
+
+# Sonar
+sonar/
+
+# Generated docs (SHFB)
+docs/*.md
+!docs/en-US/
+!docs/pt-BR/
+
+# Large binaries
+*.dll
+*.exe
+*.so
+*.dylib
+*.nupkg
+*.snupkg
+
+# Database files
+*.db
+*.sqlite
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.temp
+*.cache
+
+# Legacy CI
+.travis.yml
+appveyor.yml
