@@ -210,7 +210,7 @@ jobs:
         run: dotnet tool restore
 
       - name: 📊 Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           file: TestResults/CoverageReport/Summary.xml
           flags: unittests
