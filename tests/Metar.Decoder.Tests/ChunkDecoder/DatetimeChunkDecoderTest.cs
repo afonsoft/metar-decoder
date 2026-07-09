@@ -73,6 +73,66 @@ namespace Metar.Decoder.Tests.ChunkDecoder
             };
         }
 
+        /// <summary>
+        /// Test rollover logic for observation DateTime.
+        /// </summary>
+        [Test]
+        public void TestObservationDateTimeRollover()
+        {
+            // Reference date is January 5th, so a day greater than 5 should roll back to December previous year
+            var referenceDate = new DateTime(2026, 1, 5, 0, 0, 0, DateTimeKind.Utc);
+            var decoder = new DatetimeChunkDecoder(referenceDate);
+            var decoded = decoder.Parse("101200Z AAA");
+
+            var result = decoded[MetarDecoder.ResultKey] as Dictionary<string, object>;
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ContainsKey(DatetimeChunkDecoder.ObservationDateTimeParameterName), Is.True);
+            var observationDateTime = (DateTime)result[DatetimeChunkDecoder.ObservationDateTimeParameterName];
+
+            Assert.That(observationDateTime.Year, Is.EqualTo(2025));
+            Assert.That(observationDateTime.Month, Is.EqualTo(12));
+            Assert.That(observationDateTime.Day, Is.EqualTo(10));
+        }
+
+        /// <summary>
+        /// Test month rollover to previous month when not in January.
+        /// </summary>
+        [Test]
+        public void TestObservationDateTimeMonthRollover()
+        {
+            var referenceDate = new DateTime(2026, 7, 9, 0, 0, 0, DateTimeKind.Utc);
+            var decoder = new DatetimeChunkDecoder(referenceDate);
+            var decoded = decoder.Parse("101200Z AAA");
+
+            var result = decoded[MetarDecoder.ResultKey] as Dictionary<string, object>;
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ContainsKey(DatetimeChunkDecoder.ObservationDateTimeParameterName), Is.True);
+            var observationDateTime = (DateTime)result[DatetimeChunkDecoder.ObservationDateTimeParameterName];
+
+            Assert.That(observationDateTime.Month, Is.EqualTo(6));
+            Assert.That(observationDateTime.Day, Is.EqualTo(10));
+        }
+
+        /// <summary>
+        /// Test day clamping when the resolved month has fewer days than the parsed day.
+        /// </summary>
+        [Test]
+        public void TestObservationDateTimeDayClamping()
+        {
+            var referenceDate = new DateTime(2026, 5, 1, 0, 0, 0, DateTimeKind.Utc);
+            var decoder = new DatetimeChunkDecoder(referenceDate);
+            // April has 30 days, so day 31 should be clamped to 30
+            var decoded = decoder.Parse("311200Z AAA");
+
+            var result = decoded[MetarDecoder.ResultKey] as Dictionary<string, object>;
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ContainsKey(DatetimeChunkDecoder.ObservationDateTimeParameterName), Is.True);
+            var observationDateTime = (DateTime)result[DatetimeChunkDecoder.ObservationDateTimeParameterName];
+
+            Assert.That(observationDateTime.Month, Is.EqualTo(4));
+            Assert.That(observationDateTime.Day, Is.EqualTo(30));
+        }
+
         public static List<string> InvalidChunks()
         {
             return new List<string>() {

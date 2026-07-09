@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using NUnit.Framework.Legacy;
+using System;
 using System.Collections.Generic;
 using Taf.Decoder;
 using Taf.Decoder.ChunkDecoder;
@@ -268,6 +269,36 @@ namespace Taf.Decoder.Tests.ChunkDecoder
                 }
             },
         };
+
+        /// <summary>
+        /// Test parse throws NotImplementedException.
+        /// </summary>
+        [Test]
+        public void TestParseThrowsNotImplementedException()
+        {
+            var evolutionDecoder = new EvolutionChunkDecoder(true, false);
+            ClassicAssert.Throws(typeof(NotImplementedException), () =>
+            {
+                evolutionDecoder.Parse("BECMG 0807/0810 23024KT", false);
+            });
+        }
+
+        /// <summary>
+        /// Test InstantiateEntity throws for unknown entity name.
+        /// </summary>
+        [Test]
+        public void TestInstantiateEntityThrowsForUnknownEntity()
+        {
+            var evo = new EvolutionChunkDecoder(true, false);
+            var method = typeof(EvolutionChunkDecoder).GetMethod("InstantiateEntity", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            var ex = ClassicAssert.Throws<System.Reflection.TargetInvocationException>(() =>
+            {
+                method.Invoke(evo, new object[] { "UnknownEntity" });
+            });
+
+            ClassicAssert.That(ex.InnerException, Is.InstanceOf<TafChunkDecoderException>());
+        }
     }
 
     public class EvolutionChunkDecoderTester

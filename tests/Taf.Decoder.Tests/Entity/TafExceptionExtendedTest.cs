@@ -3,6 +3,7 @@ using Taf.Decoder.ChunkDecoder;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using System;
+using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace Taf.Decoder.Tests.Entity
@@ -70,6 +71,37 @@ namespace Taf.Decoder.Tests.Entity
             ClassicAssert.AreEqual("newRemaining", info.GetString("RemainingTaf"));
         }
 #pragma warning restore SYSLIB0051
+
+        [Test]
+        public void TestSerializationConstructorRestoresFields()
+        {
+#pragma warning disable SYSLIB0051
+            var info = new SerializationInfo(typeof(TafChunkDecoderException), new FormatterConverter());
+            info.AddValue("RemainingTaf", "REMAINING");
+            info.AddValue("NewRemainingTaf", "NEW");
+            info.AddValue("Message", "Test");
+            info.AddValue("ClassName", typeof(TafChunkDecoderException).FullName);
+            info.AddValue("InnerException", null);
+            info.AddValue("StackTraceString", null);
+            info.AddValue("RemoteStackTraceString", null);
+            info.AddValue("RemoteStackIndex", 0);
+            info.AddValue("ExceptionMethod", null);
+            info.AddValue("HResult", -2146233088);
+            info.AddValue("Source", null);
+            info.AddValue("HelpURL", null);
+
+            var ctor = typeof(TafChunkDecoderException).GetConstructor(
+                BindingFlags.NonPublic | BindingFlags.Instance,
+                null,
+                new[] { typeof(SerializationInfo), typeof(StreamingContext) },
+                null);
+
+            var ex = (TafChunkDecoderException)ctor.Invoke(new object[] { info, new StreamingContext() });
+
+            ClassicAssert.AreEqual("REMAINING", ex.RemainingTaf);
+            ClassicAssert.AreEqual("NEW", ex.NewRemainingTaf);
+#pragma warning restore SYSLIB0051
+        }
 
         [Test]
         public void TestMessagesConstants()

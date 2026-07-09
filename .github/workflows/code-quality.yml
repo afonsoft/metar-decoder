@@ -21,16 +21,16 @@ jobs:
 
     steps:
       - name: 📥 Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: 🔍 Qodana Scan
-        uses: JetBrains/qodana-action@v2026.1.0
+        uses: JetBrains/qodana-action@v2026.1.3
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
-          args: --linter,qodana-community-for-net --baseline,qodana.sarif.json --fail-threshold,0
+          args: --linter qodana-cdnet --solution MetarDecoder.sln --baseline qodana.sarif.json --fail-threshold 0
           cache-default-branch-only: true
           upload-result: false
           primary-cache-key: qodana-2025.3-refs/heads/main-${{ github.sha }}
@@ -51,7 +51,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -119,7 +119,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🗄️ Setup .NET
         uses: actions/setup-dotnet@v5
@@ -198,7 +198,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🗄️ Setup .NET
         uses: actions/setup-dotnet@v5

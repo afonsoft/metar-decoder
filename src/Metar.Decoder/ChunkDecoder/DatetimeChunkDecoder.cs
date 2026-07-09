@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Decoder.Shared;
 
 namespace Metar.Decoder.ChunkDecoder
 {
@@ -8,6 +9,24 @@ namespace Metar.Decoder.ChunkDecoder
         public const string DayParameterName = "Day";
         public const string TimeParameterName = "Time";
         public const string ObservationDateTimeParameterName = "ObservationDateTime";
+
+        private readonly DateTime? _referenceDate;
+
+        /// <summary>
+        /// DatetimeChunkDecoder
+        /// </summary>
+        public DatetimeChunkDecoder()
+        {
+        }
+
+        /// <summary>
+        /// DatetimeChunkDecoder
+        /// </summary>
+        /// <param name="referenceDate">Reference date for rollover calculations</param>
+        public DatetimeChunkDecoder(DateTime referenceDate)
+        {
+            _referenceDate = referenceDate;
+        }
 
         public override string GetRegex()
         {
@@ -40,32 +59,7 @@ namespace Metar.Decoder.ChunkDecoder
             result.Add(DayParameterName, day);
             result.Add(TimeParameterName, $"{hour:00}:{minute:00} UTC");
 
-            // Create DateTime from parsed components
-            var currentYear = DateTime.UtcNow.Year;
-            var month = DateTime.UtcNow.Month;
-            
-            // Handle day/year rollover - if day > current day, assume previous month
-            if (day > DateTime.UtcNow.Day)
-            {
-                if (month == 1)
-                {
-                    month = 12;
-                    currentYear--;
-                }
-                else
-                {
-                    month--;
-                }
-            }
-
-            // Ensure day is valid for the resolved month/year
-            var daysInMonth = DateTime.DaysInMonth(currentYear, month);
-            if (day > daysInMonth)
-            {
-                day = daysInMonth;
-            }
-            
-            var observationDateTime = new DateTime(currentYear, month, day, hour, minute, 0, DateTimeKind.Utc);
+            var observationDateTime = DateTimeHelper.BuildDateTime(_referenceDate, day, hour, minute);
             result.Add(ObservationDateTimeParameterName, observationDateTime);
 
             return GetResults(newRemainingMetar, result);
