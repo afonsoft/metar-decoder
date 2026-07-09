@@ -85,6 +85,8 @@ namespace Metar.Decoder.Tests.ChunkDecoder
             var decoded = decoder.Parse("101200Z AAA");
 
             var result = decoded[MetarDecoder.ResultKey] as Dictionary<string, object>;
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ContainsKey(DatetimeChunkDecoder.ObservationDateTimeParameterName), Is.True);
             var observationDateTime = (DateTime)result[DatetimeChunkDecoder.ObservationDateTimeParameterName];
 
             Assert.That(observationDateTime.Year, Is.EqualTo(2025));
@@ -103,6 +105,8 @@ namespace Metar.Decoder.Tests.ChunkDecoder
             var decoded = decoder.Parse("101200Z AAA");
 
             var result = decoded[MetarDecoder.ResultKey] as Dictionary<string, object>;
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ContainsKey(DatetimeChunkDecoder.ObservationDateTimeParameterName), Is.True);
             var observationDateTime = (DateTime)result[DatetimeChunkDecoder.ObservationDateTimeParameterName];
 
             Assert.That(observationDateTime.Month, Is.EqualTo(6));
@@ -121,6 +125,8 @@ namespace Metar.Decoder.Tests.ChunkDecoder
             var decoded = decoder.Parse("311200Z AAA");
 
             var result = decoded[MetarDecoder.ResultKey] as Dictionary<string, object>;
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ContainsKey(DatetimeChunkDecoder.ObservationDateTimeParameterName), Is.True);
             var observationDateTime = (DateTime)result[DatetimeChunkDecoder.ObservationDateTimeParameterName];
 
             Assert.That(observationDateTime.Month, Is.EqualTo(4));

@@ -276,10 +276,10 @@ namespace Taf.Decoder.Tests.ChunkDecoder
         [Test]
         public void TestParseThrowsNotImplementedException()
         {
-            var decoder = new EvolutionChunkDecoder(true, false);
+            var evolutionDecoder = new EvolutionChunkDecoder(true, false);
             ClassicAssert.Throws(typeof(NotImplementedException), () =>
             {
-                decoder.Parse("BECMG 0807/0810 23024KT", false);
+                evolutionDecoder.Parse("BECMG 0807/0810 23024KT", false);
             });
         }
 

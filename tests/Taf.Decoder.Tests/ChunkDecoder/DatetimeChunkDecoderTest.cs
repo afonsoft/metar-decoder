@@ -57,6 +57,8 @@ namespace Taf.Decoder.Tests.ChunkDecoder
             var decoded = decoder.Parse("101200Z AAA");
 
             var result = decoded[TafDecoder.ResultKey] as Dictionary<string, object>;
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ContainsKey(DatetimeChunkDecoder.OriginDateTimeParameterName), Is.True);
             var originDateTime = (DateTime)result[DatetimeChunkDecoder.OriginDateTimeParameterName];
 
             Assert.That(originDateTime.Year, Is.EqualTo(2025));
@@ -75,6 +77,8 @@ namespace Taf.Decoder.Tests.ChunkDecoder
             var decoded = decoder.Parse("101200Z AAA");
 
             var result = decoded[TafDecoder.ResultKey] as Dictionary<string, object>;
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ContainsKey(DatetimeChunkDecoder.OriginDateTimeParameterName), Is.True);
             var originDateTime = (DateTime)result[DatetimeChunkDecoder.OriginDateTimeParameterName];
 
             Assert.That(originDateTime.Month, Is.EqualTo(6));
@@ -92,6 +96,8 @@ namespace Taf.Decoder.Tests.ChunkDecoder
             var decoded = decoder.Parse("311200Z AAA");
 
             var result = decoded[TafDecoder.ResultKey] as Dictionary<string, object>;
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ContainsKey(DatetimeChunkDecoder.OriginDateTimeParameterName), Is.True);
             var originDateTime = (DateTime)result[DatetimeChunkDecoder.OriginDateTimeParameterName];
 
             Assert.That(originDateTime.Month, Is.EqualTo(4));
