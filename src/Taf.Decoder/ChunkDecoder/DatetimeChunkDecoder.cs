@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Decoder.Shared;
 
 namespace Taf.Decoder.ChunkDecoder
 {
@@ -57,50 +58,10 @@ namespace Taf.Decoder.ChunkDecoder
             result.Add(DayParameterName, day);
             result.Add(TimeParameterName, $"{hour:00}:{minute:00} UTC");
 
-            var originDateTime = BuildOriginDateTime(day, hour, minute);
+            var originDateTime = DateTimeHelper.BuildDateTime(_referenceDate, day, hour, minute);
             result.Add(OriginDateTimeParameterName, originDateTime);
 
             return GetResults(newRemainingTaf, result);
-        }
-
-        /// <summary>
-        /// Build the origin DateTime from parsed components applying rollover logic.
-        /// </summary>
-        /// <param name="day"></param>
-        /// <param name="hour"></param>
-        /// <param name="minute"></param>
-        /// <returns></returns>
-        private DateTime BuildOriginDateTime(int day, int hour, int minute)
-        {
-            // Use the provided reference date, or the current UTC time when none is supplied
-            var referenceDate = _referenceDate ?? DateTime.UtcNow;
-
-            // Create DateTime from parsed components
-            var currentYear = referenceDate.Year;
-            var month = referenceDate.Month;
-
-            // Handle day/year rollover - if day > current day, assume previous month
-            if (day > referenceDate.Day)
-            {
-                if (month == 1)
-                {
-                    month = 12;
-                    currentYear--;
-                }
-                else
-                {
-                    month--;
-                }
-            }
-
-            // Ensure day is valid for the resolved month/year
-            var daysInMonth = DateTime.DaysInMonth(currentYear, month);
-            if (day > daysInMonth)
-            {
-                day = daysInMonth;
-            }
-
-            return new DateTime(currentYear, month, day, hour, minute, 0, DateTimeKind.Utc);
         }
 
         /// <summary>

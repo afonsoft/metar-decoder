@@ -67,6 +67,10 @@
 	  </None>
 	</ItemGroup>
 	<ItemGroup>
+		<Compile Include="..\Shared\DateTimeHelper.cs" Link="Shared\DateTimeHelper.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.3" PrivateAssets="All" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
