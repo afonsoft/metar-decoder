@@ -9,12 +9,12 @@ namespace Metar.Decoder.ChunkDecoder
         public const string TimeParameterName = "Time";
         public const string ObservationDateTimeParameterName = "ObservationDateTime";
 
-        private readonly DateTime _referenceDate;
+        private readonly DateTime? _referenceDate;
 
         /// <summary>
         /// DatetimeChunkDecoder
         /// </summary>
-        public DatetimeChunkDecoder() : this(DateTime.UtcNow)
+        public DatetimeChunkDecoder()
         {
         }
 
@@ -73,12 +73,15 @@ namespace Metar.Decoder.ChunkDecoder
         /// <returns></returns>
         private DateTime BuildObservationDateTime(int day, int hour, int minute)
         {
+            // Use the provided reference date, or the current UTC time when none is supplied
+            var referenceDate = _referenceDate ?? DateTime.UtcNow;
+
             // Create DateTime from parsed components
-            var currentYear = _referenceDate.Year;
-            var month = _referenceDate.Month;
+            var currentYear = referenceDate.Year;
+            var month = referenceDate.Month;
 
             // Handle day/year rollover - if day > current day, assume previous month
-            if (day > _referenceDate.Day)
+            if (day > referenceDate.Day)
             {
                 if (month == 1)
                 {
