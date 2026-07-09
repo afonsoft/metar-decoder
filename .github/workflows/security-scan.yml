@@ -66,14 +66,14 @@ jobs:
           sudo mv ./snyk /usr/local/bin/
 
       - name: 🛡️ Run Snyk Security Scan
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
-          if [ -z "${{ secrets.SNYK_TOKEN }}" ]; then
+          if [ -z "$SNYK_TOKEN" ]; then
             echo "⚠️ SNYK_TOKEN is not set or empty, skipping Snyk scan"
             exit 0
           fi
           snyk test --severity-threshold=high --all-projects
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   # SonarQube Analysis
   sonarqube:
