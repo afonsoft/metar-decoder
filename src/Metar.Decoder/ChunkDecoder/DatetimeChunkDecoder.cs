@@ -9,6 +9,24 @@ namespace Metar.Decoder.ChunkDecoder
         public const string TimeParameterName = "Time";
         public const string ObservationDateTimeParameterName = "ObservationDateTime";
 
+        private readonly DateTime _referenceDate;
+
+        /// <summary>
+        /// DatetimeChunkDecoder
+        /// </summary>
+        public DatetimeChunkDecoder() : this(DateTime.UtcNow)
+        {
+        }
+
+        /// <summary>
+        /// DatetimeChunkDecoder
+        /// </summary>
+        /// <param name="referenceDate">Reference date for rollover calculations</param>
+        public DatetimeChunkDecoder(DateTime referenceDate)
+        {
+            _referenceDate = referenceDate;
+        }
+
         public override string GetRegex()
         {
             return "^([0-9]{2})([0-9]{2})([0-9]{2})Z ";
@@ -40,12 +58,27 @@ namespace Metar.Decoder.ChunkDecoder
             result.Add(DayParameterName, day);
             result.Add(TimeParameterName, $"{hour:00}:{minute:00} UTC");
 
+            var observationDateTime = BuildObservationDateTime(day, hour, minute);
+            result.Add(ObservationDateTimeParameterName, observationDateTime);
+
+            return GetResults(newRemainingMetar, result);
+        }
+
+        /// <summary>
+        /// Build the observation DateTime from parsed components applying rollover logic.
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="hour"></param>
+        /// <param name="minute"></param>
+        /// <returns></returns>
+        private DateTime BuildObservationDateTime(int day, int hour, int minute)
+        {
             // Create DateTime from parsed components
-            var currentYear = DateTime.UtcNow.Year;
-            var month = DateTime.UtcNow.Month;
-            
+            var currentYear = _referenceDate.Year;
+            var month = _referenceDate.Month;
+
             // Handle day/year rollover - if day > current day, assume previous month
-            if (day > DateTime.UtcNow.Day)
+            if (day > _referenceDate.Day)
             {
                 if (month == 1)
                 {
@@ -64,11 +97,8 @@ namespace Metar.Decoder.ChunkDecoder
             {
                 day = daysInMonth;
             }
-            
-            var observationDateTime = new DateTime(currentYear, month, day, hour, minute, 0, DateTimeKind.Utc);
-            result.Add(ObservationDateTimeParameterName, observationDateTime);
 
-            return GetResults(newRemainingMetar, result);
+            return new DateTime(currentYear, month, day, hour, minute, 0, DateTimeKind.Utc);
         }
 
         /// <summary>

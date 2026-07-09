@@ -107,6 +107,17 @@ namespace Metar.Decoder.Tests.ChunkDecoder
                     runway1Variable = false,
                     RemainingMetar = "DDD",
                 },
+                new RunwayVisualRangeChunkDecoderTester()
+                {
+                    Chunk = "R09/1200N EEE",
+                    NbRunways = 1,
+                    runway1Name = "09",
+                    runway1Vis = 1200,
+                    runway1Unit = Value.Unit.Meter,
+                    runway1Interval = null,
+                    runway1Variable = false,
+                    RemainingMetar = "EEE",
+                },
             };
         }
 

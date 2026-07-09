@@ -9,6 +9,24 @@ namespace Taf.Decoder.ChunkDecoder
         public const string TimeParameterName = "Time";
         public const string OriginDateTimeParameterName = "OriginDateTime";
 
+        private readonly DateTime _referenceDate;
+
+        /// <summary>
+        /// DatetimeChunkDecoder
+        /// </summary>
+        public DatetimeChunkDecoder() : this(DateTime.UtcNow)
+        {
+        }
+
+        /// <summary>
+        /// DatetimeChunkDecoder
+        /// </summary>
+        /// <param name="referenceDate">Reference date for rollover calculations</param>
+        public DatetimeChunkDecoder(DateTime referenceDate)
+        {
+            _referenceDate = referenceDate;
+        }
+
         public override string GetRegex()
         {
             return "^([0-9]{2})([0-9]{2})([0-9]{2})Z ";
@@ -39,12 +57,27 @@ namespace Taf.Decoder.ChunkDecoder
             result.Add(DayParameterName, day);
             result.Add(TimeParameterName, $"{hour:00}:{minute:00} UTC");
 
+            var originDateTime = BuildOriginDateTime(day, hour, minute);
+            result.Add(OriginDateTimeParameterName, originDateTime);
+
+            return GetResults(newRemainingTaf, result);
+        }
+
+        /// <summary>
+        /// Build the origin DateTime from parsed components applying rollover logic.
+        /// </summary>
+        /// <param name="day"></param>
+        /// <param name="hour"></param>
+        /// <param name="minute"></param>
+        /// <returns></returns>
+        private DateTime BuildOriginDateTime(int day, int hour, int minute)
+        {
             // Create DateTime from parsed components
-            var currentYear = DateTime.UtcNow.Year;
-            var month = DateTime.UtcNow.Month;
+            var currentYear = _referenceDate.Year;
+            var month = _referenceDate.Month;
 
             // Handle day/year rollover - if day > current day, assume previous month
-            if (day > DateTime.UtcNow.Day)
+            if (day > _referenceDate.Day)
             {
                 if (month == 1)
                 {
@@ -64,10 +97,7 @@ namespace Taf.Decoder.ChunkDecoder
                 day = daysInMonth;
             }
 
-            var originDateTime = new DateTime(currentYear, month, day, hour, minute, 0, DateTimeKind.Utc);
-            result.Add(OriginDateTimeParameterName, originDateTime);
-
-            return GetResults(newRemainingTaf, result);
+            return new DateTime(currentYear, month, day, hour, minute, 0, DateTimeKind.Utc);
         }
 
         /// <summary>
