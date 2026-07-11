@@ -87,3 +87,5 @@ dotnet test MetarDecoder.sln --configuration Release --collect:"XPlat Code Cover
 | Tag de release | `publish-all.yml` |
 | Push em `main` | `auto-pr-from-main.yml` |
 | Schedule | `security-scan.yml` |
+| Comentário `/oc` ou `/opencode` | `opencode.yml` |
+| Label `fix-me` em issue/PR | `opencode-auto-fix.yml` |

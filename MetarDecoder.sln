@@ -30,7 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\auto-pr-from-main.yml = .github\workflows\auto-pr-from-main.yml
 		.github\workflows\ci-build-test.yml = .github\workflows\ci-build-test.yml
 		.github\workflows\code-quality.yml = .github\workflows\code-quality.yml
-		.github\workflows\openhands-resolver.yml = .github\workflows\openhands-resolver.yml
+		.github\workflows\opencode.yml = .github\workflows\opencode.yml
+		.github\workflows\opencode-auto-fix.yml = .github\workflows\opencode-auto-fix.yml
 		.github\workflows\publish-all.yml = .github\workflows\publish-all.yml
 		.github\workflows\security-scan.yml = .github\workflows\security-scan.yml
 	EndProjectSection
