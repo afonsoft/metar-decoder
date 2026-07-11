@@ -390,6 +390,14 @@ decoder.ParseStrict("...");
 
 5. **Review e Merge**: Apos aprovacao, seu codigo sera mergeado
 
+## Historico de Estrelas
+
+Veja o [grafico de historico de estrelas](https://www.star-history.com/?repos=afonsoft%2Fmetar-decoder&type=date&legend=top-left) deste repositorio.
+
+## StarMapper
+
+[![Mapa StarMapper](https://starmapper.bruniaux.com/afonsoft/metar-decoder/opengraph-image)](https://starmapper.bruniaux.com/afonsoft/metar-decoder)
+
 ## Licenca
 
 Este projeto esta licenciado sob a Licenca MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.

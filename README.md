@@ -465,6 +465,14 @@ This does not apply to strict mode, as parsing is stopped at the first parsing e
 └── .github/workflows/          # GitHub Actions workflows.
 ```
 
+## Star History
+
+See the [star history chart](https://www.star-history.com/?repos=afonsoft%2Fmetar-decoder&type=date&legend=top-left) for this repository.
+
+## StarMapper
+
+[![StarMapper Map](https://starmapper.bruniaux.com/afonsoft/metar-decoder/opengraph-image)](https://starmapper.bruniaux.com/afonsoft/metar-decoder)
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
