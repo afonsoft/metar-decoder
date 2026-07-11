@@ -467,7 +467,7 @@ This does not apply to strict mode, as parsing is stopped at the first parsing e
 
 ## Star History
 
-See the [star history chart](https://www.star-history.com/?repos=afonsoft%2Fmetar-decoder&type=date&legend=top-left) for this repository.
+[![Star History Chart](https://api.star-history.com/chart?repos=afonsoft/metar-decoder&type=date&legend=top-left&sealed_token=SCmUeoGGGOTpQaX4rtTneP8OE6kBQG9LS277H2kcO0hRSA6eX_i2oOo8JyVSB_6VytthNfRVsz0jaAmPzbY39xdEgAIqPp9jw_sMKSbrxYUx6O4oF4zGCw)](https://www.star-history.com/?repos=afonsoft%2Fmetar-decoder&type=date&legend=top-left)
 
 ## StarMapper
 
