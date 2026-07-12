@@ -169,7 +169,11 @@ namespace Metar.Decoder
                     if (obj.Value != null)
                     {
                         var property = typeof(DecodedMetar).GetProperty(obj.Key);
-                        property?.SetValue(decodedMetar, obj.Value, null);
+                        if (property == null)
+                        {
+                            throw new MetarChunkDecoderException($"Unknown property: {obj.Key}");
+                        }
+                        property.SetValue(decodedMetar, obj.Value, null);
                     }
                 }
             }

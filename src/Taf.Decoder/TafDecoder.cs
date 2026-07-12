@@ -177,7 +177,11 @@ namespace Taf.Decoder
                     if (obj.Value != null)
                     {
                         var property = typeof(DecodedTaf).GetProperty(obj.Key);
-                        property?.SetValue(decodedTaf, obj.Value);
+                        if (property == null)
+                        {
+                            throw new TafChunkDecoderException($"Unknown property: {obj.Key}");
+                        }
+                        property.SetValue(decodedTaf, obj.Value);
                     }
                 }
             }
