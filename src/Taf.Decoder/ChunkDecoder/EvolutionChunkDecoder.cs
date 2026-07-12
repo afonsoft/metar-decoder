@@ -165,15 +165,6 @@ namespace Taf.Decoder.ChunkDecoder
             }
 
             var entityName = GetEntityName(result);
-            if (string.IsNullOrEmpty(entityName))
-            {
-                throw new TafChunkDecoderException(
-                    originalChunk,
-                    remainingEvolutions,
-                    TafChunkDecoderException.Messages.WeatherEvolutionBadFormat,
-                    this);
-            }
-
             var entity = result[entityName];
 
             if (entity == null && entityName != VisibilityChunkDecoder.VisibilityParameterName)
@@ -197,12 +188,7 @@ namespace Taf.Decoder.ChunkDecoder
 
         private string GetEntityName(Dictionary<string, object> result)
         {
-            var entityName = result.Keys.FirstOrDefault();
-            if (string.IsNullOrEmpty(entityName))
-            {
-                return null;
-            }
-
+            var entityName = result.Keys.First();
             if (entityName == VisibilityChunkDecoder.CavokParameterName)
             {
                 _withCavok = (bool)result[entityName];
@@ -221,11 +207,7 @@ namespace Taf.Decoder.ChunkDecoder
         private void AddEvolution(DecodedTaf decodedTaf, Evolution evolution, Dictionary<string, object> result, string entityName)
         {
             // clone the evolution entity
-            var newEvolution = evolution.Clone() as Evolution;
-            if (newEvolution == null)
-            {
-                throw new TafChunkDecoderException(TafChunkDecoderException.Messages.UnknownEntity + entityName);
-            }
+            var newEvolution = (Evolution)evolution.Clone();
 
             // add the new entity to it
             newEvolution.Entity = result[entityName];
@@ -249,8 +231,6 @@ namespace Taf.Decoder.ChunkDecoder
                 // that entity is not in the decoded_taf yet, or it's a cloud layer which is a special case
                 decodedEntity = InstantiateEntity(entityName);
             }
-
-            decodedEntity.Evolutions = decodedEntity.Evolutions ?? new List<Evolution>();
 
             // add the new evolution to that entity
             decodedEntity.Evolutions.Add(newEvolution);
@@ -362,21 +342,20 @@ namespace Taf.Decoder.ChunkDecoder
             var period = found[0].Groups[3].Value.Trim();
             var remaining = found[0].Groups[4].Value.Trim();
 
-            if (probability.StartsWith("PROB"))
+            if (!probability.StartsWith("PROB"))
             {
-                evolution.Probability = probability;
-                var embeddedEvolution = new Evolution()
-                {
-                    Type = !string.IsNullOrEmpty(type) ? type : Probability,
-                };
-                SetBoundedPeriod(embeddedEvolution, period);
-
-                evolution.Evolutions = evolution.Evolutions ?? new List<Evolution>();
-                evolution.Evolutions.Add(embeddedEvolution);
-                chunk = ParseEntitiesChunk(evolution, remaining, decodedTaf);
+                return chunk;
             }
 
-            return string.Empty;
+            evolution.Probability = probability;
+            var embeddedEvolution = new Evolution()
+            {
+                Type = !string.IsNullOrEmpty(type) ? type : Probability,
+            };
+            SetBoundedPeriod(embeddedEvolution, period);
+
+            evolution.Evolutions.Add(embeddedEvolution);
+            return ParseEntitiesChunk(evolution, remaining, decodedTaf);
         }
     }
 }
