@@ -350,7 +350,7 @@ namespace Taf.Decoder.ChunkDecoder
             SetBoundedPeriod(embeddedEvolution, period);
 
             evolution.Evolutions.Add(embeddedEvolution);
-            chunk = ParseEntitiesChunk(evolution, remaining, decodedTaf);
+            ParseEntitiesChunk(evolution, remaining, decodedTaf);
 
             return string.Empty;
         }
