@@ -74,7 +74,7 @@ namespace Taf.Decoder.ChunkDecoder
             var layerHeight = Value.ToInt(found[index + 2].Value);
             if (layerHeight.HasValue)
             {
-                layer.BaseHeight = new Value(layerHeight.Value * 100, Value.Unit.Feet);
+                layer.BaseHeight = new Value(layerHeight.Value * 100d, Value.Unit.Feet);
             }
 
             return layer;

@@ -70,7 +70,7 @@ namespace Taf.Decoder.ChunkDecoder
             SetProbabilityFromRemaining(evolution, newRemainingTaf);
             SetEvolutionPeriod(evolution, evolutionType, evolutionPeriod);
 
-            ParseEntitiesChunk(evolution, found[3].Value, decodedTaf);
+            Remaining = ParseEntitiesChunk(evolution, found[3].Value, decodedTaf);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Taf.Decoder.ChunkDecoder
                 ApplyDecodedResult(evolution, decodedTaf, decoded, originalChunk, remainingEvolutions);
                 return (string)decoded[TafDecoder.RemainingTafKey];
             }
-            catch (Exception)
+            catch (TafChunkDecoderException)
             {
                 tries++;
                 return HandleEntityFailure(tries, remainingEvolutions, originalChunk);
@@ -146,6 +146,15 @@ namespace Taf.Decoder.ChunkDecoder
             string remainingEvolutions)
         {
             var result = decoded[TafDecoder.ResultKey] as Dictionary<string, object>;
+            if (result == null)
+            {
+                throw new TafChunkDecoderException(
+                    originalChunk,
+                    remainingEvolutions,
+                    TafChunkDecoderException.Messages.WeatherEvolutionBadFormat,
+                    this);
+            }
+
             var entityName = GetEntityName(result);
             var entity = result.Count > 0 ? result[entityName] : null;
 
