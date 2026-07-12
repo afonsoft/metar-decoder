@@ -1,6 +1,7 @@
-﻿using Metar.Decoder.Entity;
+using Metar.Decoder.Entity;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Metar.Decoder.ChunkDecoder
 {
@@ -33,59 +34,72 @@ namespace Metar.Decoder.ChunkDecoder
                 throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.ForVisibilityInformationBadFormat, this);
             }
 
-            Visibility visibility = null;
-            bool cavok;
-            if (found[1].Value == CavokRegexPattern)
-            {
-                // cloud and visibility OK
-                cavok = true;
-            }
-            else if (found[1].Value == "////")
-            {
-                // information not available
-                cavok = false;
-            }
-            else
-            {
-                cavok = false;
-                visibility = new Visibility();
-                if (!string.IsNullOrEmpty(found[2].Value))
-                {
-                    // icao visibility
-                    visibility.PrevailingVisibility = new Value(Convert.ToDouble(found[2].Value), Value.Unit.Meter);
-                    if (!string.IsNullOrEmpty(found[4].Value))
-                    {
-                        visibility.MinimumVisibility = new Value(Convert.ToDouble(found[5].Value), Value.Unit.Meter);
-                        visibility.MinimumVisibilityDirection = found[6].Value;
-                    }
-                    visibility.NDV = !string.IsNullOrEmpty(found[3].Value);
-                }
-                else
-                {
-                    // us visibility
-                    double visibilityValue = 0;
-                    if (!string.IsNullOrEmpty(found[7].Value))
-                    {
-                        visibilityValue += Convert.ToInt32(found[7].Value);
-                    }
-                    if (!string.IsNullOrEmpty(found[9].Value) && !string.IsNullOrEmpty(found[10].Value))
-                    {
-                        var fractionTop = Convert.ToInt32(found[9].Value);
-                        var fractionBottom = Convert.ToInt32(found[10].Value);
-                        if (fractionBottom != 0)
-                        {
-                            visibilityValue += (double)fractionTop / fractionBottom;
-                        }
-                    }
-
-                    visibility.PrevailingVisibility = new Value(visibilityValue, Value.Unit.StatuteMile);
-                }
-            }
+            var visibility = BuildVisibility(found, out bool cavok);
 
             result.Add(CavokParameterName, cavok);
             result.Add(VisibilityParameterName, visibility);
 
             return GetResults(newRemainingMetar, result);
+        }
+
+        private static Visibility BuildVisibility(List<Group> found, out bool cavok)
+        {
+            if (found[1].Value == CavokRegexPattern)
+            {
+                cavok = true;
+                return null;
+            }
+
+            cavok = false;
+            if (found[1].Value == "////")
+            {
+                return null;
+            }
+
+            var visibility = new Visibility();
+            if (!string.IsNullOrEmpty(found[2].Value))
+            {
+                ParseIcaoVisibility(visibility, found);
+            }
+            else
+            {
+                ParseUsVisibility(visibility, found);
+            }
+
+            return visibility;
+        }
+
+        private static void ParseIcaoVisibility(Visibility visibility, List<Group> found)
+        {
+            visibility.PrevailingVisibility = new Value(Convert.ToDouble(found[2].Value), Value.Unit.Meter);
+            visibility.NDV = !string.IsNullOrEmpty(found[3].Value);
+
+            if (!string.IsNullOrEmpty(found[5].Value))
+            {
+                visibility.MinimumVisibility = new Value(Convert.ToDouble(found[5].Value), Value.Unit.Meter);
+                visibility.MinimumVisibilityDirection = found[6].Value;
+            }
+        }
+
+        private static void ParseUsVisibility(Visibility visibility, List<Group> found)
+        {
+            double visibilityValue = 0;
+            if (!string.IsNullOrEmpty(found[7].Value))
+            {
+                visibilityValue += Convert.ToInt32(found[7].Value);
+            }
+
+            if (!string.IsNullOrEmpty(found[9].Value) && !string.IsNullOrEmpty(found[10].Value))
+            {
+                var fractionTop = Convert.ToInt32(found[9].Value);
+                var fractionBottom = Convert.ToInt32(found[10].Value);
+                if (fractionBottom != 0)
+                {
+                    visibilityValue += (double)fractionTop / fractionBottom;
+                }
+            }
+
+            visibility.PrevailingVisibility = new Value(visibilityValue, Value.Unit.StatuteMile);
         }
     }
 }

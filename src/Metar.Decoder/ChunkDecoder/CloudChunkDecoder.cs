@@ -1,5 +1,6 @@
-﻿using Metar.Decoder.Entity;
+using Metar.Decoder.Entity;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Metar.Decoder.ChunkDecoder
 {
@@ -50,56 +51,7 @@ namespace Metar.Decoder.ChunkDecoder
                 {
                     if (!string.IsNullOrEmpty(found[i].Value))
                     {
-                        var layer = new CloudLayer();
-                        var layerHeight = Value.ToInt(found[i + 2].Value);
-                        int? layerHeightFeet = null;
-                        if (layerHeight.HasValue)
-                        {
-                            layerHeightFeet = layerHeight * 100;
-                        }
-
-                        switch (found[i + 1].Value)
-                        {
-                            case "FEW":
-                                layer.Amount = CloudLayer.CloudAmount.FEW;
-                                break;
-
-                            case "SCT":
-                                layer.Amount = CloudLayer.CloudAmount.SCT;
-                                break;
-
-                            case "BKN":
-                                layer.Amount = CloudLayer.CloudAmount.BKN;
-                                break;
-
-                            case "OVC":
-                                layer.Amount = CloudLayer.CloudAmount.OVC;
-                                break;
-
-                            case "VV":
-                                layer.Amount = CloudLayer.CloudAmount.VV;
-                                break;
-                        }
-
-                        if (layerHeightFeet.HasValue)
-                        {
-                            layer.BaseHeight = new Value(layerHeightFeet.Value, Value.Unit.Feet);
-                        }
-                        switch (found[i + 3].Value)
-                        {
-                            case "CB":
-                                layer.Type = CloudLayer.CloudType.CB;
-                                break;
-
-                            case "TCU":
-                                layer.Type = CloudLayer.CloudType.TCU;
-                                break;
-
-                            case "///":
-                                layer.Type = CloudLayer.CloudType.CannotMeasure;
-                                break;
-                        }
-                        layers.Add(layer);
+                        layers.Add(ParseLayer(found, i));
                     }
                 }
             }
@@ -107,6 +59,70 @@ namespace Metar.Decoder.ChunkDecoder
             result.Add(CloudsParameterName, layers);
 
             return GetResults(newRemainingMetar, result);
+        }
+
+        private static CloudLayer ParseLayer(List<Group> found, int i)
+        {
+            var layer = new CloudLayer();
+            var layerHeight = Value.ToInt(found[i + 2].Value);
+            int? layerHeightFeet = null;
+            if (layerHeight.HasValue)
+            {
+                layerHeightFeet = layerHeight * 100;
+            }
+
+            layer.Amount = ParseAmount(found[i + 1].Value);
+
+            if (layerHeightFeet.HasValue)
+            {
+                layer.BaseHeight = new Value(layerHeightFeet.Value, Value.Unit.Feet);
+            }
+
+            layer.Type = ParseType(found[i + 3].Value);
+
+            return layer;
+        }
+
+        private static CloudLayer.CloudAmount ParseAmount(string amount)
+        {
+            switch (amount)
+            {
+                case "FEW":
+                    return CloudLayer.CloudAmount.FEW;
+
+                case "SCT":
+                    return CloudLayer.CloudAmount.SCT;
+
+                case "BKN":
+                    return CloudLayer.CloudAmount.BKN;
+
+                case "OVC":
+                    return CloudLayer.CloudAmount.OVC;
+
+                case "VV":
+                    return CloudLayer.CloudAmount.VV;
+
+                default:
+                    return CloudLayer.CloudAmount.NULL;
+            }
+        }
+
+        private static CloudLayer.CloudType ParseType(string type)
+        {
+            switch (type)
+            {
+                case "CB":
+                    return CloudLayer.CloudType.CB;
+
+                case "TCU":
+                    return CloudLayer.CloudType.TCU;
+
+                case "///":
+                    return CloudLayer.CloudType.CannotMeasure;
+
+                default:
+                    return CloudLayer.CloudType.NULL;
+            }
         }
     }
 }

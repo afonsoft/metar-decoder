@@ -86,6 +86,7 @@ StyleCopReport.xml
 *.tmp_proj
 *_wpftmp.csproj
 *.log
+.sonar_devin_auto_fix/
 *.vspscc
 *.vssscc
 .builds
