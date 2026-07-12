@@ -1,5 +1,6 @@
 ﻿using Metar.Decoder.Entity;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Metar.Decoder.ChunkDecoder
 {
@@ -27,38 +28,49 @@ namespace Metar.Decoder.ChunkDecoder
 
             if (found.Count > 1)
             {
-                // detect if we have windshear on all runway or only one
-                if (found[1].Value == "WS ALL RWY")
-                {
-                    all = true;
-                    runways = null;
-                }
-                else
-                {
-                    // one or more runways, build array
-                    all = false;
-
-                    for (var k = 2; k < 9; k += 3)
-                    {
-                        if (!string.IsNullOrEmpty(found[k].Value))
-                        {
-                            var runway = found[k + 2].Value;
-                            var qfuAsInt = Value.ToInt(runway);
-                            // check runway qfu validity
-                            if (qfuAsInt > 36 || qfuAsInt < 1)
-                            {
-                                throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.InvalidRunwayQFURunwaVisualRangeInformation, this);
-                            }
-                            runways.Add(runway);
-                        }
-                    }
-                }
+                (all, runways) = ParseWindShear(found, remainingMetar, newRemainingMetar);
             }
 
             result.Add(WindshearAllRunwaysParameterName, all);
             result.Add(WindshearRunwaysParameterName, runways);
 
             return GetResults(newRemainingMetar, result);
+        }
+
+        private (bool? AllRunways, List<string> Runways) ParseWindShear(List<Group> found, string remainingMetar, string newRemainingMetar)
+        {
+            if (found[1].Value == "WS ALL RWY")
+            {
+                return (true, null);
+            }
+
+            return (false, ParseRunways(found, remainingMetar, newRemainingMetar));
+        }
+
+        private List<string> ParseRunways(List<Group> found, string remainingMetar, string newRemainingMetar)
+        {
+            var runways = new List<string>();
+
+            for (var k = 2; k < 9; k += 3)
+            {
+                if (!string.IsNullOrEmpty(found[k].Value))
+                {
+                    var runway = found[k + 2].Value;
+                    ValidateRunway(runway, remainingMetar, newRemainingMetar);
+                    runways.Add(runway);
+                }
+            }
+
+            return runways;
+        }
+
+        private void ValidateRunway(string runway, string remainingMetar, string newRemainingMetar)
+        {
+            var qfuAsInt = Value.ToInt(runway);
+            if (qfuAsInt > 36 || qfuAsInt < 1)
+            {
+                throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.InvalidRunwayQFURunwaVisualRangeInformation, this);
+            }
         }
     }
 }

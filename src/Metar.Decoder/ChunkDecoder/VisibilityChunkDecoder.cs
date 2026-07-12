@@ -1,6 +1,7 @@
 ﻿using Metar.Decoder.Entity;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Metar.Decoder.ChunkDecoder
 {
@@ -27,65 +28,78 @@ namespace Metar.Decoder.ChunkDecoder
             var newRemainingMetar = consumed.Key;
             var result = new Dictionary<string, object>();
 
-            // handle the case where nothing has been found
             if (found.Count <= 1)
             {
                 throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.ForVisibilityInformationBadFormat, this);
             }
 
-            Visibility visibility = null;
-            bool cavok;
-            if (found[1].Value == CavokRegexPattern)
+            var parsedVisibility = ParseVisibility(found);
+
+            result.Add(CavokParameterName, parsedVisibility.Cavok);
+            result.Add(VisibilityParameterName, parsedVisibility.Visibility);
+
+            return GetResults(newRemainingMetar, result);
+        }
+
+        private static (bool Cavok, Visibility Visibility) ParseVisibility(List<Group> found)
+        {
+            return found[1].Value switch
             {
-                // cloud and visibility OK
-                cavok = true;
-            }
-            else if (found[1].Value == "////")
+                CavokRegexPattern => (true, null),
+                "////" => (false, null),
+                _ => (false, ParseDetailedVisibility(found)),
+            };
+        }
+
+        private static Visibility ParseDetailedVisibility(List<Group> found)
+        {
+            var visibility = new Visibility();
+
+            if (!string.IsNullOrEmpty(found[2].Value))
             {
-                // information not available
-                cavok = false;
+                ParseIcaoVisibility(found, visibility);
             }
             else
             {
-                cavok = false;
-                visibility = new Visibility();
-                if (!string.IsNullOrEmpty(found[2].Value))
-                {
-                    // icao visibility
-                    visibility.PrevailingVisibility = new Value(Convert.ToDouble(found[2].Value), Value.Unit.Meter);
-                    if (!string.IsNullOrEmpty(found[4].Value))
-                    {
-                        visibility.MinimumVisibility = new Value(Convert.ToDouble(found[5].Value), Value.Unit.Meter);
-                        visibility.MinimumVisibilityDirection = found[6].Value;
-                    }
-                    visibility.NDV = !string.IsNullOrEmpty(found[3].Value);
-                }
-                else
-                {
-                    // us visibility
-                    double visibilityValue = 0;
-                    if (!string.IsNullOrEmpty(found[7].Value))
-                    {
-                        visibilityValue += Convert.ToInt32(found[7].Value);
-                    }
-                    if (!string.IsNullOrEmpty(found[9].Value) && !string.IsNullOrEmpty(found[10].Value))
-                    {
-                        var fractionTop = Convert.ToInt32(found[9].Value);
-                        var fractionBottom = Convert.ToInt32(found[10].Value);
-                        if (fractionBottom != 0)
-                        {
-                            visibilityValue += (double)fractionTop / fractionBottom;
-                        }
-                    }
+                ParseUsVisibility(found, visibility);
+            }
 
-                    visibility.PrevailingVisibility = new Value(visibilityValue, Value.Unit.StatuteMile);
+            return visibility;
+        }
+
+        private static void ParseIcaoVisibility(List<Group> found, Visibility visibility)
+        {
+            visibility.PrevailingVisibility = new Value(Convert.ToDouble(found[2].Value), Value.Unit.Meter);
+
+            if (!string.IsNullOrEmpty(found[4].Value))
+            {
+                visibility.MinimumVisibility = new Value(Convert.ToDouble(found[5].Value), Value.Unit.Meter);
+                visibility.MinimumVisibilityDirection = found[6].Value;
+            }
+
+            visibility.NDV = !string.IsNullOrEmpty(found[3].Value);
+        }
+
+        private static void ParseUsVisibility(List<Group> found, Visibility visibility)
+        {
+            double visibilityValue = 0;
+
+            if (!string.IsNullOrEmpty(found[7].Value))
+            {
+                visibilityValue += Convert.ToInt32(found[7].Value);
+            }
+
+            if (!string.IsNullOrEmpty(found[9].Value) && !string.IsNullOrEmpty(found[10].Value))
+            {
+                var fractionTop = Convert.ToInt32(found[9].Value);
+                var fractionBottom = Convert.ToInt32(found[10].Value);
+                if (fractionBottom != 0)
+                {
+                    visibilityValue += (double)fractionTop / fractionBottom;
                 }
             }
 
-            result.Add(CavokParameterName, cavok);
-            result.Add(VisibilityParameterName, visibility);
-
-            return GetResults(newRemainingMetar, result);
+            visibility.PrevailingVisibility = new Value(visibilityValue, Value.Unit.StatuteMile);
         }
     }
 }

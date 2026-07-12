@@ -1,5 +1,6 @@
 ﻿using Metar.Decoder.Entity;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using static Metar.Decoder.Entity.RunwayVisualRange;
 
 namespace Metar.Decoder.ChunkDecoder
@@ -24,66 +25,84 @@ namespace Metar.Decoder.ChunkDecoder
 
             if (found.Count > 1)
             {
-                var runways = new List<RunwayVisualRange>();
-                // iterate on the results to get all runways visual range found
-                for (int i = 1; i <= 20; i += 7)
-                {
-                    if (!string.IsNullOrEmpty(found[i].Value))
-                    {
-                        // check runway qfu validity
-                        var qfuAsInt = Value.ToInt(found[i + 1].Value);
-                        if (qfuAsInt > 36 || qfuAsInt < 1)
-                        {
-                            throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.InvalidRunwayQFURunwayVisualRangeInformation, this);
-                        }
-
-                        // get distance unit
-                        var rangeUnit = Value.Unit.Meter;
-                        if (found[i + 5].Value == "FT")
-                        {
-                            rangeUnit = Value.Unit.Feet;
-                        }
-                        Tendency tendency = Tendency.NONE;
-                        switch (found[i + 6].Value)
-                        {
-                            case "U":
-                                tendency = Tendency.U;
-                                break;
-
-                            case "D":
-                                tendency = Tendency.D;
-                                break;
-
-                            case "N":
-                                tendency = Tendency.N;
-                                break;
-                        }
-                        var observation = new RunwayVisualRange()
-                        {
-                            Runway = found[i + 1].Value,
-                            PastTendency = tendency,
-                        };
-
-                        if (!string.IsNullOrEmpty(found[i + 3].Value))
-                        {
-                            observation.Variable = true;
-                            var min = string.IsNullOrEmpty(found[i + 3].Value) ? null : new Value(Value.ToInt(found[i + 3].Value).Value, rangeUnit);
-                            var max = string.IsNullOrEmpty(found[i + 4].Value) ? null : new Value(Value.ToInt(found[i + 4].Value).Value, rangeUnit);
-                            observation.VisualRangeInterval = new Value[] { min, max };
-                        }
-                        else
-                        {
-                            observation.Variable = false;
-                            var v = string.IsNullOrEmpty(found[i + 4].Value) ? null : new Value(Value.ToInt(found[i + 4].Value).Value, rangeUnit);
-                            observation.VisualRange = v;
-                        }
-                        runways.Add(observation);
-                    }
-                }
-                result.Add(RunwaysVisualRangeParameterName, runways);
+                result.Add(RunwaysVisualRangeParameterName, ParseRunways(found, remainingMetar, newRemainingMetar));
             }
 
             return GetResults(newRemainingMetar, result);
+        }
+
+        private List<RunwayVisualRange> ParseRunways(List<Group> found, string remainingMetar, string newRemainingMetar)
+        {
+            var runways = new List<RunwayVisualRange>();
+
+            for (var i = 1; i <= 20; i += 7)
+            {
+                if (!string.IsNullOrEmpty(found[i].Value))
+                {
+                    runways.Add(ParseRunway(found, i, remainingMetar, newRemainingMetar));
+                }
+            }
+
+            return runways;
+        }
+
+        private RunwayVisualRange ParseRunway(List<Group> found, int index, string remainingMetar, string newRemainingMetar)
+        {
+            ValidateRunway(found[index + 1].Value, remainingMetar, newRemainingMetar);
+
+            var rangeUnit = GetRangeUnit(found[index + 5].Value);
+            var observation = new RunwayVisualRange
+            {
+                Runway = found[index + 1].Value,
+                PastTendency = GetTendency(found[index + 6].Value),
+            };
+
+            if (!string.IsNullOrEmpty(found[index + 3].Value))
+            {
+                observation.Variable = true;
+                observation.VisualRangeInterval = new Value[]
+                {
+                    ToValue(found[index + 3].Value, rangeUnit),
+                    ToValue(found[index + 4].Value, rangeUnit),
+                };
+            }
+            else
+            {
+                observation.Variable = false;
+                observation.VisualRange = ToValue(found[index + 4].Value, rangeUnit);
+            }
+
+            return observation;
+        }
+
+        private void ValidateRunway(string runway, string remainingMetar, string newRemainingMetar)
+        {
+            var qfuAsInt = Value.ToInt(runway);
+            if (qfuAsInt > 36 || qfuAsInt < 1)
+            {
+                throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.InvalidRunwayQFURunwayVisualRangeInformation, this);
+            }
+        }
+
+        private static Value.Unit GetRangeUnit(string value)
+        {
+            return value == "FT" ? Value.Unit.Feet : Value.Unit.Meter;
+        }
+
+        private static Tendency GetTendency(string value)
+        {
+            return value switch
+            {
+                "U" => Tendency.U,
+                "D" => Tendency.D,
+                "N" => Tendency.N,
+                _ => Tendency.NONE,
+            };
+        }
+
+        private static Value ToValue(string value, Value.Unit unit)
+        {
+            return string.IsNullOrEmpty(value) ? null : new Value(Value.ToInt(value).Value, unit);
         }
     }
 }
