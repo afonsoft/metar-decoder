@@ -157,12 +157,12 @@ namespace Metar.Decoder
 
         private static void ApplyDecodedData(DecodedMetar decodedMetar, Dictionary<string, object> decodedData)
         {
-            if (decodedData.ContainsKey(ExceptionKey))
+            if (decodedData.TryGetValue(ExceptionKey, out var exception) && exception is MetarChunkDecoderException metarChunkDecoderException)
             {
-                decodedMetar.AddDecodingException((MetarChunkDecoderException)decodedData[ExceptionKey]);
+                decodedMetar.AddDecodingException(metarChunkDecoderException);
             }
 
-            if (decodedData.ContainsKey(ResultKey) && decodedData[ResultKey] is Dictionary<string, object> result)
+            if (decodedData.TryGetValue(ResultKey, out var resultValue) && resultValue is Dictionary<string, object> result)
             {
                 foreach (var obj in result)
                 {

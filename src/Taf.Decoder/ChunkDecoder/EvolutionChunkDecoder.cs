@@ -92,7 +92,7 @@ namespace Taf.Decoder.ChunkDecoder
                 evolution.FromTime = evolutionPeriod.Substring(2, 2) + ':' + evolutionPeriod.Substring(4, 2) + " UTC";
             }
 
-            ParseEntitiesChunk(evolution, remaining, decodedTaf);
+            Remaining = ParseEntitiesChunk(evolution, remaining, decodedTaf);
         }
 
         /// <summary>
@@ -101,7 +101,8 @@ namespace Taf.Decoder.ChunkDecoder
         /// <param name="evolution"></param>
         /// <param name="chunk"></param>
         /// <param name="decodedTaf"></param>
-        private void ParseEntitiesChunk(Evolution evolution, string chunk, DecodedTaf decodedTaf)
+        /// <returns>Remaining TAF after parsing evolution entities</returns>
+        private string ParseEntitiesChunk(Evolution evolution, string chunk, DecodedTaf decodedTaf)
         {
             var remainingEvolutions = chunk;
             var tries = 0;
@@ -123,11 +124,17 @@ namespace Taf.Decoder.ChunkDecoder
                     }
                 }
             }
+
+            return remainingEvolutions;
         }
 
         private string ApplyDecodedChunk(Evolution evolution, string remainingEvolutions, DecodedTaf decodedTaf, Dictionary<string, object> decoded)
         {
-            var result = decoded[TafDecoder.ResultKey] as Dictionary<string, object>;
+            if (!(decoded[TafDecoder.ResultKey] is Dictionary<string, object> result))
+            {
+                throw new TafChunkDecoderException(remainingEvolutions, (string)decoded[TafDecoder.RemainingTafKey], TafChunkDecoderException.Messages.EvolutionInformationBadFormat, this);
+            }
+
             var entityName = ResolveEntityName(result);
             var entity = result[entityName];
 

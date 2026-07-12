@@ -170,7 +170,7 @@ namespace Taf.Decoder
 
         private static void ApplyDecodedData(DecodedTaf decodedTaf, Dictionary<string, object> decodedData)
         {
-            if (decodedData.ContainsKey(ResultKey) && decodedData[ResultKey] is Dictionary<string, object> result)
+            if (decodedData.TryGetValue(ResultKey, out var resultValue) && resultValue is Dictionary<string, object> result)
             {
                 foreach (var obj in result)
                 {

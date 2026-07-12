@@ -11,6 +11,22 @@ namespace Taf.Decoder.ChunkDecoder
         private const string NoCloudRegexPattern = "(NSC|NCD|CLR|SKC)";
         private const string LayerRegexPattern = "(VV|FEW|SCT|BKN|OVC|///)([0-9]{3}|///)(CB|TCU|///)?";
 
+        private static readonly Dictionary<string, CloudLayer.CloudAmount> AmountMap = new Dictionary<string, CloudLayer.CloudAmount>
+        {
+            { "FEW", CloudLayer.CloudAmount.FEW },
+            { "SCT", CloudLayer.CloudAmount.SCT },
+            { "BKN", CloudLayer.CloudAmount.BKN },
+            { "OVC", CloudLayer.CloudAmount.OVC },
+            { "VV", CloudLayer.CloudAmount.VV },
+        };
+
+        private static readonly Dictionary<string, CloudLayer.CloudType> TypeMap = new Dictionary<string, CloudLayer.CloudType>
+        {
+            { "CB", CloudLayer.CloudType.CB },
+            { "TCU", CloudLayer.CloudType.TCU },
+            { "///", CloudLayer.CloudType.CannotMeasure },
+        };
+
         public override string GetRegex()
         {
             // vertical visibility VV is handled as a regular cloud layer
@@ -56,41 +72,17 @@ namespace Taf.Decoder.ChunkDecoder
         {
             var layer = new CloudLayer
             {
-                Amount = ParseCloudAmount(found[index + 1].Value),
-                Type = ParseCloudType(found[index + 3].Value),
+                Amount = AmountMap.TryGetValue(found[index + 1].Value, out var amount) ? amount : CloudLayer.CloudAmount.NULL,
+                Type = TypeMap.TryGetValue(found[index + 3].Value, out var type) ? type : CloudLayer.CloudType.NULL,
             };
 
             var layerHeight = Value.ToInt(found[index + 2].Value);
             if (layerHeight.HasValue)
             {
-                layer.BaseHeight = new Value(layerHeight.Value * 100, Value.Unit.Feet);
+                layer.BaseHeight = new Value(layerHeight.Value * 100.0, Value.Unit.Feet);
             }
 
             return layer;
-        }
-
-        private static CloudLayer.CloudAmount ParseCloudAmount(string value)
-        {
-            return value switch
-            {
-                "FEW" => CloudLayer.CloudAmount.FEW,
-                "SCT" => CloudLayer.CloudAmount.SCT,
-                "BKN" => CloudLayer.CloudAmount.BKN,
-                "OVC" => CloudLayer.CloudAmount.OVC,
-                "VV" => CloudLayer.CloudAmount.VV,
-                _ => CloudLayer.CloudAmount.NULL,
-            };
-        }
-
-        private static CloudLayer.CloudType ParseCloudType(string value)
-        {
-            return value switch
-            {
-                "CB" => CloudLayer.CloudType.CB,
-                "TCU" => CloudLayer.CloudType.TCU,
-                "///" => CloudLayer.CloudType.CannotMeasure,
-                _ => CloudLayer.CloudType.NULL,
-            };
         }
     }
 }
