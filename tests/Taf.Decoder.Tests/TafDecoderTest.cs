@@ -211,7 +211,6 @@ namespace Taf.Decoder.Tests
         [Test]
         public void TestApplyDecodedDataThrowsForUnknownProperty()
         {
-            var method = typeof(TafDecoder).GetMethod("ApplyDecodedData", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
             var decodedTaf = new DecodedTaf("TAF LFPO 231027Z");
             var decodedData = new Dictionary<string, object>
             {
@@ -221,12 +220,10 @@ namespace Taf.Decoder.Tests
                 }
             };
 
-            var ex = ClassicAssert.Throws<System.Reflection.TargetInvocationException>(() =>
+            ClassicAssert.Throws(typeof(TafChunkDecoderException), () =>
             {
-                method.Invoke(null, new object[] { decodedTaf, decodedData });
+                TafDecoder.ApplyDecodedData(decodedTaf, decodedData);
             });
-
-            ClassicAssert.That(ex.InnerException, Is.InstanceOf<TafChunkDecoderException>());
         }
     }
 }

@@ -299,7 +299,6 @@ namespace Metar.Decoder.Tests
         [Test]
         public void TestApplyDecodedDataThrowsForUnknownProperty()
         {
-            var method = typeof(MetarDecoder).GetMethod("ApplyDecodedData", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
             var decodedMetar = new DecodedMetar("METAR LFPO 231027Z");
             var decodedData = new Dictionary<string, object>
             {
@@ -309,12 +308,10 @@ namespace Metar.Decoder.Tests
                 }
             };
 
-            var ex = ClassicAssert.Throws<System.Reflection.TargetInvocationException>(() =>
+            ClassicAssert.Throws(typeof(MetarChunkDecoderException), () =>
             {
-                method.Invoke(null, new object[] { decodedMetar, decodedData });
+                MetarDecoder.ApplyDecodedData(decodedMetar, decodedData);
             });
-
-            ClassicAssert.That(ex.InnerException, Is.InstanceOf<MetarChunkDecoderException>());
         }
     }
 }

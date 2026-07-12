@@ -101,7 +101,7 @@ namespace Metar.Decoder.ChunkDecoder
             };
         }
 
-        private static Value ToValue(string value, Value.Unit unit)
+        internal static Value ToValue(string value, Value.Unit unit)
         {
             if (string.IsNullOrEmpty(value))
             {

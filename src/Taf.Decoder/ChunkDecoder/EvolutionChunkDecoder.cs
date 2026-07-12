@@ -102,7 +102,7 @@ namespace Taf.Decoder.ChunkDecoder
         /// <param name="chunk"></param>
         /// <param name="decodedTaf"></param>
         /// <returns>Remaining TAF after parsing evolution entities</returns>
-        private string ParseEntitiesChunk(Evolution evolution, string chunk, DecodedTaf decodedTaf)
+        internal string ParseEntitiesChunk(Evolution evolution, string chunk, DecodedTaf decodedTaf)
         {
             var remainingEvolutions = chunk;
             var tries = 0;
@@ -128,7 +128,7 @@ namespace Taf.Decoder.ChunkDecoder
             return remainingEvolutions;
         }
 
-        private string ApplyDecodedChunk(Evolution evolution, string remainingEvolutions, DecodedTaf decodedTaf, Dictionary<string, object> decoded)
+        internal string ApplyDecodedChunk(Evolution evolution, string remainingEvolutions, DecodedTaf decodedTaf, Dictionary<string, object> decoded)
         {
             if (!(decoded[TafDecoder.ResultKey] is Dictionary<string, object> result))
             {
@@ -156,7 +156,7 @@ namespace Taf.Decoder.ChunkDecoder
             return (string)decoded[TafDecoder.RemainingTafKey];
         }
 
-        private string ResolveEntityName(Dictionary<string, object> result)
+        internal string ResolveEntityName(Dictionary<string, object> result)
         {
             var entityName = result.Keys.FirstOrDefault();
             if (entityName == VisibilityChunkDecoder.CavokParameterName)
@@ -170,7 +170,7 @@ namespace Taf.Decoder.ChunkDecoder
             return entityName;
         }
 
-        private void HandleDecodeFailure(string chunk, ref string remainingEvolutions)
+        internal void HandleDecodeFailure(string chunk, ref string remainingEvolutions)
         {
             if (IsStrict)
             {
@@ -180,7 +180,7 @@ namespace Taf.Decoder.ChunkDecoder
             remainingEvolutions = ConsumeOneChunk(remainingEvolutions);
         }
 
-        private void AddEvolution(DecodedTaf decodedTaf, Evolution evolution, Dictionary<string, object> result, string entityName)
+        internal void AddEvolution(DecodedTaf decodedTaf, Evolution evolution, Dictionary<string, object> result, string entityName)
         {
             // clone the evolution entity
             var newEvolution = evolution.Clone() as Evolution;
@@ -237,7 +237,7 @@ namespace Taf.Decoder.ChunkDecoder
             }
         }
 
-        private static AbstractEntity InstantiateEntity(string entityName)
+        internal static AbstractEntity InstantiateEntity(string entityName)
         {
             switch (entityName)
             {

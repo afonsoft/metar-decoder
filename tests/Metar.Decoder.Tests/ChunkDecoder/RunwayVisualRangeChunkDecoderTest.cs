@@ -65,8 +65,7 @@ namespace Metar.Decoder.Tests.ChunkDecoder
         [Test]
         public void TestToValueWithEmptyStringReturnsNull()
         {
-            var method = typeof(RunwayVisualRangeChunkDecoder).GetMethod("ToValue", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-            var result = method.Invoke(null, new object[] { string.Empty, Value.Unit.Meter });
+            var result = RunwayVisualRangeChunkDecoder.ToValue(string.Empty, Value.Unit.Meter);
             ClassicAssert.IsNull(result);
         }
 
@@ -76,12 +75,10 @@ namespace Metar.Decoder.Tests.ChunkDecoder
         [Test]
         public void TestToValueWithInvalidStringThrowsInvalidOperationException()
         {
-            var method = typeof(RunwayVisualRangeChunkDecoder).GetMethod("ToValue", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-            var ex = ClassicAssert.Throws(typeof(System.Reflection.TargetInvocationException), () =>
+            ClassicAssert.Throws(typeof(InvalidOperationException), () =>
             {
-                method.Invoke(null, new object[] { "ABC", Value.Unit.Meter });
+                RunwayVisualRangeChunkDecoder.ToValue("ABC", Value.Unit.Meter);
             });
-            ClassicAssert.That(ex.InnerException, Is.TypeOf(typeof(InvalidOperationException)));
         }
 
         #region TestCaseSources

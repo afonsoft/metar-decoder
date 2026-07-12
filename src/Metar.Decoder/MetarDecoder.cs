@@ -155,7 +155,7 @@ namespace Metar.Decoder
             }
         }
 
-        private static void ApplyDecodedData(DecodedMetar decodedMetar, Dictionary<string, object> decodedData)
+        internal static void ApplyDecodedData(DecodedMetar decodedMetar, Dictionary<string, object> decodedData)
         {
             if (decodedData.TryGetValue(ExceptionKey, out var exception) && exception is MetarChunkDecoderException metarChunkDecoderException)
             {
