@@ -267,7 +267,7 @@ namespace Taf.Decoder.ChunkDecoder
             }
         }
 
-        private AbstractEntity InstantiateEntity(string entityName)
+        private static AbstractEntity InstantiateEntity(string entityName)
         {
             switch (entityName)
             {

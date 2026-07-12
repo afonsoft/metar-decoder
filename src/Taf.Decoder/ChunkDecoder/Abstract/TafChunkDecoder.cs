@@ -44,7 +44,7 @@ namespace Taf.Decoder.ChunkDecoder
             }
         }
 
-        protected Dictionary<string, object> GetResults(string newRemainingTaf, Dictionary<string, object> result)
+        protected static Dictionary<string, object> GetResults(string newRemainingTaf, Dictionary<string, object> result)
         {
             //return result + remaining taf
             return new Dictionary<string, object>()

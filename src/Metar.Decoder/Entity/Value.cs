@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Metar.Decoder.Entity
@@ -133,14 +134,12 @@ namespace Metar.Decoder.Entity
         /// <returns></returns>
         private KeyValuePair<Unit, Dictionary<Unit, double>> GetConversionMap()
         {
-            foreach (var conversionMap in ConversionMaps)
+            var conversionMap = ConversionMaps.FirstOrDefault(x => x.Value.ContainsKey(ActualUnit));
+            if (conversionMap.Equals(default(KeyValuePair<Unit, Dictionary<Unit, double>>)))
             {
-                if (conversionMap.Value.ContainsKey(ActualUnit))
-                {
-                    return conversionMap;
-                }
+                throw new ArgumentException("Trying to convert unsupported values");
             }
-            throw new ArgumentException("Trying to convert unsupported values");
+            return conversionMap;
         }
 
         /// <summary>

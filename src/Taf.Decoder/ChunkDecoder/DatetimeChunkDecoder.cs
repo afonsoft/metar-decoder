@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Decoder.Shared;
 
@@ -71,7 +71,7 @@ namespace Taf.Decoder.ChunkDecoder
         /// <param name="hour"></param>
         /// <param name="minute"></param>
         /// <returns></returns>
-        private bool CheckValidity(int day, int hour, int minute)
+        private static bool CheckValidity(int day, int hour, int minute)
         {
             // check value range
             if (day < 1 || day > 31)

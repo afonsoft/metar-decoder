@@ -361,3 +361,4 @@ MigrationBackup/
 /.vs
 
 *.log
+.sonar_devin_auto_fix/**
