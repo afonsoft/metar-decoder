@@ -1,13 +1,11 @@
 #if NETFRAMEWORK || NETSTANDARD2_0
-using System.Collections.Generic;
-
 namespace System.Collections.Generic
 {
     /// <summary>
     /// Polyfill for dictionary lookups on older .NET targets that do not provide
     /// a built-in GetValueOrDefault method.
     /// </summary>
-    internal static class DictionaryExtensions
+    public static class DictionaryExtensions
     {
         /// <summary>
         /// Gets the value associated with the specified key, or the default value if the key is not present.
