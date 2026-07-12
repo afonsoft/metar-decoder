@@ -3,6 +3,7 @@ using Metar.Decoder.Entity;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 namespace Metar.Decoder
@@ -72,7 +73,8 @@ namespace Metar.Decoder
         /// </summary>
         /// <param name="rawMetar"></param>
         /// <returns></returns>
-        public static DecodedMetar ParseStrict(string rawMetar)
+        [SuppressMessage("Major Code Smell", "S2325", Justification = "Public API instance method kept for backward compatibility")]
+        public DecodedMetar ParseStrict(string rawMetar)
         {
             return ParseWithMode(rawMetar, true);
         }
@@ -84,7 +86,8 @@ namespace Metar.Decoder
         /// </summary>
         /// <param name="rawMetar"></param>
         /// <returns></returns>
-        public static DecodedMetar ParseNotStrict(string rawMetar)
+        [SuppressMessage("Major Code Smell", "S2325", Justification = "Public API instance method kept for backward compatibility")]
+        public DecodedMetar ParseNotStrict(string rawMetar)
         {
             return ParseWithMode(rawMetar, false);
         }
@@ -159,14 +162,18 @@ namespace Metar.Decoder
                 decodedMetar.AddDecodingException((MetarChunkDecoderException)decodedData[ExceptionKey]);
             }
 
-            if (decodedData.ContainsKey(ResultKey) && decodedData[ResultKey] is Dictionary<string, object>)
+            if (decodedData.ContainsKey(ResultKey) && decodedData[ResultKey] is Dictionary<string, object> result)
             {
-                var result = decodedData[ResultKey] as Dictionary<string, object>;
                 foreach (var obj in result)
                 {
                     if (obj.Value != null)
                     {
-                        typeof(DecodedMetar).GetProperty(obj.Key).SetValue(decodedMetar, obj.Value, null);
+                        var property = typeof(DecodedMetar).GetProperty(obj.Key);
+                        if (property == null)
+                        {
+                            throw new MetarChunkDecoderException($"Unknown property: {obj.Key}");
+                        }
+                        property.SetValue(decodedMetar, obj.Value, null);
                     }
                 }
             }

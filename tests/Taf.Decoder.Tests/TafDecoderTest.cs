@@ -154,10 +154,10 @@ namespace Taf.Decoder.Tests
         public void TestParseInvalid()
         {
             // launch decoding (forecast was cancelled)
-            var d = TafDecoder.ParseNotStrict("TAF LFMT 032244Z 0318/0206 CNL");
+            var d = decoder.ParseNotStrict("TAF LFMT 032244Z 0318/0206 CNL");
             ClassicAssert.IsFalse(d.IsValid);
             // launch decoding (surface wind is invalid)
-            d = TafDecoder.ParseNotStrict("TAF TAF LIRU 032244Z 0318/0420 2300ABKT PSSM\nBKN020CB TX05/0318Z TNM03/0405Z\n");
+            d = decoder.ParseNotStrict("TAF TAF LIRU 032244Z 0318/0420 2300ABKT PSSM\nBKN020CB TX05/0318Z TNM03/0405Z\n");
             ClassicAssert.IsFalse(d.IsValid);
         }
 
@@ -184,7 +184,7 @@ namespace Taf.Decoder.Tests
         public void TestParseErrors(Tuple<string, Type, string> source)
         {
             // launch decoding
-            DecodedTaf decodedTaf = TafDecoder.ParseNotStrict(source.Item1);
+            DecodedTaf decodedTaf = decoder.ParseNotStrict(source.Item1);
 
             // check the error triggered
             ClassicAssert.NotNull(decodedTaf);

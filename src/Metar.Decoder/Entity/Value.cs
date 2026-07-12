@@ -134,7 +134,7 @@ namespace Metar.Decoder.Entity
         /// <returns></returns>
         private KeyValuePair<Unit, Dictionary<Unit, double>> GetConversionMap()
         {
-            var conversionMap = ConversionMaps.Where(map => map.Value.ContainsKey(ActualUnit)).FirstOrDefault();
+            var conversionMap = ConversionMaps.FirstOrDefault(map => map.Value.ContainsKey(ActualUnit));
             if (conversionMap.Value is null)
             {
                 throw new ArgumentException("Trying to convert unsupported values");
@@ -148,6 +148,11 @@ namespace Metar.Decoder.Entity
         /// </summary>
         public static int? ToInt(string value)
         {
+            if (string.IsNullOrEmpty(value))
+            {
+                return null;
+            }
+
             //warning: Regex.Replace is not in PHP version
             var valueNumeric = Regex.Replace(value.Replace("P", "").Replace("M", "-"), "[A-Z]", string.Empty);
             if (Regex.Match(valueNumeric, @"^[\-0-9]").Success)

@@ -38,7 +38,7 @@ namespace Taf.Decoder.Tests
             var decoder = new TafDecoder();
             
             // Act
-            var result = TafDecoder.ParseNotStrict(rtdTaf);
+            var result = decoder.ParseNotStrict(rtdTaf);
             
             // Assert
             ClassicAssert.IsTrue(result.IsValid);

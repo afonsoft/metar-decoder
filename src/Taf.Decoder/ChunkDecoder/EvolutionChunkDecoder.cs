@@ -101,78 +101,76 @@ namespace Taf.Decoder.ChunkDecoder
         /// <param name="evolution"></param>
         /// <param name="chunk"></param>
         /// <param name="decodedTaf"></param>
-        /// <returns></returns>
-        private string ParseEntitiesChunk(Evolution evolution, string chunk, DecodedTaf decodedTaf)
+        private void ParseEntitiesChunk(Evolution evolution, string chunk, DecodedTaf decodedTaf)
         {
-            // For each value we detect, we'll clone the evolution object, complete the clone,
-            // and add it to the corresponding entity of the decoded taf
-
             var remainingEvolutions = chunk;
             var tries = 0;
 
-            // call each decoder in the chain and use results to populate the decoded taf
-            foreach (var chunk_decoder in _decoderChain)
+            foreach (var chunkDecoder in _decoderChain)
             {
                 try
                 {
-                    // we check for probability in each loop, as it can be anywhere
                     remainingEvolutions = ProbabilityChunkDecoder(evolution, remainingEvolutions, decodedTaf);
-
-                    // reset cavok
                     _withCavok = false;
-
-                    // try to parse the chunk with the current chunk decoder
-                    var decoded = chunk_decoder.Parse(remainingEvolutions, _withCavok);
-
-                    // map the obtained fields (if any) to a original entity in the decoded_taf
-                    var result = decoded[TafDecoder.ResultKey] as Dictionary<string, object>;
-                    var entityName = result.Keys.FirstOrDefault();
-                    if (entityName == VisibilityChunkDecoder.CavokParameterName)
-                    {
-                        if ((bool)result[entityName])
-                        {
-                            _withCavok = true;
-                        }
-                        entityName = VisibilityChunkDecoder.VisibilityParameterName;
-                    }
-                    var entity = result[entityName];
-
-                    if (entity == null && entityName != VisibilityChunkDecoder.VisibilityParameterName)
-                    {
-                        // visibility will be null if cavok is true but we still want to add the evolution
-                        throw new TafChunkDecoderException(chunk, remainingEvolutions, TafChunkDecoderException.Messages.WeatherEvolutionBadFormat, this);
-                    }
-                    if (entityName == TemperatureChunkDecoder.MaximumTemperatureParameterName || entityName == TemperatureChunkDecoder.MinimumTemperatureParameterName)
-                    {
-                        AddEvolution(decodedTaf, evolution, result, TemperatureChunkDecoder.MaximumTemperatureParameterName);
-                        AddEvolution(decodedTaf, evolution, result, TemperatureChunkDecoder.MinimumTemperatureParameterName);
-                    }
-                    else
-                    {
-                        AddEvolution(decodedTaf, evolution, result, entityName);
-                    }
-
-                    // update remaining evo for the next round
-                    remainingEvolutions = (string)decoded[TafDecoder.RemainingTafKey];
+                    var decoded = chunkDecoder.Parse(remainingEvolutions, _withCavok);
+                    remainingEvolutions = ApplyDecodedChunk(evolution, remainingEvolutions, decodedTaf, decoded);
                 }
                 catch (Exception)
                 {
                     if (++tries == _decoderChain.Count)
                     {
-                        if (IsStrict)
-                        {
-                            throw new TafChunkDecoderException(chunk, remainingEvolutions, TafChunkDecoderException.Messages.EvolutionInformationBadFormat, this);
-                        }
-                        else
-                        {
-                            // we tried all the chunk decoders on the first chunk and none of them got a match,
-                            // so we drop it
-                            remainingEvolutions = ConsumeOneChunk(remainingEvolutions);
-                        }
+                        HandleDecodeFailure(chunk, ref remainingEvolutions);
                     }
                 }
             }
-            return remainingEvolutions;
+        }
+
+        private string ApplyDecodedChunk(Evolution evolution, string remainingEvolutions, DecodedTaf decodedTaf, Dictionary<string, object> decoded)
+        {
+            var result = decoded[TafDecoder.ResultKey] as Dictionary<string, object>;
+            var entityName = ResolveEntityName(result);
+            var entity = result[entityName];
+
+            if (entity == null && entityName != VisibilityChunkDecoder.VisibilityParameterName)
+            {
+                throw new TafChunkDecoderException(remainingEvolutions, (string)decoded[TafDecoder.RemainingTafKey], TafChunkDecoderException.Messages.WeatherEvolutionBadFormat, this);
+            }
+
+            if (entityName == TemperatureChunkDecoder.MaximumTemperatureParameterName || entityName == TemperatureChunkDecoder.MinimumTemperatureParameterName)
+            {
+                AddEvolution(decodedTaf, evolution, result, TemperatureChunkDecoder.MaximumTemperatureParameterName);
+                AddEvolution(decodedTaf, evolution, result, TemperatureChunkDecoder.MinimumTemperatureParameterName);
+            }
+            else
+            {
+                AddEvolution(decodedTaf, evolution, result, entityName);
+            }
+
+            return (string)decoded[TafDecoder.RemainingTafKey];
+        }
+
+        private string ResolveEntityName(Dictionary<string, object> result)
+        {
+            var entityName = result.Keys.FirstOrDefault();
+            if (entityName == VisibilityChunkDecoder.CavokParameterName)
+            {
+                if ((bool)result[entityName])
+                {
+                    _withCavok = true;
+                }
+                entityName = VisibilityChunkDecoder.VisibilityParameterName;
+            }
+            return entityName;
+        }
+
+        private void HandleDecodeFailure(string chunk, ref string remainingEvolutions)
+        {
+            if (IsStrict)
+            {
+                throw new TafChunkDecoderException(chunk, remainingEvolutions, TafChunkDecoderException.Messages.EvolutionInformationBadFormat, this);
+            }
+
+            remainingEvolutions = ConsumeOneChunk(remainingEvolutions);
         }
 
         private void AddEvolution(DecodedTaf decodedTaf, Evolution evolution, Dictionary<string, object> result, string entityName)
