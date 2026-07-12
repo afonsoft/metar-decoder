@@ -258,7 +258,7 @@ decoder.SetStrictParsing(true);
 decoder.Parse("...");
 
 // but this one will ignore global mode and will be made with not-strict mode anyway
-decoder.ParseNotStrict("...");
+TafDecoder.ParseNotStrict("...");
 
 // change global parsing mode to "not-strict"
 decoder.SetStrictParsing(false);
@@ -267,7 +267,7 @@ decoder.SetStrictParsing(false);
 decoder.Parse("...");
 
 // but this one will ignore global mode and will be made with strict mode anyway
-decoder.ParseStrict("...");
+TafDecoder.ParseStrict("...");
 
 ```
 
