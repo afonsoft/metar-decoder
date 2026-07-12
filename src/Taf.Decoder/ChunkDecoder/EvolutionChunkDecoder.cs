@@ -60,38 +60,17 @@ namespace Taf.Decoder.ChunkDecoder
 
             if (found.Count <= 1)
             {
-                // the first chunk didn't match anything, so we remove it to avoid an infinite loop
                 Remaining = ConsumeOneChunk(remainingTaf);
                 return;
             }
 
             var evolutionType = found[1].Value.Trim();
             var evolutionPeriod = found[2].Value.Trim();
-            var remaining = found[3].Value;
-
             var evolution = new Evolution() { Type = evolutionType };
-            if (newRemainingTaf.StartsWith("PROB"))
-            {
-                // if the line started with PROBnn it won't have been consumed and we'll find it in remaining
-                evolution.Probability = newRemainingTaf.Trim();
-            }
+            SetProbabilityFromRemaining(evolution, newRemainingTaf);
+            SetEvolutionPeriod(evolution, evolutionType, evolutionPeriod);
 
-            // period
-            if (evolutionType == "BECMG" || evolutionType == "TEMPO")
-            {
-                var evolutionPeriodArray = evolutionPeriod.Split('/');
-                evolution.FromDay = Convert.ToInt32(evolutionPeriodArray[0].Substring(0, 2));
-                evolution.FromTime = evolutionPeriodArray[0].Substring(2, 2) + ":00 UTC";
-                evolution.ToDay = Convert.ToInt32(evolutionPeriodArray[1].Substring(0, 2));
-                evolution.ToTime = evolutionPeriodArray[1].Substring(2, 2) + ":00 UTC";
-            }
-            else
-            {
-                evolution.FromDay = Convert.ToInt32(evolutionPeriod.Substring(0, 2));
-                evolution.FromTime = evolutionPeriod.Substring(2, 2) + ':' + evolutionPeriod.Substring(4, 2) + " UTC";
-            }
-
-            remaining = ParseEntitiesChunk(evolution, remaining, decodedTaf);
+            ParseEntitiesChunk(evolution, found[3].Value, decodedTaf);
         }
 
         /// <summary>
@@ -103,75 +82,108 @@ namespace Taf.Decoder.ChunkDecoder
         /// <returns></returns>
         private string ParseEntitiesChunk(Evolution evolution, string chunk, DecodedTaf decodedTaf)
         {
-            // For each value we detect, we'll clone the evolution object, complete the clone,
-            // and add it to the corresponding entity of the decoded taf
-
             var remainingEvolutions = chunk;
             var tries = 0;
 
-            // call each decoder in the chain and use results to populate the decoded taf
-            foreach (var chunk_decoder in _decoderChain)
+            foreach (var chunkDecoder in _decoderChain)
             {
-                try
-                {
-                    // we check for probability in each loop, as it can be anywhere
-                    remainingEvolutions = ProbabilityChunkDecoder(evolution, remainingEvolutions, decodedTaf);
-
-                    // reset cavok
-                    _withCavok = false;
-
-                    // try to parse the chunk with the current chunk decoder
-                    var decoded = chunk_decoder.Parse(remainingEvolutions, _withCavok);
-
-                    // map the obtained fields (if any) to a original entity in the decoded_taf
-                    var result = decoded[TafDecoder.ResultKey] as Dictionary<string, object>;
-                    var entityName = result.Keys.FirstOrDefault();
-                    if (entityName == VisibilityChunkDecoder.CavokParameterName)
-                    {
-                        if ((bool)result[entityName])
-                        {
-                            _withCavok = true;
-                        }
-                        entityName = VisibilityChunkDecoder.VisibilityParameterName;
-                    }
-                    var entity = result.Count > 0 ? result[entityName] : null;
-
-                    if (entity == null && entityName != VisibilityChunkDecoder.VisibilityParameterName)
-                    {
-                        // visibility will be null if cavok is true but we still want to add the evolution
-                        throw new TafChunkDecoderException(chunk, remainingEvolutions, TafChunkDecoderException.Messages.WeatherEvolutionBadFormat, this);
-                    }
-                    if (entityName == TemperatureChunkDecoder.MaximumTemperatureParameterName || entityName == TemperatureChunkDecoder.MinimumTemperatureParameterName)
-                    {
-                        AddEvolution(decodedTaf, evolution, result, TemperatureChunkDecoder.MaximumTemperatureParameterName);
-                        AddEvolution(decodedTaf, evolution, result, TemperatureChunkDecoder.MinimumTemperatureParameterName);
-                    }
-                    else
-                    {
-                        AddEvolution(decodedTaf, evolution, result, entityName);
-                    }
-
-                    // update remaining evo for the next round
-                    remainingEvolutions = (string)decoded[TafDecoder.RemainingTafKey];
-                }
-                catch (Exception)
-                {
-                    if (++tries == _decoderChain.Count)
-                    {
-                        if (IsStrict)
-                        {
-                            throw new TafChunkDecoderException(chunk, remainingEvolutions, TafChunkDecoderException.Messages.EvolutionInformationBadFormat, this);
-                        }
-                        else
-                        {
-                            // we tried all the chunk decoders on the first chunk and none of them got a match,
-                            // so we drop it
-                            remainingEvolutions = ConsumeOneChunk(remainingEvolutions);
-                        }
-                    }
-                }
+                remainingEvolutions = TryParseEntity(
+                    chunkDecoder,
+                    evolution,
+                    remainingEvolutions,
+                    decodedTaf,
+                    chunk,
+                    ref tries);
             }
+
             return remainingEvolutions;
+        }
+
+        private string TryParseEntity(
+            TafChunkDecoder chunkDecoder,
+            Evolution evolution,
+            string remainingEvolutions,
+            DecodedTaf decodedTaf,
+            string originalChunk,
+            ref int tries)
+        {
+            try
+            {
+                remainingEvolutions = ProbabilityChunkDecoder(evolution, remainingEvolutions, decodedTaf);
+                _withCavok = false;
+
+                var decoded = chunkDecoder.Parse(remainingEvolutions, _withCavok);
+                ApplyDecodedResult(evolution, decodedTaf, decoded, originalChunk, remainingEvolutions);
+                return (string)decoded[TafDecoder.RemainingTafKey];
+            }
+            catch (Exception)
+            {
+                tries++;
+                return HandleEntityFailure(tries, remainingEvolutions, originalChunk);
+            }
+        }
+
+        private string HandleEntityFailure(int tries, string remainingEvolutions, string originalChunk)
+        {
+            if (tries != _decoderChain.Count)
+            {
+                return remainingEvolutions;
+            }
+
+            if (IsStrict)
+            {
+                throw new TafChunkDecoderException(originalChunk, remainingEvolutions, TafChunkDecoderException.Messages.EvolutionInformationBadFormat, this);
+            }
+
+            return ConsumeOneChunk(remainingEvolutions);
+        }
+
+        private void ApplyDecodedResult(
+            Evolution evolution,
+            DecodedTaf decodedTaf,
+            Dictionary<string, object> decoded,
+            string originalChunk,
+            string remainingEvolutions)
+        {
+            var result = decoded[TafDecoder.ResultKey] as Dictionary<string, object>;
+            var entityName = GetEntityName(result);
+            var entity = result.Count > 0 ? result[entityName] : null;
+
+            if (entity == null && entityName != VisibilityChunkDecoder.VisibilityParameterName)
+            {
+                throw new TafChunkDecoderException(
+                    originalChunk,
+                    remainingEvolutions,
+                    TafChunkDecoderException.Messages.WeatherEvolutionBadFormat,
+                    this);
+            }
+
+            if (IsTemperature(entityName))
+            {
+                AddEvolution(decodedTaf, evolution, result, TemperatureChunkDecoder.MaximumTemperatureParameterName);
+                AddEvolution(decodedTaf, evolution, result, TemperatureChunkDecoder.MinimumTemperatureParameterName);
+                return;
+            }
+
+            AddEvolution(decodedTaf, evolution, result, entityName);
+        }
+
+        private string GetEntityName(Dictionary<string, object> result)
+        {
+            var entityName = result.Keys.FirstOrDefault();
+            if (entityName == VisibilityChunkDecoder.CavokParameterName)
+            {
+                _withCavok = (bool)result[entityName];
+                return VisibilityChunkDecoder.VisibilityParameterName;
+            }
+
+            return entityName;
+        }
+
+        private static bool IsTemperature(string entityName)
+        {
+            return entityName == TemperatureChunkDecoder.MaximumTemperatureParameterName
+                || entityName == TemperatureChunkDecoder.MinimumTemperatureParameterName;
         }
 
         private void AddEvolution(DecodedTaf decodedTaf, Evolution evolution, Dictionary<string, object> result, string entityName)
@@ -256,6 +268,35 @@ namespace Taf.Decoder.ChunkDecoder
             }
         }
 
+        private static void SetProbabilityFromRemaining(Evolution evolution, string remainingTaf)
+        {
+            if (remainingTaf.StartsWith("PROB"))
+            {
+                evolution.Probability = remainingTaf.Trim();
+            }
+        }
+
+        private static void SetEvolutionPeriod(Evolution evolution, string evolutionType, string evolutionPeriod)
+        {
+            if (evolutionType == "BECMG" || evolutionType == "TEMPO")
+            {
+                SetBoundedPeriod(evolution, evolutionPeriod);
+                return;
+            }
+
+            evolution.FromDay = Convert.ToInt32(evolutionPeriod.Substring(0, 2));
+            evolution.FromTime = evolutionPeriod.Substring(2, 2) + ':' + evolutionPeriod.Substring(4, 2) + " UTC";
+        }
+
+        private static void SetBoundedPeriod(Evolution evolution, string evolutionPeriod)
+        {
+            var period = evolutionPeriod.Split('/');
+            evolution.FromDay = Convert.ToInt32(period[0].Substring(0, 2));
+            evolution.FromTime = period[0].Substring(2, 2) + ":00 UTC";
+            evolution.ToDay = Convert.ToInt32(period[1].Substring(0, 2));
+            evolution.ToTime = period[1].Substring(2, 2) + ":00 UTC";
+        }
+
         /// <summary>
         /// Look recursively for probability (PROBnn) attributes and embed a new evolution object one level deeper for each
         /// </summary>
@@ -280,18 +321,13 @@ namespace Taf.Decoder.ChunkDecoder
             if (probability.StartsWith("PROB"))
             {
                 evolution.Probability = probability;
-                var embeddedEvolutionPeriodArray = period.Split('/');
                 var embeddedEvolution = new Evolution()
                 {
                     Type = !string.IsNullOrEmpty(type) ? type : Probability,
-                    FromDay = Convert.ToInt32(embeddedEvolutionPeriodArray[0].Substring(0, 2)),
-                    FromTime = embeddedEvolutionPeriodArray[0].Substring(2, 2) + ":00 UTC",
-                    ToDay = Convert.ToInt32(embeddedEvolutionPeriodArray[1].Substring(0, 2)),
-                    ToTime = embeddedEvolutionPeriodArray[1].Substring(2, 2) + ":00 UTC",
                 };
+                SetBoundedPeriod(embeddedEvolution, period);
 
                 evolution.Evolutions.Add(embeddedEvolution);
-                // recurse on the remaining chunk to extract the weather elements it contains
                 chunk = ParseEntitiesChunk(evolution, remaining, decodedTaf);
             }
 

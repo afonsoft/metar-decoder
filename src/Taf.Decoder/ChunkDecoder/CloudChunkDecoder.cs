@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Taf.Decoder.Entity;
 
 namespace Taf.Decoder.ChunkDecoder
@@ -20,81 +21,97 @@ namespace Taf.Decoder.ChunkDecoder
         {
             string newRemainingTaf;
             var found = Consume(remainingTaf, out newRemainingTaf);
-            var result = new Dictionary<string, object>();
 
-            // handle the case where nothing has been found and taf is not cavok
+            ValidateCloudMatch(found, withCavok, remainingTaf, newRemainingTaf);
+
+            var result = new Dictionary<string, object>
+            {
+                { CloudsParameterName, DecodeLayers(found) }
+            };
+
+            return GetResults(newRemainingTaf, result);
+        }
+
+        private void ValidateCloudMatch(
+            List<Group> found,
+            bool withCavok,
+            string remainingTaf,
+            string newRemainingTaf)
+        {
             if (found.Count <= 1 && !withCavok)
             {
                 throw new TafChunkDecoderException(remainingTaf, newRemainingTaf, TafChunkDecoderException.Messages.CloudsInformationBadFormat, this);
             }
+        }
 
-            // default case: CAVOK or clear sky, no cloud layer
+        private static List<CloudLayer> DecodeLayers(List<Group> found)
+        {
             var layers = new List<CloudLayer>();
-
-            // there are clouds, handle cloud layers and visibility
-            if (found.Count > 2 && string.IsNullOrEmpty(found[2].Value))
+            if (found.Count <= 2 || !string.IsNullOrEmpty(found[2].Value))
             {
-                for (var i = 3; i <= 15; i += 4)
+                return layers;
+            }
+
+            for (var i = 3; i <= 15; i += 4)
+            {
+                if (!string.IsNullOrEmpty(found[i].Value))
                 {
-                    if (!string.IsNullOrEmpty(found[i].Value))
-                    {
-                        var layer = new CloudLayer();
-                        var layerHeight = Value.ToInt(found[i + 2].Value);
-                        int? layerHeightFeet = null;
-                        if (layerHeight.HasValue)
-                        {
-                            layerHeightFeet = layerHeight * 100;
-                        }
-
-                        switch (found[i + 1].Value)
-                        {
-                            case "FEW":
-                                layer.Amount = CloudLayer.CloudAmount.FEW;
-                                break;
-
-                            case "SCT":
-                                layer.Amount = CloudLayer.CloudAmount.SCT;
-                                break;
-
-                            case "BKN":
-                                layer.Amount = CloudLayer.CloudAmount.BKN;
-                                break;
-
-                            case "OVC":
-                                layer.Amount = CloudLayer.CloudAmount.OVC;
-                                break;
-
-                            case "VV":
-                                layer.Amount = CloudLayer.CloudAmount.VV;
-                                break;
-                        }
-
-                        if (layerHeightFeet.HasValue)
-                        {
-                            layer.BaseHeight = new Value(layerHeightFeet.Value, Value.Unit.Feet);
-                        }
-                        switch (found[i + 3].Value)
-                        {
-                            case "CB":
-                                layer.Type = CloudLayer.CloudType.CB;
-                                break;
-
-                            case "TCU":
-                                layer.Type = CloudLayer.CloudType.TCU;
-                                break;
-
-                            case "///":
-                                layer.Type = CloudLayer.CloudType.CannotMeasure;
-                                break;
-                        }
-                        layers.Add(layer);
-                    }
+                    layers.Add(CreateLayer(found, i));
                 }
             }
 
-            result.Add(CloudsParameterName, layers);
+            return layers;
+        }
 
-            return GetResults(newRemainingTaf, result);
+        private static CloudLayer CreateLayer(List<Group> found, int index)
+        {
+            var layer = new CloudLayer
+            {
+                Amount = GetCloudAmount(found[index + 1].Value),
+                Type = GetCloudType(found[index + 3].Value)
+            };
+
+            var layerHeight = Value.ToInt(found[index + 2].Value);
+            if (layerHeight.HasValue)
+            {
+                layer.BaseHeight = new Value(layerHeight.Value * 100, Value.Unit.Feet);
+            }
+
+            return layer;
+        }
+
+        private static CloudLayer.CloudAmount GetCloudAmount(string value)
+        {
+            switch (value)
+            {
+                case "FEW":
+                    return CloudLayer.CloudAmount.FEW;
+                case "SCT":
+                    return CloudLayer.CloudAmount.SCT;
+                case "BKN":
+                    return CloudLayer.CloudAmount.BKN;
+                case "OVC":
+                    return CloudLayer.CloudAmount.OVC;
+                case "VV":
+                    return CloudLayer.CloudAmount.VV;
+                default:
+                    return CloudLayer.CloudAmount.NULL;
+            }
+        }
+
+        private static CloudLayer.CloudType GetCloudType(string value)
+        {
+            switch (value)
+            {
+                case "CB":
+                    return CloudLayer.CloudType.CB;
+                case "TCU":
+                    return CloudLayer.CloudType.TCU;
+                case "///":
+                    return CloudLayer.CloudType.CannotMeasure;
+                default:
+                    return CloudLayer.CloudType.NULL;
+            }
         }
     }
 }
