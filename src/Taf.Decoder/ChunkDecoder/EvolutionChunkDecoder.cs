@@ -155,8 +155,17 @@ namespace Taf.Decoder.ChunkDecoder
                     this);
             }
 
+            if (result.Count == 0)
+            {
+                throw new TafChunkDecoderException(
+                    originalChunk,
+                    remainingEvolutions,
+                    TafChunkDecoderException.Messages.WeatherEvolutionBadFormat,
+                    this);
+            }
+
             var entityName = GetEntityName(result);
-            var entity = result.Count > 0 ? result[entityName] : null;
+            var entity = result[entityName];
 
             if (entity == null && entityName != VisibilityChunkDecoder.VisibilityParameterName)
             {
@@ -179,7 +188,7 @@ namespace Taf.Decoder.ChunkDecoder
 
         private string GetEntityName(Dictionary<string, object> result)
         {
-            var entityName = result.Keys.FirstOrDefault();
+            var entityName = result.Keys.First();
             if (entityName == VisibilityChunkDecoder.CavokParameterName)
             {
                 _withCavok = (bool)result[entityName];
@@ -198,7 +207,7 @@ namespace Taf.Decoder.ChunkDecoder
         private void AddEvolution(DecodedTaf decodedTaf, Evolution evolution, Dictionary<string, object> result, string entityName)
         {
             // clone the evolution entity
-            var newEvolution = evolution.Clone() as Evolution;
+            var newEvolution = (Evolution)evolution.Clone();
 
             // add the new entity to it
             newEvolution.Entity = result[entityName];
@@ -209,7 +218,13 @@ namespace Taf.Decoder.ChunkDecoder
             }
 
             // get the original entity from the decoded taf or a new one decoded taf doesn't contain it yet
-            var decodedEntity = typeof(DecodedTaf).GetProperty(entityName).GetValue(decodedTaf) as AbstractEntity;
+            var property = typeof(DecodedTaf).GetProperty(entityName);
+            if (property == null)
+            {
+                throw new TafChunkDecoderException(TafChunkDecoderException.Messages.UnknownEntity + entityName);
+            }
+
+            var decodedEntity = property.GetValue(decodedTaf) as AbstractEntity;
 
             if (decodedEntity == null || entityName == CloudChunkDecoder.CloudsParameterName || entityName == WeatherChunkDecoder.WeatherPhenomenonParameterName)
             {
