@@ -67,7 +67,8 @@ namespace Metar.Decoder.ChunkDecoder
             var runway = found[k + 2].Value;
             var qfuAsInt = Value.ToInt(runway);
             // check runway qfu validity
-            if (qfuAsInt > 36 || qfuAsInt < 1)
+            var qfu = qfuAsInt.GetValueOrDefault();
+            if (qfu > 36 || qfu < 1)
             {
                 throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.InvalidRunwayQFURunwaVisualRangeInformation, decoder);
             }

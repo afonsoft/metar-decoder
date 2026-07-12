@@ -51,7 +51,8 @@ namespace Metar.Decoder.ChunkDecoder
         {
             // check runway qfu validity
             var qfuAsInt = Value.ToInt(found[i + 1].Value);
-            if (qfuAsInt > 36 || qfuAsInt < 1)
+            var qfu = qfuAsInt.GetValueOrDefault();
+            if (qfu > 36 || qfu < 1)
             {
                 throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.InvalidRunwayQFURunwayVisualRangeInformation, decoder);
             }
@@ -88,7 +89,13 @@ namespace Metar.Decoder.ChunkDecoder
                 return null;
             }
 
-            return new Value(Value.ToInt(rawValue).Value, rangeUnit);
+            var value = Value.ToInt(rawValue);
+            if (!value.HasValue)
+            {
+                return null;
+            }
+
+            return new Value(value.Value, rangeUnit);
         }
 
         private static Value.Unit GetRangeUnit(string unit)
