@@ -18,7 +18,7 @@ namespace Taf.Decoder.Tests.ChunkDecoder
         [Test, TestCaseSource("Chunks")]
         public void TestParse(EvolutionChunkDecoderTester chunk)
         {
-            var decodedTaf = TafDecoder.ParseStrict(chunk.Base);
+            var decodedTaf = decoder.ParseStrict(chunk.Base);
             evoDecoder.IsStrict = chunk.Strict;
             evoDecoder.Parse(chunk.EvoChunk + " END", decodedTaf);
 

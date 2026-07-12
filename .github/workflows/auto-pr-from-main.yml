@@ -32,6 +32,12 @@ jobs:
           dotnet-version: "10.0.x"
 
       - name: � Check for NuGet Updates
+        env:
+          AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
+          EVENT_NAME: ${{ github.event_name }}
+          COMMIT_SHA: ${{ github.sha }}
+          SERVER_URL: ${{ github.server_url }}
+          REPOSITORY: ${{ github.repository }}
         run: |
           echo "🔍 Checking for NuGet package updates..."
 
@@ -76,9 +82,9 @@ jobs:
           PR_TITLE="🔄 Auto-update Dependencies"
           PR_BODY="## 🔄 Automatic Dependency Update
 
-          **Triggered by:** ${{ github.event_name }}
-          **Commit:** [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
-          **Author:** ${{ github.event.head_commit.author.name }}
+          **Triggered by:** $EVENT_NAME
+          **Commit:** [$COMMIT_SHA]($SERVER_URL/$REPOSITORY/commit/$COMMIT_SHA)
+          **Author:** $AUTHOR_NAME
 
           ---
 
@@ -117,12 +123,18 @@ jobs:
           echo "✅ Dependency update PR created successfully"
 
       - name: 📧 Notification Summary
+        env:
+          AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
+          EVENT_NAME: ${{ github.event_name }}
+          COMMIT_SHA: ${{ github.sha }}
+          SERVER_URL: ${{ github.server_url }}
+          REPOSITORY: ${{ github.repository }}
         run: |
           echo "## 🔄 Dependency Update Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Triggered by:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Commit:** [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})" >> $GITHUB_STEP_SUMMARY
-          echo "**Author:** ${{ github.event.head_commit.author.name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** $EVENT_NAME" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** [$COMMIT_SHA]($SERVER_URL/$REPOSITORY/commit/$COMMIT_SHA)" >> $GITHUB_STEP_SUMMARY
+          echo "**Author:** $AUTHOR_NAME" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Status:** ✅ Dependency update process completed" >> $GITHUB_STEP_SUMMARY
 

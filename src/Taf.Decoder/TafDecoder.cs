@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using Taf.Decoder.ChunkDecoder;
 using Taf.Decoder.Entity;
@@ -66,7 +67,8 @@ namespace Taf.Decoder
         /// </summary>
         /// <param name="rawTaf"></param>
         /// <returns></returns>
-        public static DecodedTaf ParseStrict(string rawTaf)
+        [SuppressMessage("Major Code Smell", "S2325", Justification = "Public API instance method kept for backward compatibility")]
+        public DecodedTaf ParseStrict(string rawTaf)
         {
             return ParseWithMode(rawTaf, true);
         }
@@ -78,7 +80,8 @@ namespace Taf.Decoder
         /// </summary>
         /// <param name="rawTaf"></param>
         /// <returns></returns>
-        public static DecodedTaf ParseNotStrict(string rawTaf)
+        [SuppressMessage("Major Code Smell", "S2325", Justification = "Public API instance method kept for backward compatibility")]
+        public DecodedTaf ParseNotStrict(string rawTaf)
         {
             return ParseWithMode(rawTaf, false);
         }

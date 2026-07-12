@@ -3,6 +3,7 @@ using Metar.Decoder.Entity;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 namespace Metar.Decoder
@@ -72,7 +73,8 @@ namespace Metar.Decoder
         /// </summary>
         /// <param name="rawMetar"></param>
         /// <returns></returns>
-        public static DecodedMetar ParseStrict(string rawMetar)
+        [SuppressMessage("Major Code Smell", "S2325", Justification = "Public API instance method kept for backward compatibility")]
+        public DecodedMetar ParseStrict(string rawMetar)
         {
             return ParseWithMode(rawMetar, true);
         }
@@ -84,7 +86,8 @@ namespace Metar.Decoder
         /// </summary>
         /// <param name="rawMetar"></param>
         /// <returns></returns>
-        public static DecodedMetar ParseNotStrict(string rawMetar)
+        [SuppressMessage("Major Code Smell", "S2325", Justification = "Public API instance method kept for backward compatibility")]
+        public DecodedMetar ParseNotStrict(string rawMetar)
         {
             return ParseWithMode(rawMetar, false);
         }
