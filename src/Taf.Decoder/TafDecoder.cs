@@ -66,7 +66,7 @@ namespace Taf.Decoder
         /// </summary>
         /// <param name="rawTaf"></param>
         /// <returns></returns>
-        public DecodedTaf ParseStrict(string rawTaf)
+        public static DecodedTaf ParseStrict(string rawTaf)
         {
             return ParseWithMode(rawTaf, true);
         }
@@ -78,7 +78,7 @@ namespace Taf.Decoder
         /// </summary>
         /// <param name="rawTaf"></param>
         /// <returns></returns>
-        public DecodedTaf ParseNotStrict(string rawTaf)
+        public static DecodedTaf ParseNotStrict(string rawTaf)
         {
             return ParseWithMode(rawTaf, false);
         }

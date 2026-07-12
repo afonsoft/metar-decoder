@@ -366,7 +366,7 @@ decoder.SetStrictParsing(true);
 decoder.Parse("...");
 
 // But this will ignore the global mode and parse in non-strict mode
-decoder.ParseNotStrict("...");
+MetarDecoder.ParseNotStrict("...");
 
 // Change global parsing mode to "non-strict"
 decoder.SetStrictParsing(false);
@@ -375,7 +375,7 @@ decoder.SetStrictParsing(false);
 decoder.Parse("...");
 
 // But this will ignore the global mode and parse in strict mode
-decoder.ParseStrict("...");
+MetarDecoder.ParseStrict("...");
 ```
 
 ### About Parsing Errors (Advanced)

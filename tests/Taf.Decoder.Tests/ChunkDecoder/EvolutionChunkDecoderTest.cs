@@ -18,7 +18,7 @@ namespace Taf.Decoder.Tests.ChunkDecoder
         [Test, TestCaseSource("Chunks")]
         public void TestParse(EvolutionChunkDecoderTester chunk)
         {
-            var decodedTaf = decoder.ParseStrict(chunk.Base);
+            var decodedTaf = TafDecoder.ParseStrict(chunk.Base);
             evoDecoder.IsStrict = chunk.Strict;
             evoDecoder.Parse(chunk.EvoChunk + " END", decodedTaf);
 
@@ -290,11 +290,11 @@ namespace Taf.Decoder.Tests.ChunkDecoder
         public void TestInstantiateEntityThrowsForUnknownEntity()
         {
             var evo = new EvolutionChunkDecoder(true, false);
-            var method = typeof(EvolutionChunkDecoder).GetMethod("InstantiateEntity", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var method = typeof(EvolutionChunkDecoder).GetMethod("InstantiateEntity", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
 
             var ex = ClassicAssert.Throws<System.Reflection.TargetInvocationException>(() =>
             {
-                method.Invoke(evo, new object[] { "UnknownEntity" });
+                method.Invoke(null, new object[] { "UnknownEntity" });
             });
 
             ClassicAssert.That(ex.InnerException, Is.InstanceOf<TafChunkDecoderException>());

@@ -32,7 +32,7 @@ namespace Metar.Decoder.ChunkDecoder
                 result.Add(StatusParameterName, string.Empty);
             }
 
-            if (result.Count > 0 && result[StatusParameterName] as string == "NIL" && newRemainingMetar.Trim().Length > 0)
+            if (result[StatusParameterName] as string == "NIL" && newRemainingMetar.Trim().Length > 0)
             {
                 throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.NoInformationExpectedAfterNILStatus, this);
             }

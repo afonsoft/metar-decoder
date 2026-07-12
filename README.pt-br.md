@@ -360,7 +360,7 @@ decoder.SetStrictParsing(true);
 decoder.Parse("...");
 
 // Esta ignorara o modo global e sera feita no modo nao estrito
-decoder.ParseNotStrict("...");
+MetarDecoder.ParseNotStrict("...");
 
 // Altera o modo de analise global para "nao estrito"
 decoder.SetStrictParsing(false);
@@ -369,7 +369,7 @@ decoder.SetStrictParsing(false);
 decoder.Parse("...");
 
 // Esta ignorara o modo global e sera feita no modo estrito
-decoder.ParseStrict("...");
+MetarDecoder.ParseStrict("...");
 ```
 
 ## Como Contribuir
