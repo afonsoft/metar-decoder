@@ -38,7 +38,7 @@ namespace Metar.Decoder.Tests
         {
             // launch decoding
             var raw_metar = "METAR  LFPO 231027Z   AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN // FEW015 17/10 Q1009 REFZRA WS R03";
-            var d = decoder.ParseStrict(raw_metar);
+            var d = MetarDecoder.ParseStrict(raw_metar);
             // compare results
             ClassicAssert.IsTrue(d.IsValid);
             ClassicAssert.That(d.RawMetar, Is.EqualTo("METAR LFPO 231027Z AUTO 24004G09MPS 2500 1000NW R32/0400 R08C/0004D +FZRA VCSN // FEW015 17/10 Q1009 REFZRA WS R03"));
@@ -98,7 +98,7 @@ namespace Metar.Decoder.Tests
         public void TestParseShort()
         {
             // launch decoding
-            var d = decoder.ParseStrict("METAR LFPB 190730Z AUTO 17005KT 6000 OVC024 02/00 Q1032 ");
+            var d = MetarDecoder.ParseStrict("METAR LFPB 190730Z AUTO 17005KT 6000 OVC024 02/00 Q1032 ");
             // compare results
             ClassicAssert.IsTrue(d.IsValid);
             ClassicAssert.That(d.Type, Is.EqualTo(MetarType.METAR));
@@ -129,7 +129,7 @@ namespace Metar.Decoder.Tests
         public void TestParseInvalid()
         {
             // launch decoding
-            var d = decoder.ParseNotStrict("METAR LFPB 190730Z AUTOPP 17005KT 6000 OVC024 02/00 Q10032 ");
+            var d = MetarDecoder.ParseNotStrict("METAR LFPB 190730Z AUTOPP 17005KT 6000 OVC024 02/00 Q10032 ");
             //                                                 here ^                              ^ and here
             // compare results
             ClassicAssert.That(d.IsValid, Is.False);
@@ -161,7 +161,7 @@ namespace Metar.Decoder.Tests
         public void TestParseInvalidPart()
         {
             // launch decoding
-            var d = decoder.ParseNotStrict("METAR LFPB 190730Z AUTOP X17005KT 6000 OVC024 02/00 Q1032 ");
+            var d = MetarDecoder.ParseNotStrict("METAR LFPB 190730Z AUTOP X17005KT 6000 OVC024 02/00 Q1032 ");
             //                                                here ^ ^ and here
             // compare results
             ClassicAssert.That(d.IsValid, Is.False);
@@ -191,9 +191,9 @@ namespace Metar.Decoder.Tests
         public void TestParseNoClouds()
         {
             var metar = "PAWI 140753Z AUTO 08034G41KT 1/4SM SN FZFG M18/M21 A2951 RMK PK WND 08041/0752 SLP995 P0000 T11831206 TSNO  VIA AUTODIAL";
-            var d = decoder.ParseStrict(metar);
+            var d = MetarDecoder.ParseStrict(metar);
             ClassicAssert.That(d.IsValid, Is.False);
-            d = decoder.ParseNotStrict(metar);
+            d = MetarDecoder.ParseNotStrict(metar);
             ClassicAssert.That(d.IsValid, Is.False);
             ClassicAssert.That(d.DecodingExceptions.Count, Is.EqualTo(1));
             var errors = d.DecodingExceptions;
@@ -208,7 +208,7 @@ namespace Metar.Decoder.Tests
         [Test]
         public void TestParseNil()
         {
-            var d = decoder.ParseStrict("METAR LFPO 231027Z NIL");
+            var d = MetarDecoder.ParseStrict("METAR LFPO 231027Z NIL");
             ClassicAssert.That(d.Status, Is.EqualTo("NIL"));
         }
 
@@ -218,7 +218,7 @@ namespace Metar.Decoder.Tests
         [Test]
         public void TestParseEOM()
         {
-            var d = decoder.ParseStrict("METAR LFPB 190730Z AUTO 17005KT 6000 OVC024 02/00 Q1032=");
+            var d = MetarDecoder.ParseStrict("METAR LFPB 190730Z AUTO 17005KT 6000 OVC024 02/00 Q1032=");
             ClassicAssert.IsTrue(d.IsValid);
             ClassicAssert.That(d.RawMetar, Is.EqualTo("METAR LFPB 190730Z AUTO 17005KT 6000 OVC024 02/00 Q1032"));
         }
@@ -229,7 +229,7 @@ namespace Metar.Decoder.Tests
         [Test]
         public void testParseCAVOK()
         {
-            var d = decoder.ParseStrict("METAR LFPO 231027Z AUTO 24004KT CAVOK 02/M08 Q0995");
+            var d = MetarDecoder.ParseStrict("METAR LFPO 231027Z AUTO 24004KT CAVOK 02/M08 Q0995");
             ClassicAssert.IsTrue(d.Cavok);
             ClassicAssert.That(d.Visibility, Is.Null);
             ClassicAssert.That(d.Clouds.Count, Is.EqualTo(0));
@@ -246,7 +246,7 @@ namespace Metar.Decoder.Tests
         public void TestParseErrors(Tuple<string, string, string> metar_error)
         {
             // launch decoding
-            var d = decoder.ParseNotStrict(metar_error.Item1);
+            var d = MetarDecoder.ParseNotStrict(metar_error.Item1);
             // check the error triggered
             ClassicAssert.That(d.IsValid, Is.False);
             var errors = d.DecodingExceptions;

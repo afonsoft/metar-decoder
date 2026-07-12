@@ -67,7 +67,7 @@ namespace Taf.Decoder.ChunkDecoder
                     {
                         if (fractionBottom != 0)
                         {
-                            visibilityValue = (double)main + (double)fractionTop / fractionBottom;
+                            visibilityValue = main + fractionTop / (double)fractionBottom;
                         }
                         else
                         {

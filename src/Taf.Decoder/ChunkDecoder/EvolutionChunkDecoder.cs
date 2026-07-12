@@ -16,6 +16,7 @@ namespace Taf.Decoder.ChunkDecoder
         private const string RemainderPattern = @"(.*)";
 
         private const string ProbabilityPattern = @"^(PROB[34]0\s+){1}(TEMPO\s+){0,1}([0-9]{4}/[0-9]{4}){0,1}(.*)";
+        private const string TimeSuffix = ":00 UTC";
 
         public override string GetRegex()
         {
@@ -81,9 +82,9 @@ namespace Taf.Decoder.ChunkDecoder
             {
                 var evolutionPeriodArray = evolutionPeriod.Split('/');
                 evolution.FromDay = Convert.ToInt32(evolutionPeriodArray[0].Substring(0, 2));
-                evolution.FromTime = evolutionPeriodArray[0].Substring(2, 2) + ":00 UTC";
+                evolution.FromTime = evolutionPeriodArray[0].Substring(2, 2) + TimeSuffix;
                 evolution.ToDay = Convert.ToInt32(evolutionPeriodArray[1].Substring(0, 2));
-                evolution.ToTime = evolutionPeriodArray[1].Substring(2, 2) + ":00 UTC";
+                evolution.ToTime = evolutionPeriodArray[1].Substring(2, 2) + TimeSuffix;
             }
             else
             {
@@ -91,7 +92,7 @@ namespace Taf.Decoder.ChunkDecoder
                 evolution.FromTime = evolutionPeriod.Substring(2, 2) + ':' + evolutionPeriod.Substring(4, 2) + " UTC";
             }
 
-            remaining = ParseEntitiesChunk(evolution, remaining, decodedTaf);
+            ParseEntitiesChunk(evolution, remaining, decodedTaf);
         }
 
         /// <summary>
@@ -134,7 +135,7 @@ namespace Taf.Decoder.ChunkDecoder
                         }
                         entityName = VisibilityChunkDecoder.VisibilityParameterName;
                     }
-                    var entity = result.Count > 0 ? result[entityName] : null;
+                    var entity = result[entityName];
 
                     if (entity == null && entityName != VisibilityChunkDecoder.VisibilityParameterName)
                     {
@@ -231,7 +232,7 @@ namespace Taf.Decoder.ChunkDecoder
             }
         }
 
-        private AbstractEntity InstantiateEntity(string entityName)
+        private static AbstractEntity InstantiateEntity(string entityName)
         {
             switch (entityName)
             {
@@ -285,14 +286,14 @@ namespace Taf.Decoder.ChunkDecoder
                 {
                     Type = !string.IsNullOrEmpty(type) ? type : Probability,
                     FromDay = Convert.ToInt32(embeddedEvolutionPeriodArray[0].Substring(0, 2)),
-                    FromTime = embeddedEvolutionPeriodArray[0].Substring(2, 2) + ":00 UTC",
+                    FromTime = embeddedEvolutionPeriodArray[0].Substring(2, 2) + TimeSuffix,
                     ToDay = Convert.ToInt32(embeddedEvolutionPeriodArray[1].Substring(0, 2)),
-                    ToTime = embeddedEvolutionPeriodArray[1].Substring(2, 2) + ":00 UTC",
+                    ToTime = embeddedEvolutionPeriodArray[1].Substring(2, 2) + TimeSuffix,
                 };
 
                 evolution.Evolutions.Add(embeddedEvolution);
                 // recurse on the remaining chunk to extract the weather elements it contains
-                chunk = ParseEntitiesChunk(evolution, remaining, decodedTaf);
+                ParseEntitiesChunk(evolution, remaining, decodedTaf);
             }
 
             return string.Empty;
