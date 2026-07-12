@@ -23,9 +23,7 @@ namespace Metar.Decoder.ChunkDecoder
             var newRemainingMetar = consumed.Key;
             var result = new Dictionary<string, object>();
 
-            bool? all;
-            List<string> runways;
-            ParseRunways(this, found, remainingMetar, newRemainingMetar, out all, out runways);
+            ParseRunways(this, found, remainingMetar, newRemainingMetar, out var all, out var runways);
 
             result.Add(WindshearAllRunwaysParameterName, all);
             result.Add(WindshearRunwaysParameterName, runways);

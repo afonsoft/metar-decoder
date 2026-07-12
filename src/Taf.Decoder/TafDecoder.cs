@@ -170,14 +170,14 @@ namespace Taf.Decoder
 
         private static void ApplyDecodedData(DecodedTaf decodedTaf, Dictionary<string, object> decodedData)
         {
-            if (decodedData.ContainsKey(ResultKey) && decodedData[ResultKey] is Dictionary<string, object>)
+            if (decodedData.ContainsKey(ResultKey) && decodedData[ResultKey] is Dictionary<string, object> result)
             {
-                var result = decodedData[ResultKey] as Dictionary<string, object>;
                 foreach (var obj in result)
                 {
                     if (obj.Value != null)
                     {
-                        typeof(DecodedTaf).GetProperty(obj.Key).SetValue(decodedTaf, obj.Value);
+                        var property = typeof(DecodedTaf).GetProperty(obj.Key);
+                        property?.SetValue(decodedTaf, obj.Value);
                     }
                 }
             }

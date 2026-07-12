@@ -34,8 +34,7 @@ namespace Metar.Decoder.ChunkDecoder
                 throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.ForVisibilityInformationBadFormat, this);
             }
 
-            bool cavok;
-            var visibility = BuildVisibility(found, out cavok);
+            var visibility = BuildVisibility(found, out var cavok);
 
             result.Add(CavokParameterName, cavok);
             result.Add(VisibilityParameterName, visibility);

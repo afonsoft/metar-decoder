@@ -162,14 +162,14 @@ namespace Metar.Decoder
                 decodedMetar.AddDecodingException((MetarChunkDecoderException)decodedData[ExceptionKey]);
             }
 
-            if (decodedData.ContainsKey(ResultKey) && decodedData[ResultKey] is Dictionary<string, object>)
+            if (decodedData.ContainsKey(ResultKey) && decodedData[ResultKey] is Dictionary<string, object> result)
             {
-                var result = decodedData[ResultKey] as Dictionary<string, object>;
                 foreach (var obj in result)
                 {
                     if (obj.Value != null)
                     {
-                        typeof(DecodedMetar).GetProperty(obj.Key).SetValue(decodedMetar, obj.Value, null);
+                        var property = typeof(DecodedMetar).GetProperty(obj.Key);
+                        property?.SetValue(decodedMetar, obj.Value, null);
                     }
                 }
             }

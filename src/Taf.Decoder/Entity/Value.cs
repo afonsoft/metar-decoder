@@ -134,6 +134,11 @@ namespace Taf.Decoder.Entity
         /// </summary>
         public static int? ToInt(string value)
         {
+            if (string.IsNullOrEmpty(value))
+            {
+                return null;
+            }
+
             //warning: Regex.Replace is not in PHP version
             var valueNumeric = Regex.Replace(value.Replace("P", "").Replace("M", "-"), "[A-Z]", string.Empty);
             if (Regex.Match(valueNumeric, @"^[\-0-9]").Success)
