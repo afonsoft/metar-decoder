@@ -342,11 +342,6 @@ namespace Taf.Decoder.ChunkDecoder
             var period = found[0].Groups[3].Value.Trim();
             var remaining = found[0].Groups[4].Value.Trim();
 
-            if (!probability.StartsWith("PROB"))
-            {
-                return chunk;
-            }
-
             evolution.Probability = probability;
             var embeddedEvolution = new Evolution()
             {
