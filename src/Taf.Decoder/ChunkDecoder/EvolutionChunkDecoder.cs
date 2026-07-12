@@ -355,7 +355,9 @@ namespace Taf.Decoder.ChunkDecoder
             SetBoundedPeriod(embeddedEvolution, period);
 
             evolution.Evolutions.Add(embeddedEvolution);
-            return ParseEntitiesChunk(evolution, remaining, decodedTaf);
+            chunk = ParseEntitiesChunk(evolution, remaining, decodedTaf);
+
+            return string.Empty;
         }
     }
 }
