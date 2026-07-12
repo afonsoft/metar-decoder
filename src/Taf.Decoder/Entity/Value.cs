@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Taf.Decoder.Entity
@@ -119,14 +120,12 @@ namespace Taf.Decoder.Entity
         /// <returns></returns>
         private KeyValuePair<Unit, Dictionary<Unit, double>> GetConversionMap()
         {
-            foreach (var conversionMap in ConversionMaps)
+            var conversionMap = ConversionMaps.FirstOrDefault(map => map.Value.ContainsKey(ActualUnit));
+            if (conversionMap.Value == null)
             {
-                if (conversionMap.Value.ContainsKey(ActualUnit))
-                {
-                    return conversionMap;
-                }
+                throw new ArgumentException("Trying to convert unsupported values");
             }
-            throw new ArgumentException("Trying to convert unsupported values");
+            return conversionMap;
         }
 
         /// <summary>

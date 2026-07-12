@@ -49,7 +49,7 @@ namespace Metar.Decoder.ChunkDecoder
         /// <param name="newRemainingMetar"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        protected Dictionary<string, object> GetResults(string newRemainingMetar, Dictionary<string, object> result)
+        protected static Dictionary<string, object> GetResults(string newRemainingMetar, Dictionary<string, object> result)
         {
             //return result + remaining metar
             return new Dictionary<string, object>()

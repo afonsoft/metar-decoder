@@ -72,7 +72,7 @@ namespace Metar.Decoder
         /// </summary>
         /// <param name="rawMetar"></param>
         /// <returns></returns>
-        public DecodedMetar ParseStrict(string rawMetar)
+        public static DecodedMetar ParseStrict(string rawMetar)
         {
             return ParseWithMode(rawMetar, true);
         }
@@ -84,7 +84,7 @@ namespace Metar.Decoder
         /// </summary>
         /// <param name="rawMetar"></param>
         /// <returns></returns>
-        public DecodedMetar ParseNotStrict(string rawMetar)
+        public static DecodedMetar ParseNotStrict(string rawMetar)
         {
             return ParseWithMode(rawMetar, false);
         }
