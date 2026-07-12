@@ -1,5 +1,4 @@
-﻿using Decoder.Shared;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Taf.Decoder.Entity;
 

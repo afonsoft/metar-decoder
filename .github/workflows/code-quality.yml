@@ -224,8 +224,8 @@ jobs:
           # Count projects
           echo "Projects: $(find src -name '*.csproj' | wc -l)"
 
-          # Check for TODO comments
-          echo "TODO Comments: $(grep -r 'TODO' src --include='*.cs' | wc -l)"
+          # Count pending work tags
+          echo "Pending Work Tags: $(grep -r 'TODO' src --include='*.cs' | wc -l)"
 
           echo "Quality metrics analysis completed!"
 

@@ -1,5 +1,4 @@
-﻿using Decoder.Shared;
-using Metar.Decoder.Entity;
+﻿using Metar.Decoder.Entity;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 

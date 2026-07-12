@@ -31,7 +31,12 @@ jobs:
         with:
           dotnet-version: "10.0.x"
 
-      - name: � Check for NuGet Updates
+      - name: 📦 Check for NuGet Updates
+        env:
+          AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
+          COMMIT_SHA: ${{ github.sha }}
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           echo "🔍 Checking for NuGet package updates..."
 
@@ -60,12 +65,13 @@ jobs:
           dotnet test MetarDecoder.sln --configuration Release --no-build
 
           # Commit changes
+          COMMIT_DATE=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
           git add .
           git commit -m "🔄 Auto-update dependencies
 
           - Updated NuGet packages to latest versions
           - All tests passing
-          - Auto-generated on: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          - Auto-generated on: ${COMMIT_DATE}
 
           🤖 This commit was automatically created."
 
@@ -76,9 +82,9 @@ jobs:
           PR_TITLE="🔄 Auto-update Dependencies"
           PR_BODY="## 🔄 Automatic Dependency Update
 
-          **Triggered by:** ${{ github.event_name }}
-          **Commit:** [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
-          **Author:** ${{ github.event.head_commit.author.name }}
+          **Triggered by:** ${EVENT_NAME}
+          **Commit:** [${COMMIT_SHA}](${REPO_URL}/commit/${COMMIT_SHA})
+          **Author:** ${AUTHOR_NAME}
 
           ---
 
@@ -117,12 +123,17 @@ jobs:
           echo "✅ Dependency update PR created successfully"
 
       - name: 📧 Notification Summary
+        env:
+          AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
+          COMMIT_SHA: ${{ github.sha }}
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           echo "## 🔄 Dependency Update Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Triggered by:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Commit:** [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})" >> $GITHUB_STEP_SUMMARY
-          echo "**Author:** ${{ github.event.head_commit.author.name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** ${EVENT_NAME}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** [${COMMIT_SHA}](${REPO_URL}/commit/${COMMIT_SHA})" >> $GITHUB_STEP_SUMMARY
+          echo "**Author:** ${AUTHOR_NAME}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Status:** ✅ Dependency update process completed" >> $GITHUB_STEP_SUMMARY
 
@@ -172,12 +183,13 @@ jobs:
             dotnet test MetarDecoder.sln --configuration Release --no-build
             
             # Commit changes
+            COMMIT_DATE=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
             git add .
             git commit -m "� Security update - Fix vulnerable dependencies
 
             - Updated packages to address security vulnerabilities
             - All tests passing
-            - Auto-generated on: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+            - Auto-generated on: ${COMMIT_DATE}
             
             � This commit addresses security vulnerabilities."
             
@@ -227,7 +239,7 @@ jobs:
               --base main \
               --head $BRANCH_NAME \
               --label "security,urgent,vulnerability" \
-              --assignee ${{ github.event.head_commit.author.username }} || echo "Security PR already exists"
+              --assignee afonsoft || echo "Security PR already exists"
             
             echo "🚨 Security update PR created successfully"
           else
