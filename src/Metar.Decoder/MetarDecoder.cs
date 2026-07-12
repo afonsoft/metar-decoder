@@ -97,72 +97,79 @@ namespace Metar.Decoder
         /// <returns></returns>
         public static DecodedMetar ParseWithMode(string rawMetar, bool isStrict = false)
         {
-            // prepare decoding inputs/outputs: (upper case, trim,
-            // remove 'end of message', no more than one space)
-            var cleanMetar = rawMetar.ToUpper().Trim();
-            cleanMetar = Regex.Replace(cleanMetar, "=$", string.Empty);
-            cleanMetar = Regex.Replace(cleanMetar, "[ ]{2,}", " ") + " ";
+            return DecodeMetar(rawMetar, isStrict);
+        }
+
+        private static DecodedMetar DecodeMetar(string rawMetar, bool isStrict)
+        {
+            var cleanMetar = NormalizeMetar(rawMetar);
             var remainingMetar = cleanMetar;
             var decodedMetar = new DecodedMetar(cleanMetar);
             var withCavok = false;
 
-            // call each decoder in the chain and use results to populate decoded metar
+            DecodeChunks(decodedMetar, isStrict, ref remainingMetar, ref withCavok);
+
+            return decodedMetar;
+        }
+
+        private static string NormalizeMetar(string rawMetar)
+        {
+            var cleanMetar = rawMetar.ToUpper().Trim();
+            cleanMetar = Regex.Replace(cleanMetar, "=$", string.Empty);
+            return Regex.Replace(cleanMetar, "[ ]{2,}", " ") + " ";
+        }
+
+        private static void DecodeChunks(DecodedMetar decodedMetar, bool isStrict, ref string remainingMetar, ref bool withCavok)
+        {
             foreach (var chunkDecoder in _decoderChain)
             {
                 try
                 {
-                    // try to parse a chunk with current chunk decoder
                     var decodedData = TryParsing(chunkDecoder, isStrict, remainingMetar, withCavok);
-
-                    // log any exception that would have occur at primary decoding
-                    if (decodedData.ContainsKey(ExceptionKey))
-                    {
-                        decodedMetar.AddDecodingException((MetarChunkDecoderException)decodedData[ExceptionKey]);
-                    }
-
-                    // map obtained fields (if any) to the final decoded object
-                    if (decodedData.ContainsKey(ResultKey) && decodedData[ResultKey] is Dictionary<string, object>)
-                    {
-                        var result = decodedData[ResultKey] as Dictionary<string, object>;
-                        foreach (var obj in result)
-                        {
-                            if (obj.Value != null)
-                            {
-                                typeof(DecodedMetar).GetProperty(obj.Key).SetValue(decodedMetar, obj.Value, null);
-                            }
-                        }
-                    }
-
-                    // update remaining metar for next round
+                    ApplyDecodedData(decodedMetar, decodedData);
                     remainingMetar = decodedData[RemainingMetarKey] as string;
                 }
                 catch (MetarChunkDecoderException metarChunkDecoderException)
                 {
-                    // log error in decoded metar
                     decodedMetar.AddDecodingException(metarChunkDecoderException);
-                    // abort decoding if strict mode is activated, continue otherwise
                     if (isStrict)
                     {
                         break;
                     }
-                    // update remaining metar for next round
+
                     remainingMetar = metarChunkDecoderException.RemainingMetar;
                 }
 
-                // hook for report status decoder, abort if nil, but decoded metar is valid though
-                if (chunkDecoder is ReportStatusChunkDecoder && (decodedMetar.Status == "NIL"))
+                if (chunkDecoder is ReportStatusChunkDecoder && decodedMetar.Status == "NIL")
                 {
                     break;
                 }
 
-                // hook for CAVOK decoder, keep CAVOK information in memory
                 if (chunkDecoder is VisibilityChunkDecoder)
                 {
                     withCavok = decodedMetar.Cavok;
                 }
             }
+        }
 
-            return decodedMetar;
+        private static void ApplyDecodedData(DecodedMetar decodedMetar, Dictionary<string, object> decodedData)
+        {
+            if (decodedData.ContainsKey(ExceptionKey))
+            {
+                decodedMetar.AddDecodingException((MetarChunkDecoderException)decodedData[ExceptionKey]);
+            }
+
+            if (decodedData.ContainsKey(ResultKey) && decodedData[ResultKey] is Dictionary<string, object>)
+            {
+                var result = decodedData[ResultKey] as Dictionary<string, object>;
+                foreach (var obj in result)
+                {
+                    if (obj.Value != null)
+                    {
+                        typeof(DecodedMetar).GetProperty(obj.Key).SetValue(decodedMetar, obj.Value, null);
+                    }
+                }
+            }
         }
 
         private static Dictionary<string, object> TryParsing(IMetarChunkDecoder chunkDecoder, bool strict, string remainingMetar, bool withCavok)

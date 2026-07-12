@@ -91,81 +91,93 @@ namespace Taf.Decoder
         /// <returns></returns>
         public static DecodedTaf ParseWithMode(string rawTaf, bool isStrict = false)
         {
-            // prepare decoding inputs/outputs: (trim, remove linefeeds and returns, no more than one space)
+            return DecodeTaf(rawTaf, isStrict);
+        }
+
+        private static DecodedTaf DecodeTaf(string rawTaf, bool isStrict)
+        {
+            var cleanTaf = NormalizeTaf(rawTaf);
+            var remainingTaf = PrepareRemainingTaf(cleanTaf);
+            var decodedTaf = new DecodedTaf(cleanTaf);
+            var withCavok = false;
+
+            DecodeChunks(decodedTaf, isStrict, ref remainingTaf, ref withCavok);
+
+            DecodeEvolutions(decodedTaf, isStrict, withCavok, ref remainingTaf);
+
+            return decodedTaf;
+        }
+
+        private static string NormalizeTaf(string rawTaf)
+        {
             var cleanTaf = rawTaf.Trim();
             cleanTaf = Regex.Replace(cleanTaf, "\n+", string.Empty);
             cleanTaf = Regex.Replace(cleanTaf, "\r+", string.Empty);
             cleanTaf = Regex.Replace(cleanTaf, "[ ]{2,}", " ") + " ";
-            cleanTaf = cleanTaf.ToUpper();
+            return cleanTaf.ToUpper();
+        }
 
-            var remainingTaf = cleanTaf;
-            if (!cleanTaf.Contains("CNL"))
+        private static string PrepareRemainingTaf(string cleanTaf)
+        {
+            if (cleanTaf.Contains("CNL"))
             {
-                // appending END to it is necessary to detect the last line of evolution
-                // but only when the TAF wasn't cancelled (CNL)
-                remainingTaf = cleanTaf.Trim() + " END";
-            }
-            else
-            {
-                remainingTaf = cleanTaf;
+                return cleanTaf;
             }
 
-            var decodedTaf = new DecodedTaf(cleanTaf);
-            var withCavok = false;
+            return cleanTaf.Trim() + " END";
+        }
 
-            // call each decoder in the chain and use results to populate decoded taf
+        private static void DecodeChunks(DecodedTaf decodedTaf, bool isStrict, ref string remainingTaf, ref bool withCavok)
+        {
             foreach (var chunkDecoder in _decoderChain)
             {
                 try
                 {
-                    // try to parse a chunk with current chunk decoder
                     var decodedData = chunkDecoder.Parse(remainingTaf, withCavok);
-
-                    // map obtained fields (if any) to the final decoded object
-                    if (decodedData.ContainsKey(ResultKey) && decodedData[ResultKey] is Dictionary<string, object>)
-                    {
-                        var result = decodedData[ResultKey] as Dictionary<string, object>;
-                        foreach (var obj in result)
-                        {
-                            if (obj.Value != null)
-                            {
-                                typeof(DecodedTaf).GetProperty(obj.Key).SetValue(decodedTaf, obj.Value);
-                            }
-                        }
-                    }
-
-                    // update remaining taf for next round
+                    ApplyDecodedData(decodedTaf, decodedData);
                     remainingTaf = decodedData[RemainingTafKey] as string;
                 }
                 catch (TafChunkDecoderException tafChunkDecoderException)
                 {
-                    // log error in decoded taf and abort decoding if in strict mode
                     decodedTaf.AddDecodingException(tafChunkDecoderException);
-                    // abort decoding if strict mode is activated, continue otherwise
                     if (isStrict)
                     {
                         break;
                     }
-                    // update remaining taf for next round
+
                     remainingTaf = tafChunkDecoderException.RemainingTaf;
                 }
 
-                // hook for CAVOK decoder, keep CAVOK information in memory
                 if (chunkDecoder is VisibilityChunkDecoder)
                 {
                     withCavok = decodedTaf.Cavok;
                 }
             }
+        }
 
-            // weather evolutions
+        private static void DecodeEvolutions(DecodedTaf decodedTaf, bool isStrict, bool withCavok, ref string remainingTaf)
+        {
             var evolutionDecoder = new EvolutionChunkDecoder(isStrict, withCavok);
             while (!string.IsNullOrEmpty(remainingTaf) && remainingTaf.Trim() != "END")
             {
                 evolutionDecoder.Parse(remainingTaf, decodedTaf);
                 remainingTaf = evolutionDecoder.Remaining;
             }
+        }
 
-            return decodedTaf;
+        private static void ApplyDecodedData(DecodedTaf decodedTaf, Dictionary<string, object> decodedData)
+        {
+            if (decodedData.ContainsKey(ResultKey) && decodedData[ResultKey] is Dictionary<string, object>)
+            {
+                var result = decodedData[ResultKey] as Dictionary<string, object>;
+                foreach (var obj in result)
+                {
+                    if (obj.Value != null)
+                    {
+                        typeof(DecodedTaf).GetProperty(obj.Key).SetValue(decodedTaf, obj.Value);
+                    }
+                }
+            }
         }
     }
 }
