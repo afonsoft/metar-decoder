@@ -13,7 +13,7 @@ namespace Metar.Decoder.ChunkDecoder
 
         public override string GetRegex()
         {
-            return $@"^(WS ALL RWY|({RunwayRegexPattern})( {RunwayRegexPattern})?( {RunwayRegexPattern})?)( )";
+            return $"^(WS ALL RWY|({RunwayRegexPattern})( {RunwayRegexPattern})?( {RunwayRegexPattern})?)( )";
         }
 
         public override Dictionary<string, object> Parse(string remainingMetar, bool withCavok = false)
@@ -67,7 +67,7 @@ namespace Metar.Decoder.ChunkDecoder
         private void ValidateRunway(string runway, string remainingMetar, string newRemainingMetar)
         {
             var qfuAsInt = Value.ToInt(runway);
-            if (qfuAsInt > 36 || qfuAsInt < 1)
+            if (!qfuAsInt.HasValue || qfuAsInt.Value > 36 || qfuAsInt.Value < 1)
             {
                 throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.InvalidRunwayQFURunwaVisualRangeInformation, this);
             }

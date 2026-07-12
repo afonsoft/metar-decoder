@@ -78,7 +78,7 @@ namespace Metar.Decoder.ChunkDecoder
         private void ValidateRunway(string runway, string remainingMetar, string newRemainingMetar)
         {
             var qfuAsInt = Value.ToInt(runway);
-            if (qfuAsInt > 36 || qfuAsInt < 1)
+            if (!qfuAsInt.HasValue || qfuAsInt.Value > 36 || qfuAsInt.Value < 1)
             {
                 throw new MetarChunkDecoderException(remainingMetar, newRemainingMetar, MetarChunkDecoderException.Messages.InvalidRunwayQFURunwayVisualRangeInformation, this);
             }
@@ -102,7 +102,13 @@ namespace Metar.Decoder.ChunkDecoder
 
         private static Value ToValue(string value, Value.Unit unit)
         {
-            return string.IsNullOrEmpty(value) ? null : new Value(Value.ToInt(value).Value, unit);
+            if (string.IsNullOrEmpty(value))
+            {
+                return null;
+            }
+
+            var measuredValue = Value.ToInt(value);
+            return measuredValue.HasValue ? new Value(measuredValue.Value, unit) : null;
         }
     }
 }
