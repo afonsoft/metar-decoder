@@ -58,6 +58,17 @@ namespace Metar.Decoder.Tests
             ClassicAssert.IsTrue(hasException, "An exception should have been thrown.");
         }
 
+        /// <summary>
+        /// TestValueToIntReturnsNullForNullOrEmpty
+        /// </summary>
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        public void TestValueToIntReturnsNullForNullOrEmpty(string value)
+        {
+            ClassicAssert.IsNull(Value.ToInt(value));
+        }
+
         #region TestCaseSources
 
         /// <summary>

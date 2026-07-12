@@ -204,5 +204,29 @@ namespace Taf.Decoder.Tests
                 new Tuple<string, Type, string>("TAF LFPO 231027Z 2310/2411 NIL 12345", typeof(SurfaceWindChunkDecoder),    "NIL 12345 END"),
        };
         }
+
+        /// <summary>
+        /// Test ApplyDecodedData throws for unknown property.
+        /// </summary>
+        [Test]
+        public void TestApplyDecodedDataThrowsForUnknownProperty()
+        {
+            var method = typeof(TafDecoder).GetMethod("ApplyDecodedData", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            var decodedTaf = new DecodedTaf("TAF LFPO 231027Z");
+            var decodedData = new Dictionary<string, object>
+            {
+                {
+                    TafDecoder.ResultKey,
+                    new Dictionary<string, object> { { "UnknownProperty", new object() } }
+                }
+            };
+
+            var ex = ClassicAssert.Throws<System.Reflection.TargetInvocationException>(() =>
+            {
+                method.Invoke(null, new object[] { decodedTaf, decodedData });
+            });
+
+            ClassicAssert.That(ex.InnerException, Is.InstanceOf<TafChunkDecoderException>());
+        }
     }
 }

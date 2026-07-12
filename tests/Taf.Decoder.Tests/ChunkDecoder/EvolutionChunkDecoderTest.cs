@@ -298,6 +298,96 @@ namespace Taf.Decoder.Tests.ChunkDecoder
 
             ClassicAssert.That(ex.InnerException, Is.InstanceOf<TafChunkDecoderException>());
         }
+
+        /// <summary>
+        /// Test AddEvolution throws for unknown entity name.
+        /// </summary>
+        [Test]
+        public void TestAddEvolutionThrowsForUnknownEntity()
+        {
+            var method = typeof(EvolutionChunkDecoder).GetMethod("AddEvolution", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var decoder = new EvolutionChunkDecoder(true, false);
+            var decodedTaf = new DecodedTaf("TAF KJFK 080500Z 0806/0910 23010KT");
+            var evolution = new Evolution();
+            var result = new Dictionary<string, object> { { "Type", new object() } };
+
+            var ex = ClassicAssert.Throws<System.Reflection.TargetInvocationException>(() =>
+            {
+                method.Invoke(decoder, new object[] { decodedTaf, evolution, result, "Type" });
+            });
+
+            ClassicAssert.That(ex.InnerException, Is.InstanceOf<TafChunkDecoderException>());
+        }
+
+        /// <summary>
+        /// Test HandleDecodeFailure in strict mode throws.
+        /// </summary>
+        [Test]
+        public void TestHandleDecodeFailureStrictThrows()
+        {
+            var method = typeof(EvolutionChunkDecoder).GetMethod("HandleDecodeFailure", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var decoder = new EvolutionChunkDecoder(true, true);
+            var remaining = "AAA";
+            var ex = ClassicAssert.Throws<System.Reflection.TargetInvocationException>(() =>
+            {
+                method.Invoke(decoder, new object[] { "BAD", remaining });
+            });
+            ClassicAssert.That(ex.InnerException, Is.InstanceOf<TafChunkDecoderException>());
+        }
+
+        /// <summary>
+        /// Test HandleDecodeFailure in non-strict mode consumes one chunk.
+        /// </summary>
+        [Test]
+        public void TestHandleDecodeFailureNonStrictConsumesChunk()
+        {
+            var method = typeof(EvolutionChunkDecoder).GetMethod("HandleDecodeFailure", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var decoder = new EvolutionChunkDecoder(false, false);
+            var parameters = new object[] { "BAD", "BAD REMAINING" };
+            method.Invoke(decoder, parameters);
+            ClassicAssert.That(parameters[1], Is.EqualTo("REMAINING"));
+        }
+
+        /// <summary>
+        /// Test ApplyDecodedChunk throws when result is not a dictionary.
+        /// </summary>
+        [Test]
+        public void TestApplyDecodedChunkThrowsForInvalidResult()
+        {
+            var method = typeof(EvolutionChunkDecoder).GetMethod("ApplyDecodedChunk", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var decoder = new EvolutionChunkDecoder(true, false);
+            var decodedTaf = new DecodedTaf("TAF KJFK 080500Z 0806/0910 23010KT");
+            var evolution = new Evolution();
+            var decoded = new Dictionary<string, object> { { TafDecoder.ResultKey, "not a dictionary" }, { TafDecoder.RemainingTafKey, "AAA" } };
+
+            var ex = ClassicAssert.Throws<System.Reflection.TargetInvocationException>(() =>
+            {
+                method.Invoke(decoder, new object[] { evolution, "AAA", decodedTaf, decoded });
+            });
+
+            ClassicAssert.That(ex.InnerException, Is.InstanceOf<TafChunkDecoderException>());
+        }
+
+        /// <summary>
+        /// Test ApplyDecodedChunk throws when entity is null and not visibility.
+        /// </summary>
+        [Test]
+        public void TestApplyDecodedChunkThrowsForNullEntity()
+        {
+            var method = typeof(EvolutionChunkDecoder).GetMethod("ApplyDecodedChunk", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var decoder = new EvolutionChunkDecoder(true, false);
+            var decodedTaf = new DecodedTaf("TAF KJFK 080500Z 0806/0910 23010KT");
+            var evolution = new Evolution();
+            var result = new Dictionary<string, object> { { SurfaceWindChunkDecoder.SurfaceWindParameterName, null } };
+            var decoded = new Dictionary<string, object> { { TafDecoder.ResultKey, result }, { TafDecoder.RemainingTafKey, "AAA" } };
+
+            var ex = ClassicAssert.Throws<System.Reflection.TargetInvocationException>(() =>
+            {
+                method.Invoke(decoder, new object[] { evolution, "AAA", decodedTaf, decoded });
+            });
+
+            ClassicAssert.That(ex.InnerException, Is.InstanceOf<TafChunkDecoderException>());
+        }
     }
 
     public class EvolutionChunkDecoderTester

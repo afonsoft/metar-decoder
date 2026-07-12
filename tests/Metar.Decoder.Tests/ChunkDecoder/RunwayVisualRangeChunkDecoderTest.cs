@@ -3,6 +3,7 @@ using Metar.Decoder.ChunkDecoder;
 using Metar.Decoder.Entity;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
+using System;
 using System.Collections.Generic;
 
 namespace Metar.Decoder.Tests.ChunkDecoder
@@ -56,6 +57,31 @@ namespace Metar.Decoder.Tests.ChunkDecoder
             }) as MetarChunkDecoderException;
             ClassicAssert.That(decoded.ContainsKey(MetarDecoder.ResultKey), Is.False);
             ClassicAssert.That(ex.RemainingMetar, Is.EqualTo(chunk));
+        }
+
+        /// <summary>
+        /// TestToValueWithEmptyStringReturnsNull
+        /// </summary>
+        [Test]
+        public void TestToValueWithEmptyStringReturnsNull()
+        {
+            var method = typeof(RunwayVisualRangeChunkDecoder).GetMethod("ToValue", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            var result = method.Invoke(null, new object[] { string.Empty, Value.Unit.Meter });
+            ClassicAssert.IsNull(result);
+        }
+
+        /// <summary>
+        /// TestToValueWithInvalidStringThrowsInvalidOperationException
+        /// </summary>
+        [Test]
+        public void TestToValueWithInvalidStringThrowsInvalidOperationException()
+        {
+            var method = typeof(RunwayVisualRangeChunkDecoder).GetMethod("ToValue", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            var ex = ClassicAssert.Throws(typeof(System.Reflection.TargetInvocationException), () =>
+            {
+                method.Invoke(null, new object[] { "ABC", Value.Unit.Meter });
+            });
+            ClassicAssert.That(ex.InnerException, Is.TypeOf(typeof(InvalidOperationException)));
         }
 
         #region TestCaseSources

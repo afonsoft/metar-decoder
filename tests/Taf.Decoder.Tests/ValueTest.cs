@@ -43,6 +43,14 @@ namespace Taf.Decoder.Tests
             ClassicAssert.IsTrue(hasException, "An exception should have been thrown.");
         }
 
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        public void TestValueToIntReturnsNullForNullOrEmpty(string value)
+        {
+            ClassicAssert.IsNull(Value.ToInt(value));
+        }
+
         #region TestCaseSources
 
         public static List<Tuple<float, Value.Unit, float, Value.Unit>> ValidValues()
