@@ -1,4 +1,5 @@
-﻿using Metar.Decoder.Entity;
+﻿using System;
+using Metar.Decoder.Entity;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using static Metar.Decoder.Entity.RunwayVisualRange;
@@ -108,7 +109,12 @@ namespace Metar.Decoder.ChunkDecoder
             }
 
             var measuredValue = Value.ToInt(value);
-            return measuredValue.HasValue ? new Value(measuredValue.Value, unit) : null;
+            if (!measuredValue.HasValue)
+            {
+                throw new InvalidOperationException("Invalid runway visual range value.");
+            }
+
+            return new Value(measuredValue.Value, unit);
         }
     }
 }
