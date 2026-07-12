@@ -289,7 +289,6 @@ namespace Taf.Decoder.Tests.ChunkDecoder
         [Test]
         public void TestInstantiateEntityThrowsForUnknownEntity()
         {
-            var evo = new EvolutionChunkDecoder(true, false);
             var method = typeof(EvolutionChunkDecoder).GetMethod("InstantiateEntity", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
 
             var ex = ClassicAssert.Throws<System.Reflection.TargetInvocationException>(() =>

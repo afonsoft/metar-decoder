@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Decoder.Shared;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Taf.Decoder.Entity;
 
@@ -11,7 +12,7 @@ namespace Taf.Decoder.ChunkDecoder
         private const string NoCloudRegexPattern = "(NSC|NCD|CLR|SKC)";
         private const string LayerRegexPattern = "(VV|FEW|SCT|BKN|OVC|///)([0-9]{3}|///)(CB|TCU|///)?";
 
-        private static readonly Dictionary<string, CloudLayer.CloudAmount> AmountMap = new Dictionary<string, CloudLayer.CloudAmount>
+        private static readonly Dictionary<string, CloudLayer.CloudAmount> AmountMap = new()
         {
             { "FEW", CloudLayer.CloudAmount.FEW },
             { "SCT", CloudLayer.CloudAmount.SCT },
@@ -20,7 +21,7 @@ namespace Taf.Decoder.ChunkDecoder
             { "VV", CloudLayer.CloudAmount.VV },
         };
 
-        private static readonly Dictionary<string, CloudLayer.CloudType> TypeMap = new Dictionary<string, CloudLayer.CloudType>
+        private static readonly Dictionary<string, CloudLayer.CloudType> TypeMap = new()
         {
             { "CB", CloudLayer.CloudType.CB },
             { "TCU", CloudLayer.CloudType.TCU },
@@ -72,8 +73,8 @@ namespace Taf.Decoder.ChunkDecoder
         {
             var layer = new CloudLayer
             {
-                Amount = AmountMap.TryGetValue(found[index + 1].Value, out var amount) ? amount : CloudLayer.CloudAmount.NULL,
-                Type = TypeMap.TryGetValue(found[index + 3].Value, out var type) ? type : CloudLayer.CloudType.NULL,
+                Amount = AmountMap.GetValueOrDefault(found[index + 1].Value, CloudLayer.CloudAmount.NULL),
+                Type = TypeMap.GetValueOrDefault(found[index + 3].Value, CloudLayer.CloudType.NULL),
             };
 
             var layerHeight = Value.ToInt(found[index + 2].Value);
