@@ -1,14 +1,18 @@
 # METAR and TAF Decoder for C#
 
-[![GitHub license](https://img.shields.io/github/license/afonsoft/metar-decoder)](https://github.com/afonsoft/metar-decoder/blob/main/LICENSE)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=code_smells)](https://sonarcloud.io/dashboard?id=afonsoft_metar-decoder)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=bugs)](https://sonarcloud.io/dashboard?id=afonsoft_metar-decoder)
-![GitHub top language](https://img.shields.io/github/languages/top/afonsoft/metar-decoder)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=alert_status)](https://sonarcloud.io/dashboard?id=afonsoft_metar-decoder)
+[![License](https://img.shields.io/github/license/afonsoft/metar-decoder)](https://github.com/afonsoft/metar-decoder/blob/main/LICENSE)
+[![Build](https://github.com/afonsoft/metar-decoder/actions/workflows/ci-build-test.yml/badge.svg?branch=main)](https://github.com/afonsoft/metar-decoder/actions/workflows/ci-build-test.yml)
+[![Code Quality](https://github.com/afonsoft/metar-decoder/actions/workflows/code-quality.yml/badge.svg?branch=main)](https://github.com/afonsoft/metar-decoder/actions/workflows/code-quality.yml)
+[![Security Scan](https://github.com/afonsoft/metar-decoder/actions/workflows/security-scan.yml/badge.svg?branch=main)](https://github.com/afonsoft/metar-decoder/actions/workflows/security-scan.yml)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=alert_status)](https://sonarcloud.io/project/overview?id=afonsoft_metar-decoder)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=coverage)](https://sonarcloud.io/project/overview?id=afonsoft_metar-decoder)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=code_smells)](https://sonarcloud.io/project/overview?id=afonsoft_metar-decoder)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=bugs)](https://sonarcloud.io/project/overview?id=afonsoft_metar-decoder)
+[![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=sqale_rating)](https://sonarcloud.io/project/overview?id=afonsoft_metar-decoder)
+[![Metar.Decoder NuGet](https://img.shields.io/nuget/v/Metar.Decoder.svg)](https://www.nuget.org/packages/Metar.Decoder/)
+[![Taf.Decoder NuGet](https://img.shields.io/nuget/v/Taf.Decoder.svg)](https://www.nuget.org/packages/Taf.Decoder/)
 [![GitHub issues](https://img.shields.io/github/issues/afonsoft/metar-decoder)](https://github.com/afonsoft/metar-decoder/issues)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=afonsoft_metar-decoder)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=afonsoft_metar-decoder&metric=coverage)](https://sonarcloud.io/summary/new_code?id=afonsoft_metar-decoder)
-[![GitHub all releases](https://img.shields.io/github/downloads/afonsoft/metar-decoder/total)](https://github.com/afonsoft/metar-decoder/releases)
+![GitHub top language](https://img.shields.io/github/languages/top/afonsoft/metar-decoder)
 
 > **[Leia em Portugues (pt-BR)](README.pt-br.md)**
 
@@ -467,7 +471,7 @@ This does not apply to strict mode, as parsing is stopped at the first parsing e
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/chart?repos=afonsoft/metar-decoder&type=date&legend=top-left&sealed_token=SCmUeoGGGOTpQaX4rtTneP8OE6kBQG9LS277H2kcO0hRSA6eX_i2oOo8JyVSB_6VytthNfRVsz0jaAmPzbY39xdEgAIqPp9jw_sMKSbrxYUx6O4oF4zGCw)](https://www.star-history.com/?repos=afonsoft%2Fmetar-decoder&type=date&legend=top-left)
+[![Star History Chart](https://api.star-history.com/svg?repos=afonsoft/metar-decoder&type=Date)](https://star-history.com/#afonsoft/metar-decoder&Date)
 
 ## StarMapper
 
